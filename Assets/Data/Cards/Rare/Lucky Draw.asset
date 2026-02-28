@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Lucky Draw
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: lucky_Draw
+  id: ff44270828be41243bb5da44c8e37ad3
   DisplayName: Lucky Draw?
   <Description>k__BackingField: Discard the Hand.  Refills the Mana, Draw 1 Card
   <Mana>k__BackingField: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Cloak
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: cloak
+  id: e3a8928402a7e4c4d8688bcbac21052b
   DisplayName: Cloak
   <Description>k__BackingField: Gain 7 Block apply 2 Burn
   <Mana>k__BackingField: 0

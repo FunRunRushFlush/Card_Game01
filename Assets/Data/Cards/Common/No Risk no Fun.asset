@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: No Risk no Fun
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: no-risk-no-fun
+  id: 2d5a7ead6f94ad5469f63597138e5dd9
   DisplayName: No risk, no fun
   <Description>k__BackingField: 'Discard all your Cards. Refill your Mana. Draw 3
     Cards '

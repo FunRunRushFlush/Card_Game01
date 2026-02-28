@@ -1,3 +1,4 @@
+using System;
 using Game.Logging;
 using Game.Scenes.Core;
 using UnityEngine;
@@ -7,12 +8,21 @@ public class MatchSetupSystem : MonoBehaviour
     [SerializeField] private BiomeDatabase biomeDb;
     [SerializeField] private PerkData perkData;
 
+    [Header("Bootstrap")]
+    [SerializeField] private CombatBootstrapper combatBootstrapper;
+
     void Start()
     {
+
+        if (CombatSandboxMode.IsActive)
+        {
+            Debug.Log("[MatchSetupSystem] Sandbox mode active -> skipping normal run combat setup.");
+            return;
+        }
+
+
         var session = CoreManager.Instance.Session;
         var run = session.Run;
-
-        HeroSystem.Instance.Setup(session.Hero.Data);
 
         var biomeDef = biomeDb.Get(run.CurrentBiome);
         if (biomeDef == null)
@@ -27,6 +37,12 @@ public class MatchSetupSystem : MonoBehaviour
         if (nodeType == MapNodeType.Shop || nodeType == MapNodeType.Event)
         {
             Log.Error(LogCat.General, () => $"Entered Combat scene on non-combat node: {nodeType} (Biome={run.CurrentBiome}, Node={run.NodeIndexInBiome})");
+            return;
+        }
+
+        if (combatBootstrapper == null)
+        {
+            Log.Error(LogCat.General, () => "CombatBootstrapper is missing on MatchSetupSystem. Assign it in the inspector.");
             return;
         }
 
@@ -97,12 +113,14 @@ public class MatchSetupSystem : MonoBehaviour
             return;
         }
 
-        // deterministic per run + node
-        var rng = run.CreateNodeRng(salt: 1337);
+        // Deterministic per run + node
+        int seed = run.GetNodeSeed(salt: 1337);
+        var rng = new System.Random(seed);
 
+        // Resolve enemies (this is what we want to freeze into the snapshot)
         var enemies = EncounterResolver.Resolve(encounterDef, rng);
 
-        // store reward context for the loot scene
+        // Store reward context for the loot scene (unchanged)
         run.SetRewardContext(new RewardContext
         {
             Tier = nodeType switch
@@ -114,11 +132,46 @@ public class MatchSetupSystem : MonoBehaviour
             Biome = run.CurrentBiome
         });
 
-        EnemySystem.Instance.Setup(enemies);
+        // Build snapshot AFTER resolve so it's 100% reproducible even if encounter pools change later
+        var snapshot = new CombatSetupSnapshot
+        {
+            createdAtUtc = DateTime.UtcNow.ToString("O"),
+            seed = seed,
 
-        CardSystem.Instance.Setup(session.Hero.CreateCombatSnapshot());
-        if (perkData != null) PerkSystem.Instance.AddPerk(new Perk(perkData));
+            heroId = (int)session.Hero.Data.HeroID,
+            handSize = session.Hero.Data.HandSize,
 
-        ActionSystem.Instance.Perform(new DrawCardsGA(session.Hero.Data.HandSize));
+            biome = run.CurrentBiome.ToString(),
+            nodeType = nodeType.ToString(),
+            biomeIndex = run.BiomeIndex,
+            nodeIndexInBiome = run.NodeIndexInBiome,
+
+            encounterId = encounterDef.Id
+        };
+
+        // Freeze resolved enemies
+        foreach (var e in enemies)
+        {
+            if (e == null || string.IsNullOrWhiteSpace(e.Id))
+                Debug.LogError("[CombatSnapshot] EnemyData has missing Id. Please set it.");
+            else
+                snapshot.enemyIds.Add(e.Id);
+        }
+
+        // Freeze deck snapshot (IDs)
+        var deckCards = session.Hero.CreateCombatSnapshot();
+        foreach (var c in deckCards)
+        {
+            if (c == null || string.IsNullOrWhiteSpace(c.Id))
+                Debug.LogError("[CombatSnapshot] CardData has missing Id. Please set it.");
+            else
+                snapshot.deckCardIds.Add(c.Id);
+        }
+
+        // Always save + log JSON + timestamped copy
+        CombatSnapshotIO.SaveAlways(snapshot);
+
+        // Start combat through the single entry point
+        combatBootstrapper.StartCombat(snapshot);
     }
 }

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: GolemOrange
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 51da90c38ca70b644a35993a33333e07
   <Image>k__BackingField: {fileID: 1439844979, guid: 86105652bb74fd6438c18045693fec3a, type: 3}
   <Health>k__BackingField: 60
   <AttackValue>k__BackingField: 12
   <MultiAttackValue>k__BackingField: 7
   <BlockValue>k__BackingField: 8
   <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 4561931453873745807, guid: f4d78afc15412214d887e0f1c4659c9c, type: 3}

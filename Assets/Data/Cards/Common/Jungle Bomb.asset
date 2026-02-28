@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Jungle Bomb
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: jungle-bomb
+  id: 0d658a7c08e9fe9438a4947f44b580e6
   DisplayName: Jungle Bomb
   <Description>k__BackingField: Deal 15 Damage to Target. Apply 7 Poisen to all Enemies
   <Mana>k__BackingField: 3

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: SkeletonBoss_Encounter
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: 6ac6a533446f9aa4b8c2ae2958d0fb83
   minEnemies: 1
   maxEnemies: 1
   pool:

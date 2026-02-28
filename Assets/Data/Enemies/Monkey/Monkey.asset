@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: Monkey
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 07dfa3770186f3749ad3cefeac7ef90a
   <Image>k__BackingField: {fileID: 529134489, guid: 1812330d2bfb8dd4f96a65b4aac44214, type: 3}
   <Health>k__BackingField: 50
   <AttackValue>k__BackingField: 8

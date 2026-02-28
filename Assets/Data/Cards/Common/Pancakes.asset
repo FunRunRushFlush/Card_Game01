@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Pancakes
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: pancakes
+  id: fd7448731a574fd459588df4b0ffb7c3
   DisplayName: Pancakes
   <Description>k__BackingField: 'Gain 3 Strenght.  Draw a Card and Discard a random
     Card '

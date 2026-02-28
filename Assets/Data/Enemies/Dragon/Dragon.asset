@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: Dragon
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 841e6e52df4f99e46bcc16f1a34ab7e8
   <Image>k__BackingField: {fileID: -1153227558, guid: 9fe37fd1976076f4f8245f2e2e09a346, type: 3}
   <Health>k__BackingField: 300
   <AttackValue>k__BackingField: 20
   <MultiAttackValue>k__BackingField: 7
   <BlockValue>k__BackingField: 12
   <BurnValue>k__BackingField: 5
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 3227157653262435112, guid: 7d8f0e60af6a6604ba459ae383ee7238, type: 3}

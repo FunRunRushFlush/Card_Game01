@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Poison Apple
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: poison_apple
+  id: 66fd8749ee49d4b4c893c62d4df0d106
   DisplayName: Poison Apple
   <Description>k__BackingField: Poison 2 the Player and Posion 5 the Enemys
   <Mana>k__BackingField: 2
@@ -20,8 +20,7 @@ MonoBehaviour:
   Rarity: 0
   PreferredBiomes: 
   <Tags>k__BackingField: 01000000
-  <ManualTargetEffect>k__BackingField:
-    rid: -2
+  <ManualTargetEffects>k__BackingField: []
   <OtherEffects>k__BackingField:
   - rid: 1986237386231906439
   - rid: 1986237386231906442
@@ -29,8 +28,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 1986237386231906439
       type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
       data:

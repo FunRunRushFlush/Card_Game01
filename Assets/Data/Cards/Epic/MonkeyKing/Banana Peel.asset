@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Banana Peel
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: banana-peel
+  id: 4a43b75a8e519f744bc4a7a2e48a4653
   DisplayName: 'Banana Peel '
   <Description>k__BackingField: Deal 1 Damage apply 1 Weakness Draw a Card
   <Mana>k__BackingField: 0

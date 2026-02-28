@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: First Strike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: first_strike
+  id: 47217fc110712954186f84b95624dc3d
   DisplayName: First Strike
   <Description>k__BackingField: Play only as your first attack this turn. Deal 16
     Damage

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Power Up
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: power_up
+  id: 1448383a8b6bb4745b6f442b82ad7f96
   DisplayName: Power Up
   <Description>k__BackingField: Increase Strength by 3
   <Mana>k__BackingField: 1

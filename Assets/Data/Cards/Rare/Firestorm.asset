@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Firestorm
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fire_strom
+  id: 3fa3de02b114885408baba155e0a7324
   DisplayName: Firestrom
   <Description>k__BackingField: 'Deal 20 Damage to all enemies apply 5 Burn '
   <Mana>k__BackingField: 3

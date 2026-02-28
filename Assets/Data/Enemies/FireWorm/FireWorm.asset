@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: FireWorm
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 998b51eb10a7f1f4481ef2529cf312d0
   <Image>k__BackingField: {fileID: 599229940, guid: ea186413d2052ea4ba1a2c5bfe4c9c67, type: 3}
   <Health>k__BackingField: 75
   <AttackValue>k__BackingField: 10
   <MultiAttackValue>k__BackingField: 6
   <BlockValue>k__BackingField: 8
   <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 6667287782612778432, guid: 04362d8da4ca53d4d82bc276b0a75d67, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fireball
+  id: d3584a265f8dc7748bc5a64d2121542e
   DisplayName: Fireball
   <Description>k__BackingField: 'Deals 11 Damage apply all enemies 3 Burn '
   <Mana>k__BackingField: 2

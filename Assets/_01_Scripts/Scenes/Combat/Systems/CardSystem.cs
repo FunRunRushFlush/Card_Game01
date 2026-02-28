@@ -49,6 +49,28 @@ public class CardSystem : Singleton<CardSystem>
 
     public void Setup(List<CardData> startingDeck)
     {
+
+        if (handView == null)
+        {
+            Debug.LogError("[CardSystem] HandView reference is missing (handView). Assign it in the inspector.");
+            return;
+        }
+        if (drawPilePoint == null)
+        {
+            Debug.LogError("[CardSystem] drawPilePoint reference is missing. Assign it in the inspector.");
+            return;
+        }
+        if (discardPilePoint == null)
+        {
+            Debug.LogError("[CardSystem] discardPilePoint reference is missing. Assign it in the inspector.");
+            return;
+        }
+        if (CardViewCreator.Instance == null)
+        {
+            Debug.LogError("[CardSystem] CardViewCreator.Instance is null. Ensure a CardViewCreator exists in the Combat scene.");
+            return;
+        }
+
         foreach (var cardData in startingDeck)
         {
             Card card = new Card(cardData);

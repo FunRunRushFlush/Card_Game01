@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Strike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: strike
+  id: e8ee693408315314d9229715e5d5a87e
   DisplayName: Strike
   <Description>k__BackingField: Deal 8 Damage
   <Mana>k__BackingField: 1

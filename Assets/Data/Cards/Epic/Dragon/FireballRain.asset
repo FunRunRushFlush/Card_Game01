@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: FireballRain
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fireball_rain
+  id: a17301d317aae8242a244b552a1dbafa
   DisplayName: 'Fireball Rain '
   <Description>k__BackingField: Deal all enemies 30 Damage apply them Burn 2
   <Mana>k__BackingField: 3

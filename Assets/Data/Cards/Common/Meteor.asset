@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Meteor
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: meteor
+  id: 6651cbde39854184f8d71e5f7d861f14
   DisplayName: Meteor
   <Description>k__BackingField: Deal 12 Damage apply Burn 4
   <Mana>k__BackingField: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Sparking Strike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: 'sparking-strike '
+  id: 3ddb608d46e7c764cae40966407729d2
   DisplayName: Sparking Strike
   <Description>k__BackingField: 'deal 10 damage apply Burn 10 '
   <Mana>k__BackingField: 2

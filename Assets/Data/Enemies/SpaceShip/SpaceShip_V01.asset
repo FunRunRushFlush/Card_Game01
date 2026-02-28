@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: SpaceShip_V01
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: ff2b434a3dfe75d4e83cb86a67f391b1
   <Image>k__BackingField: {fileID: 1396810164, guid: c8b8b0f25cc364140b6ea85a46e66897, type: 3}
   <Health>k__BackingField: 100
   <AttackValue>k__BackingField: 14
   <MultiAttackValue>k__BackingField: 3
   <BlockValue>k__BackingField: 12
   <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 8198021539490046465, guid: d2b18b1bc282cdb4caa76e8062620d57, type: 3}

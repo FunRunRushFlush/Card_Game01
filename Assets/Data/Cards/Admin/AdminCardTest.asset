@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: AdminCardTest
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: admin_card_test
+  id: e9fa803c56cdcde49a17056ba8e84366
   DisplayName: Admin Cardtest
   <Description>k__BackingField: POWER!!!
   <Mana>k__BackingField: 0

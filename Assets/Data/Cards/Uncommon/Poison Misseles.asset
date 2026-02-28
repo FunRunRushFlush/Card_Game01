@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Poison Misseles
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: poison_missiles
+  id: 63c6debee45dc3940b8eb9e5b4e43df1
   DisplayName: Poison Missiles
   <Description>k__BackingField: Deal 15 Damage and 3 Poison
   <Mana>k__BackingField: 2

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Sunbeam
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: sun-beam
+  id: b137214fdb5299b478d47fb73aba4dc0
   DisplayName: Sunbeam
   <Description>k__BackingField: Deal 15 Damage and apply Burn 5
   <Mana>k__BackingField: 2

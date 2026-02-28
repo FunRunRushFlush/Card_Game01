@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Claws
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: claws
+  id: bfa979a3aa540b94f950a618fde900c6
   DisplayName: Claws
   <Description>k__BackingField: Deal 4 Damage to all enemies
   <Mana>k__BackingField: 1

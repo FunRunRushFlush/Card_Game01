@@ -141,8 +141,8 @@ namespace Game.Scenes.Core
 
             var session = CoreManager.Instance.Session;
             var heroData = session?.Hero?.Data;
+            CombatSandboxMode.IsActive = false;
 
-        
             int startingGold = heroData != null ? heroData.BaseStartingGold : 0;
 
             run.StartNewRun(startingGold);

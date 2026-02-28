@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Fire Slash
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fireslash
+  id: f4c375963e389c847b2e7a85df40e0d8
   DisplayName: 'Fire Slash '
   <Description>k__BackingField: ' Give all enemies Burn 4 deal Random enemy 2 damage '
   <Mana>k__BackingField: 1

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: FireSkeleton
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 7c2e4f9e274063b4896864cf6838f9b4
   <Image>k__BackingField: {fileID: 728994716, guid: ce37a417ba6225243bfda43169bc8724, type: 3}
   <Health>k__BackingField: 40
   <AttackValue>k__BackingField: 6
   <MultiAttackValue>k__BackingField: 4
   <BlockValue>k__BackingField: 6
   <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 7961207979806011403, guid: 5955bf295ee807a4494ed62abe0b837b, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Double Armor
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: double_armor
+  id: 34b480a06ed5b1d4db362fd91dc43cd8
   DisplayName: Double Armor
   <Description>k__BackingField: Gain 10 Armor. Requiers min. 5 Armor
   <Mana>k__BackingField: 1

@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: d3db05cf6f275ab4ebde42b998a6e9ef
   <Image>k__BackingField: {fileID: 21300000, guid: f06433f755c6ca3469dc0961394325d5, type: 3}
   <Health>k__BackingField: 15
-  <AttackPower>k__BackingField: 1
+  <AttackValue>k__BackingField: 6
+  <MultiAttackValue>k__BackingField: 3
+  <BlockValue>k__BackingField: 6
+  <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
+  <StrengthValue>k__BackingField: 1
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 0}
+  <Behaviour>k__BackingField: {fileID: 0}

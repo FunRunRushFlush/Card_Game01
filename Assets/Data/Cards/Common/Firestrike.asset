@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Firestrike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fire-strike
+  id: 1194a292436d5804398ed6f8727a1da2
   DisplayName: 'Fire Strike '
   <Description>k__BackingField: 'Deal 8 Damage apply Burn 2 '
   <Mana>k__BackingField: 1

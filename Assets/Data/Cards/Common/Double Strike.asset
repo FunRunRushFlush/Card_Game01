@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Double Strike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: double_strike
+  id: be83a96c79527e14c9365180b016a315
   DisplayName: Double Strike
   <Description>k__BackingField: Deal 5 Damage deal 5 Damage to random enemy
   <Mana>k__BackingField: 1

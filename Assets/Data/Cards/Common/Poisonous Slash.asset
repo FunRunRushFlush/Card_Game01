@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Poisonous Slash
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: poisonous_slash
+  id: d6e522af37c91e641b92ac2e36d5b112
   DisplayName: Poisonous Slash
   <Description>k__BackingField: Deal 1 Damage apply Poisen 3
   <Mana>k__BackingField: 0

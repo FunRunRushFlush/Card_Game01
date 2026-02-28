@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: BlackholeRED
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: c20deab8519fea24ba6927dbdc297cc9
   <Image>k__BackingField: {fileID: 652455558, guid: 174ad815ed8dd51448fbf167b0e36e85, type: 3}
   <Health>k__BackingField: 200
   <AttackValue>k__BackingField: 15

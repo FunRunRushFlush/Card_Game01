@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Treasure
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: treasure
+  id: 10a0db0f3a51b4449b201d9b4b6feb88
   DisplayName: Treasure
   <Description>k__BackingField: 'Deal 1 Damage to all Enemies. Draw a Card '
   <Mana>k__BackingField: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Shield Block
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: shield_block
+  id: 15d9926cf0e96b14d9c0a815ccb7ee98
   DisplayName: Shield Block
   <Description>k__BackingField: ' Gain 8 Block'
   <Mana>k__BackingField: 1

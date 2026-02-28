@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: PlanetFire
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 79d1705e7c2789c418301123fde5190c
   <Image>k__BackingField: {fileID: 180826896, guid: 5918c5ea896bc054ca68c2e5f9265cf8, type: 3}
   <Health>k__BackingField: 150
   <AttackValue>k__BackingField: 16

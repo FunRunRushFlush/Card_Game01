@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Book of Wisdom
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: book-0f-wisdom
+  id: 8947750d68673a24f96e92fae56d1394
   DisplayName: Book 0f wisdom
   <Description>k__BackingField: 'Draw 3 Cards '
   <Mana>k__BackingField: 0

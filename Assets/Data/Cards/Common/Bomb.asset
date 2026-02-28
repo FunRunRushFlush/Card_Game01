@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: bomb
+  id: a3168bc1b3f69b74fa3e8c71d6b27754
   DisplayName: Bomb
   <Description>k__BackingField: 'Deal 15 Damage to Target. Apply 10 Burn to all Enemies '
   <Mana>k__BackingField: 3

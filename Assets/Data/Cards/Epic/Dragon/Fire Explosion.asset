@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Fire Explosion
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fire-explosion
+  id: 0b6dd0855ab3369458f1fc921fef6e98
   DisplayName: Fire Explosion
   <Description>k__BackingField: 'Deal 50 Damage apply 5 Burn '
   <Mana>k__BackingField: 3

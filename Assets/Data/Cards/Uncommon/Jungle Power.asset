@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Jungle Power
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: jungle_power
+  id: ee8447bdb14fdd0469ec644f318a9554
   DisplayName: Jungle Power
   <Description>k__BackingField: Deal 8 Damage apply Poisen 3
   <Mana>k__BackingField: 1

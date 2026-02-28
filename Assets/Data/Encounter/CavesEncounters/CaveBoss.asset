@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: CaveBoss
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: cb38ea23a6266064b8384364fdae3bd9
   minEnemies: 1
   maxEnemies: 1
   pool:

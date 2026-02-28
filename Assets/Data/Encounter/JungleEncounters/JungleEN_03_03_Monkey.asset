@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: JungleEN_03_03_Monkey
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: 47c5cb4762feaf043b3b820a8d8acc91
   minEnemies: 3
   maxEnemies: 3
   pool:

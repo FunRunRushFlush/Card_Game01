@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Axt swing
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: axt-swing
+  id: 3fda7f9cfd3930e4cb1846a88d68e661
   DisplayName: 'Axt Swing '
   <Description>k__BackingField: Can only be played as the first Attack this turn.
     Discard your hand. Deal 30 Damage.

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Shooting Star
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: shooting_star
+  id: 9dd7d956eb2e68e43b6dfe5da7128545
   DisplayName: Shooting Star
   <Description>k__BackingField: 'Deal 15 Damage apply Burn 5 '
   <Mana>k__BackingField: 2

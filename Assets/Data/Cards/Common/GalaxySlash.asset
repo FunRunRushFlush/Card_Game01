@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: GalaxySlash
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: Galaxy-Slash
+  id: da5450fb7f6b92640876cc37de9eee35
   DisplayName: Galaxy Slash
   <Description>k__BackingField: 'Deal 10 Damage '
   <Mana>k__BackingField: 1

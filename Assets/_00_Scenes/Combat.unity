@@ -4373,6 +4373,53 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &817235249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817235250}
+  - component: {fileID: 817235251}
+  m_Layer: 0
+  m_Name: CombatBoostrapper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &817235250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817235249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2019108292}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &817235251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817235249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441a64ed940c8c74c9421d5508322e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatBootstrapper
+  cardDatabase: {fileID: 11400000, guid: 968c6e76705a7db44a694392170f0604, type: 2}
+  contentIndex: {fileID: 11400000, guid: 3b0760585cae5444e952933195ce4370, type: 2}
+  perkData: {fileID: 0}
 --- !u!1 &822230972
 GameObject:
   m_ObjectHideFlags: 0
@@ -6999,9 +7046,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d2c4c3f030dae40a15fa98c6cd08a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChestClick
-  combatManager: {fileID: 55801569}
-  animator: {fileID: 1295183578}
-  openTrigger: Chest_Opening
 --- !u!114 &1295183583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9792,6 +9836,7 @@ Transform:
   m_Children:
   - {fileID: 2064123554}
   - {fileID: 55801568}
+  - {fileID: 817235250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2049863286
@@ -10020,6 +10065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MatchSetupSystem
   biomeDb: {fileID: 11400000, guid: a4e80074930328444aeb85ca6c5de3dc, type: 2}
   perkData: {fileID: 0}
+  combatBootstrapper: {fileID: 817235251}
 --- !u!1 &2085086637
 GameObject:
   m_ObjectHideFlags: 0

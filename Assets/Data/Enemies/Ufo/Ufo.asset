@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: Ufo
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 0659199c7d437b94492f5f3a21e7294d
   <Image>k__BackingField: {fileID: 599229940, guid: ea186413d2052ea4ba1a2c5bfe4c9c67, type: 3}
   <Health>k__BackingField: 125
   <AttackValue>k__BackingField: 15
   <MultiAttackValue>k__BackingField: 3
   <BlockValue>k__BackingField: 10
   <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 7140840544398809644, guid: b3b27f75ddb17da4b93373ba1bf74513, type: 3}

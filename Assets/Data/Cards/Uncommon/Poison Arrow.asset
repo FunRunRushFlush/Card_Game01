@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Poison Arrow
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: poison-arrow
+  id: 9ad413f0c8300ee41b1b88e680ea0007
   DisplayName: 'Poison Arrow '
   <Description>k__BackingField: Deal 7 Damage and apply 4 Poison
   <Mana>k__BackingField: 1

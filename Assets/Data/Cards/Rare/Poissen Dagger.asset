@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Poissen Dagger
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: 'poissen-dagger '
+  id: 42e74acfc26b4ff4baa7b63e5d5a0d6e
   DisplayName: 'Poissen Dagger '
   <Description>k__BackingField: Deal 1 Damage and apply 10 Poison
   <Mana>k__BackingField: 1

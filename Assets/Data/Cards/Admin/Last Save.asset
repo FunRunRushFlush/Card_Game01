@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Last Save
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: 'last-save '
+  id: 053a28897e65ae34a93e854eae3d538e
   DisplayName: 'Last Save '
   <Description>k__BackingField: You gain 50 Block but only if your health ist below
     30%

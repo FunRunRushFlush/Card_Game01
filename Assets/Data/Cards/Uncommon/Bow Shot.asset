@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Bow Shot
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: bow-shot
+  id: 958933ece9a65b14aa1161edd9807bad
   DisplayName: Bow Shot
   <Description>k__BackingField: 'Deal 15 Damage '
   <Mana>k__BackingField: 2

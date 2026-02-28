@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Spark
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: spark
+  id: ecb3d3e8517ff3c4dac96ce72d734eef
   DisplayName: Spark
   <Description>k__BackingField: 'deal 2 Damage apply Burn 4 '
   <Mana>k__BackingField: 0

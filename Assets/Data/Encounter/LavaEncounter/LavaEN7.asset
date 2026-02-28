@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: LavaEN7
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: c3346385b95502b49919fc1f2f8d0fec
   minEnemies: 2
   maxEnemies: 3
   pool:

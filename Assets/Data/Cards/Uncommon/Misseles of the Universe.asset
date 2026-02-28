@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Misseles of the Universe
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: missiles-of-the-universe
+  id: b5886420a7c66054e92df3561b8c47ba
   DisplayName: Missiles of the Universe
   <Description>k__BackingField: 'Deal 2x20 Damage to  random enemies  '
   <Mana>k__BackingField: 2

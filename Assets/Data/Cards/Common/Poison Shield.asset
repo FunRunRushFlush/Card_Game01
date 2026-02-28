@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Poison Shield
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: poison_shield
+  id: ba1e7f0ee708ce944ad3b8d5e513a571
   DisplayName: Poison Shield
   <Description>k__BackingField: Gain 6  Block. Apply 2 Poison to all enemies
   <Mana>k__BackingField: 1

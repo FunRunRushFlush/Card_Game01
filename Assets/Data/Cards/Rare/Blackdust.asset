@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Blackdust
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: blackdust
+  id: 246f7cbe07096cd458d2b0fc9b4577a3
   DisplayName: Black dust
   <Description>k__BackingField: 'Enemy gain 3 Burn and 3 Poisen  '
   <Mana>k__BackingField: 0

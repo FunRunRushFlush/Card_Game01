@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Blackhole
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: blackhole
+  id: bd47e6c0b17e4b44089131b3701fad69
   DisplayName: Blackhole
   <Description>k__BackingField: 'Deal 2 Damage and apply 3 Burn '
   <Mana>k__BackingField: 0

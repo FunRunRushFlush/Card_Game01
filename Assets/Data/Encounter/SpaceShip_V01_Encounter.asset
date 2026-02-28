@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: SpaceShip_V01_Encounter
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: 1355a2a31300656478c2c23c0cd8e816
   minEnemies: 1
   maxEnemies: 3
   pool:

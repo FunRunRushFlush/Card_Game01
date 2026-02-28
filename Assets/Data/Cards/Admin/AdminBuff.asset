@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: AdminBuff
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: admin_buff
+  id: f69380031f219e848b9c0e004e682b9b
   DisplayName: Admin Buff
   <Description>k__BackingField: Strength 2
   <Mana>k__BackingField: 0

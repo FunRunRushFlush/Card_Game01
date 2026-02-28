@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Power of Banana
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: power-of-banana
+  id: 2d45846d143555946b5e052fa739f64c
   DisplayName: Power of Banana
   <Description>k__BackingField: Deal 15 Damage. Apply 1 Weakness and 5 Poison. Gain
     10 Block

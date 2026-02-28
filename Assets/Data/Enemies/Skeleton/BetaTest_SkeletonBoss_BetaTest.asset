@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: BetaTest_SkeletonBoss_BetaTest
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: b6f7dc3ffd534f14b9f6e40c880ca243
   <Image>k__BackingField: {fileID: 285323612, guid: dc03c9b23e6e33a45a103753da561cad, type: 3}
   <Health>k__BackingField: 99
   <AttackValue>k__BackingField: 6

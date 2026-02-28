@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: ArrowRain
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: arrow_rain
+  id: 87f00793cba045d4cb80979e2eb4f46e
   DisplayName: Arrow Rain
   <Description>k__BackingField: 'Deal 9 Damage to all enemies  '
   <Mana>k__BackingField: 2

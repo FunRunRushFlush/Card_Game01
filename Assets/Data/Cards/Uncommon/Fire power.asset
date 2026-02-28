@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Fire power
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fire-power
+  id: 6ade599ca7666664fba1b549f937426c
   DisplayName: 'Fire Power '
   <Description>k__BackingField: 'Deal 8 Damage apply 5 Burn '
   <Mana>k__BackingField: 1

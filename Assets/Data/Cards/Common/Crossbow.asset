@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Crossbow
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: crossbow
+  id: e2abd2670bd7cff4bb8ba1f21b9a1d7b
   DisplayName: Crossbow
   <Description>k__BackingField: Deal 18 Damage. Discard 2 random Cards
   <Mana>k__BackingField: 1

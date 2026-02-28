@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Helmet on
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: helmet-on
+  id: 31f85c20b4c74014898ac8a077988f8a
   DisplayName: 'Helmet on '
   <Description>k__BackingField: 'Gain 4 Block '
   <Mana>k__BackingField: 0

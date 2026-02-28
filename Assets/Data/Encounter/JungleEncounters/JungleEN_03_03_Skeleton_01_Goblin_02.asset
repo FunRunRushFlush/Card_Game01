@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: JungleEN_03_03_Skeleton_01_Goblin_02
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: d0a4e08033b238a4cb0cd4590c0b762d
   minEnemies: 3
   maxEnemies: 3
   pool:

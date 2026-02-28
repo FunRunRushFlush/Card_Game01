@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
   m_Name: SpaceEN2
   m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  id: 13c39f3056ef7a74b90ff8bda297d26a
   minEnemies: 2
   maxEnemies: 3
   pool:

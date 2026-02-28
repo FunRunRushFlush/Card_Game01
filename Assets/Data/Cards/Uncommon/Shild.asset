@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Shild
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: 'shild '
+  id: edceaf805ac6af146ae2e637d6e83118
   DisplayName: Shild
   <Description>k__BackingField: 'Gein Block 5 '
   <Mana>k__BackingField: 0

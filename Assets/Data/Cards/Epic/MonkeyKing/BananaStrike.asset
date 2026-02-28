@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: BananaStrike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: banana-strike
+  id: 2101be1f0119a8a4986f64a94f147fb8
   DisplayName: 'Banana Strike '
   <Description>k__BackingField: 'Deal 12 Damage Draw a card '
   <Mana>k__BackingField: 1

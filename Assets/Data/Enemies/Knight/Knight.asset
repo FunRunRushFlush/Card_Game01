@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  id: 000b0851997132245a41276d33048553
   <Image>k__BackingField: {fileID: -1640006068, guid: 4e473acbc95b81a49ab788ea94650a0d, type: 3}
   <Health>k__BackingField: 500
   <AttackValue>k__BackingField: 20
   <MultiAttackValue>k__BackingField: 11
   <BlockValue>k__BackingField: 18
   <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
   <StrengthValue>k__BackingField: 1
   <WeakValue>k__BackingField: 1
   <ViewPrefab>k__BackingField: {fileID: 7140840544398809644, guid: b58b27e194738754a88b75a79dac6996, type: 3}

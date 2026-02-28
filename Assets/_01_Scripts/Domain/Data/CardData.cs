@@ -8,7 +8,8 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     [Header("Stable ID")]
-    [field: SerializeField] public string Id;
+    [field: SerializeField] private string id;
+    public string Id => id;
 
     [field: SerializeField] public string DisplayName;
     [field: SerializeField] public string Description { get; private set; }

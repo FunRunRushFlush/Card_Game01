@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Total Chaos
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: total_chaos
+  id: 8babfb29bd9f255499e44a82d07f1ffe
   DisplayName: Total Chaos
   <Description>k__BackingField: All Units gain +3 Weakness
   <Mana>k__BackingField: 0

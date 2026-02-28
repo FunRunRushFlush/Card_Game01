@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Magic Missles
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: 'magic-missles '
+  id: 15e85c03ff6b6f641879a0cec94b1ac3
   DisplayName: 'Magic Missles '
   <Description>k__BackingField: 'Deal 7 Damage apply Weakness 1 and Burn 1 '
   <Mana>k__BackingField: 1

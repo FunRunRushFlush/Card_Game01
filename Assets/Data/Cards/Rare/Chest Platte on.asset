@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Chest Platte on
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: chestplatte-on
+  id: a987ea81a2722074bbebc0f4543b297a
   DisplayName: 'Chestplatte on '
   <Description>k__BackingField: 'Gain 30 Block '
   <Mana>k__BackingField: 3

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Panic Block
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: panic_block
+  id: c7dd3d6f421f62b4a85cdd5f4b8e7f5c
   DisplayName: Panic Block
   <Description>k__BackingField: Gain 16 Block. Discard 2 Cards
   <Mana>k__BackingField: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: AdminStrike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: admin-strike
+  id: 05411ddc212355e4d87d3debf490073d
   DisplayName: Admin Strike
   <Description>k__BackingField: 'Card for Admins kill all enemies '
   <Mana>k__BackingField: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Fire Shield
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: fire-shild
+  id: f01d489047cc96047bfe6061775c0e73
   DisplayName: Fire Shield
   <Description>k__BackingField: 'Block 12 you get 2 Burn '
   <Mana>k__BackingField: 1

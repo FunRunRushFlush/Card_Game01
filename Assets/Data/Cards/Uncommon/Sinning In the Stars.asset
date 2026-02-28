@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
   m_Name: Sinning In the Stars
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  Id: Shining in the stars
+  id: 32c59a694db731e44810b0f672e08bab
   DisplayName: Shining in the Stars
   <Description>k__BackingField: Enemies get weakness 3 and Burn 15. Gaint Strenght
     3
