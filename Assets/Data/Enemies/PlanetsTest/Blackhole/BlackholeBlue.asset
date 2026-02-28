@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
+  m_Name: BlackholeBlue
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  <Image>k__BackingField: {fileID: -804569822, guid: 48d2e4272bd86724da7316d1437a34ad, type: 3}
+  <Health>k__BackingField: 200
+  <AttackValue>k__BackingField: 15
+  <MultiAttackValue>k__BackingField: 7
+  <BlockValue>k__BackingField: 12
+  <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 2
+  <StrengthValue>k__BackingField: 2
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 4777720535224127667, guid: 3e9a09f49dc39d74b99f8b9a0cd99208, type: 3}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: 75fec6c663e2eb7489a084a9ff95bdcb, type: 2}

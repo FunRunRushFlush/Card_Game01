@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
+  m_Name: Goblin
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  <Image>k__BackingField: {fileID: -183928822, guid: f2ebf54d6dd6a064a868ca496de823ad, type: 3}
+  <Health>k__BackingField: 35
+  <AttackValue>k__BackingField: 8
+  <MultiAttackValue>k__BackingField: 5
+  <BlockValue>k__BackingField: 6
+  <BurnValue>k__BackingField: 2
+  <StrengthValue>k__BackingField: 1
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 2854382136822323028, guid: bbcab606defdb394b8b791b7cab31662, type: 3}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: f87320b85a2a47d4f890cf6804a3e258, type: 2}

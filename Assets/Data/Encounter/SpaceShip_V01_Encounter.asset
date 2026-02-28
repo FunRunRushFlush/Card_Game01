@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
+  m_Name: SpaceShip_V01_Encounter
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  minEnemies: 1
+  maxEnemies: 3
+  pool:
+  - data: {fileID: 11400000, guid: ff2b434a3dfe75d4e83cb86a67f391b1, type: 2}
+    weight: 1
+  - data: {fileID: 11400000, guid: 0659199c7d437b94492f5f3a21e7294d, type: 2}
+    weight: 1
+  - data: {fileID: 11400000, guid: ff2b434a3dfe75d4e83cb86a67f391b1, type: 2}
+    weight: 1

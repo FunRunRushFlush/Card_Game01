@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Molten Shield
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  Id: molten_shield
+  DisplayName: Molten Shield
+  <Description>k__BackingField: Gain 8 Block. Apply 3 Burn to all enemies.
+  <Mana>k__BackingField: 1
+  <Image>k__BackingField: {fileID: -1463014139, guid: b34af61e931135d48b73788ef9e08f8e, type: 3}
+  Rarity: 3
+  PreferredBiomes: 01000000
+  <Tags>k__BackingField: 01000000
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 1986237386231906403
+  - rid: 792979208258191457
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979208258191457
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979208258191458
+        <Effect>k__BackingField:
+          rid: 792979208258191459
+    - rid: 792979208258191458
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979208258191459
+      type: {class: AddBlockEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 8
+    - rid: 1986237386231906403
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 1986237386231906404
+        <Effect>k__BackingField:
+          rid: 1986237386231906405
+    - rid: 1986237386231906404
+      type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237386231906405
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectType: 1
+        stackCount: 3

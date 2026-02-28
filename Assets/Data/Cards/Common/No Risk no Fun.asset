@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: No Risk no Fun
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  Id: no-risk-no-fun
+  DisplayName: No risk, no fun
+  <Description>k__BackingField: 'Discard all your Cards. Refill your Mana. Draw 3
+    Cards '
+  <Mana>k__BackingField: 3
+  <Image>k__BackingField: {fileID: -2013834531, guid: b34af61e931135d48b73788ef9e08f8e, type: 3}
+  Rarity: 3
+  PreferredBiomes: 
+  <Tags>k__BackingField: 
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 792979244260262023
+  - rid: 792979244260262020
+  - rid: 792979244260262026
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979244260262020
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260262021
+        <Effect>k__BackingField:
+          rid: 792979244260262022
+    - rid: 792979244260262021
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260262022
+      type: {class: RefillManaEffect, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260262023
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260262024
+        <Effect>k__BackingField:
+          rid: 792979244260262025
+    - rid: 792979244260262024
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260262025
+      type: {class: DiscardHandEffect, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260262026
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260262027
+        <Effect>k__BackingField:
+          rid: 792979244260262028
+    - rid: 792979244260262027
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260262028
+      type: {class: DrawCardsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        drawAmount: 3

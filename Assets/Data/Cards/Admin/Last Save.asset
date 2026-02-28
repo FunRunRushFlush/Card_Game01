@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Last Save
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  Id: 'last-save '
+  DisplayName: 'Last Save '
+  <Description>k__BackingField: You gain 50 Block but only if your health ist below
+    30%
+  <Mana>k__BackingField: 0
+  <Image>k__BackingField: {fileID: 0}
+  Rarity: 0
+  PreferredBiomes: 
+  <Tags>k__BackingField: 
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 792979244260262045
+  <PlayConditions>k__BackingField:
+  - rid: 792979244260262044
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979244260262044
+      type: {class: TargetHealthPercentBelowCondition, ns: , asm: Assembly-CSharp}
+      data:
+        subject: 0
+        maxHealthPercent: 0.3
+    - rid: 792979244260262045
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260262046
+        <Effect>k__BackingField:
+          rid: 792979244260262047
+    - rid: 792979244260262046
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260262047
+      type: {class: AddBlockEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 50

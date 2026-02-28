@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
+  m_Name: SpaceEN6
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  minEnemies: 1
+  maxEnemies: 1
+  pool:
+  - data: {fileID: 11400000, guid: c67363aa7f5c034408904de413b71c4b, type: 2}
+    weight: 1
+  - data: {fileID: 11400000, guid: c20deab8519fea24ba6927dbdc297cc9, type: 2}
+    weight: 1

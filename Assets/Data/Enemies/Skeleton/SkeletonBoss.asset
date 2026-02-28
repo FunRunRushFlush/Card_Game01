@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
+  m_Name: SkeletonBoss
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  <Image>k__BackingField: {fileID: 285323612, guid: dc03c9b23e6e33a45a103753da561cad, type: 3}
+  <Health>k__BackingField: 99
+  <AttackValue>k__BackingField: 6
+  <BlockValue>k__BackingField: 6
+  <BurnValue>k__BackingField: 2
+  <StrengthValue>k__BackingField: 1
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 5148825269187451596, guid: 38b6f28f19a78e54d939836cdf1ec115, type: 3}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: ad8653543ac17b84e994b8ebdca5ef76, type: 2}

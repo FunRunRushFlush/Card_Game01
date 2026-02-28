@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6d4792b5fedad4ba54dc761a45609b, type: 3}
+  m_Name: LavaEN2
+  m_EditorClassIdentifier: Assembly-CSharp::EncounterDefinition
+  minEnemies: 2
+  maxEnemies: 3
+  pool:
+  - data: {fileID: 11400000, guid: 998b51eb10a7f1f4481ef2529cf312d0, type: 2}
+    weight: 1
+  - data: {fileID: 11400000, guid: 7c2e4f9e274063b4896864cf6838f9b4, type: 2}
+    weight: 1

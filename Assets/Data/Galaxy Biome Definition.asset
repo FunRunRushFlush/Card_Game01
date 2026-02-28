@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2c8992e7f55e74e93e95076ac233d2, type: 3}
+  m_Name: Galaxy Biome Definition
+  m_EditorClassIdentifier: Assembly-CSharp::BiomeDefinition
+  Biome: 3
+  nodeEncounters:
+  - {fileID: 11400000, guid: 2140c6b4c151faf4f9797d58707e5bfe, type: 2}
+  - {fileID: 11400000, guid: 13c39f3056ef7a74b90ff8bda297d26a, type: 2}
+  - {fileID: 11400000, guid: b30a63180ee93f34885efa3bb0475f6e, type: 2}
+  - {fileID: 11400000, guid: 23a82fb5e9bf15d44bc4ea67b13e4ab6, type: 2}
+  - {fileID: 11400000, guid: 79caa5b9cdb91bb498aa0ae8e28b10d4, type: 2}
+  - {fileID: 11400000, guid: a0bd47479ab224945b7a100449bafe90, type: 2}
+  - {fileID: 11400000, guid: b3b2df2ffd2ce5e4bb4cfefc2947cd71, type: 2}
+  - {fileID: 11400000, guid: 76b45448324344140b4b8160e7330d72, type: 2}
+  - {fileID: 11400000, guid: 743514cf0893c68418cb28a3e0bc5999, type: 2}
+  - {fileID: 11400000, guid: 4102c8ed1bc81a346b9cf8f2f38fc800, type: 2}
+  bossEncounter: {fileID: 11400000, guid: 3ab451aea38d4d54f9f2612f565e8879, type: 2}
+  normalArenaScenes:
+  - Arena_Galaxy_Test
+  bossArenaScene: Arena_Galaxy_Test

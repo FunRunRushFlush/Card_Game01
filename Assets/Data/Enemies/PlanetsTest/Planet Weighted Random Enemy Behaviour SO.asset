@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5052d04df12d3a44f95620a0e46ccd98, type: 3}
+  m_Name: Planet Weighted Random Enemy Behaviour SO
+  m_EditorClassIdentifier: Assembly-CSharp::WeightedRandomEnemyBehaviourSO
+  entries:
+  - move: {fileID: 11400000, guid: 8180bce78b69bc943a963f211ba78e66, type: 2}
+    weight: 3
+    cooldownTurns: 0
+    forbidRepeatLastN: 0
+    maxConsecutive: 0
+  - move: {fileID: 11400000, guid: 4c07b09fd251b064280a615fa43e1da3, type: 2}
+    weight: 4
+    cooldownTurns: 0
+    forbidRepeatLastN: 0
+    maxConsecutive: 0
+  - move: {fileID: 11400000, guid: d526180cdffd059499c4ac43230a1030, type: 2}
+    weight: 2
+    cooldownTurns: 0
+    forbidRepeatLastN: 0
+    maxConsecutive: 0
+  - move: {fileID: 11400000, guid: 6d1517cddae23484eb5225da14f866e3, type: 2}
+    weight: 1
+    cooldownTurns: 0
+    forbidRepeatLastN: 0
+    maxConsecutive: 0

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Dragon Breath
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  Id: dragon-breath
+  DisplayName: Dragon Breath
+  <Description>k__BackingField: Deal 20 Damage and apply Burn 5 to all enemies. Draw
+    a card
+  <Mana>k__BackingField: 2
+  <Image>k__BackingField: {fileID: -193939011, guid: 3767a25ad0c03f04faf0242521ab9aef, type: 3}
+  Rarity: 5
+  PreferredBiomes: 01000000
+  <Tags>k__BackingField: 02000000
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 792979202384330865
+  - rid: 792979202384330868
+  - rid: 792979244260261996
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979202384330865
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979202384330866
+        <Effect>k__BackingField:
+          rid: 792979202384330867
+    - rid: 792979202384330866
+      type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979202384330867
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectType: 1
+        stackCount: 5
+    - rid: 792979202384330868
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979202384330869
+        <Effect>k__BackingField:
+          rid: 792979202384330870
+    - rid: 792979202384330869
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979202384330870
+      type: {class: DrawCardsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        drawAmount: 1
+    - rid: 792979244260261996
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260261997
+        <Effect>k__BackingField:
+          rid: 792979244260261998
+    - rid: 792979244260261997
+      type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979244260261998
+      type: {class: DealDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageAmount: 20

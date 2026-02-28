@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69481d8ae10c22b45b2aeb6080003ec9, type: 3}
+  m_Name: Biome Database
+  m_EditorClassIdentifier: Assembly-CSharp::BiomeDatabase
+  biomes:
+  - {fileID: 11400000, guid: 183ea85e7e97d5f4391ccc1cc8513153, type: 2}
+  - {fileID: 11400000, guid: 150bd86e1caebd94787271460432270f, type: 2}
+  - {fileID: 11400000, guid: ac3b6bad8c9609f41a35b2479f10d08e, type: 2}
+  - {fileID: 11400000, guid: 2872c98c4b5036f48a2e72ae4a684264, type: 2}
+  - {fileID: 11400000, guid: 2f80251530b72ac43ba7eb38efb3a73d, type: 2}
+  normalArenaScene: Arena_Forest_01
+  bossArenaScene: Arena_Forest_Boss

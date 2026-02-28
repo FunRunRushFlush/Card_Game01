@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  <Image>k__BackingField: {fileID: -1640006068, guid: 4e473acbc95b81a49ab788ea94650a0d, type: 3}
+  <Health>k__BackingField: 500
+  <AttackValue>k__BackingField: 20
+  <MultiAttackValue>k__BackingField: 11
+  <BlockValue>k__BackingField: 18
+  <BurnValue>k__BackingField: 2
+  <StrengthValue>k__BackingField: 1
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 7140840544398809644, guid: b58b27e194738754a88b75a79dac6996, type: 3}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: 239b9ebfd44212b45ad0e070fef1687d, type: 2}

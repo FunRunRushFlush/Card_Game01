@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2c8992e7f55e74e93e95076ac233d2, type: 3}
+  m_Name: Fire Biome Definition
+  m_EditorClassIdentifier: Assembly-CSharp::BiomeDefinition
+  Biome: 1
+  nodeEncounters:
+  - {fileID: 11400000, guid: ba0d42c270c05bc409bf23a27b8240bf, type: 2}
+  - {fileID: 11400000, guid: bac5ba73ae0a3644498bd335998fb306, type: 2}
+  - {fileID: 11400000, guid: 1024493b8d581644682eb911f53dd045, type: 2}
+  - {fileID: 11400000, guid: 905fd9c6a4947b94fa7a68c96ce01d6c, type: 2}
+  - {fileID: 11400000, guid: 6f6f89fa9a7aed443b7a354e14414f0e, type: 2}
+  - {fileID: 11400000, guid: 47c5cb4762feaf043b3b820a8d8acc91, type: 2}
+  - {fileID: 11400000, guid: 9a0bbcc8b5a17764491ea16364430f36, type: 2}
+  - {fileID: 11400000, guid: a02ab0050b3362f4791144d87952e337, type: 2}
+  - {fileID: 11400000, guid: 1d295aae28c04b9489fb66619c6f1dbc, type: 2}
+  - {fileID: 11400000, guid: e9857e7f0cf36fe45a08766323e9b25f, type: 2}
+  bossEncounter: {fileID: 11400000, guid: 3577c8e0b46e729458a7504a2837ee65, type: 2}
+  normalArenaScenes:
+  - Arena_Fire_01
+  - Arena_Fire_02
+  - Arena_Fire_03
+  bossArenaScene: Arena_Fire_Test

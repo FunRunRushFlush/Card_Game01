@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Panic Block
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  Id: panic_block
+  DisplayName: Panic Block
+  <Description>k__BackingField: Gain 16 Block. Discard 2 Cards
+  <Mana>k__BackingField: 1
+  <Image>k__BackingField: {fileID: -996645976, guid: b34af61e931135d48b73788ef9e08f8e, type: 3}
+  Rarity: 2
+  PreferredBiomes: 
+  <Tags>k__BackingField: 01000000
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 1986237465442910363
+  - rid: 1986237465442910366
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1986237465442910363
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 1986237465442910364
+        <Effect>k__BackingField:
+          rid: 1986237465442910365
+    - rid: 1986237465442910364
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237465442910365
+      type: {class: AddBlockEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 16
+    - rid: 1986237465442910366
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 1986237465442910367
+        <Effect>k__BackingField:
+          rid: 1986237465442910368
+    - rid: 1986237465442910367
+      type: {class: NoTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237465442910368
+      type: {class: DiscardRandomCardsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 2

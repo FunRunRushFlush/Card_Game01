@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_00_Scenes/Core.unity
+    guid: a1244d0e0183b98459e5d369faa416f9
+  - enabled: 1
+    path: Assets/_00_Scenes/MainMenu.unity
+    guid: 37eb022c41e655e40b0c65c696fc51c1
+  - enabled: 1
+    path: Assets/_00_Scenes/Session.unity
+    guid: e15b704e4eb03694c94c3546a7e8319a
+  - enabled: 1
+    path: Assets/_00_Scenes/Combat.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/_00_Scenes/Shop.unity
+    guid: baccbf2ac67d60e46a09f9a2b6ad8390
+  - enabled: 0
+    path: Assets/_00_Scenes/CombatV2.unity
+    guid: b9173894d738c014daf6218b49062648
+  - enabled: 1
+    path: Assets/_00_Scenes/Map.unity
+    guid: ed4fe30305a3bae47a8dff28370c3fe7
+  - enabled: 1
+    path: Assets/_00_Scenes/Event.unity
+    guid: 5b2b6477cdcff7e4fbf483f17d173eda
+  - enabled: 1
+    path: Assets/_00_Scenes/Loot.unity
+    guid: a9185430f446a3e49bae9e415f333a19
+  - enabled: 1
+    path: Assets/_00_Scenes/GameOver.unity
+    guid: 0f476104bdf066b4092cd5fdd8927c85
+  - enabled: 1
+    path: Assets/_00_Scenes/HeroSelection.unity
+    guid: 37cbec3e72c2e1f4c959ac5d75000adb
+  - enabled: 1
+    path: Assets/_00_Scenes/Forest/Arena_Forest_01.unity
+    guid: 448bea7ee191d3e41bdcac768ead45d6
+  - enabled: 1
+    path: Assets/_00_Scenes/Forest/Arena_Forest_02.unity
+    guid: 37df2aefe630f9847b3d2c8d74bd3646
+  - enabled: 1
+    path: Assets/_00_Scenes/Forest/Arena_Forest_Boss.unity
+    guid: 0ffa10b5abd5b3a42abc5bc41da7e6ea
+  - enabled: 1
+    path: Assets/_00_Scenes/Fire/Arena_Fire_01.unity
+    guid: f4abb6dcc91050e40a0901cf43f9aaee
+  - enabled: 1
+    path: Assets/_00_Scenes/Ice/Arena_Ice_01.unity
+    guid: 83e90d872a9bfab4da0ebe9c9540e67c
+  - enabled: 1
+    path: Assets/_00_Scenes/Fire/Arena_Fire_03.unity
+    guid: 24539fa30e6fa15469ef33093fb14e49
+  - enabled: 1
+    path: Assets/_00_Scenes/Fire/Arena_Fire_02.unity
+    guid: 50db987eab39dfd468b5b3baea713d99
+  - enabled: 1
+    path: Assets/_00_Scenes/Forest/Arena_Forest_03.unity
+    guid: 9e1be37aec0b3f5478a13ef9d6efa98d
+  - enabled: 1
+    path: Assets/_00_Scenes/Ice/Arena_Ice_03.unity
+    guid: a883112025e5912499a5429582d805ca
+  - enabled: 1
+    path: Assets/_00_Scenes/Ice/Arena_Ice_02.unity
+    guid: 1b3fb07b2480c72468f769188b71a00b
+  - enabled: 1
+    path: Assets/_00_Scenes/Fire/Arena_Fire_Test.unity
+    guid: 20491d01e9449724080e44d4110bcc14
+  - enabled: 1
+    path: Assets/_00_Scenes/Galaxy/Arena_Galaxy_Test.unity
+    guid: 1acc2f28c15b3da4695c4f22c82218ec
+  - enabled: 1
+    path: Assets/_00_Scenes/Caves/CavesFake.unity
+    guid: 0399d5ddb40ca6d44a8a1deed6daac52
+  - enabled: 1
+    path: Assets/_00_Scenes/Caves/Caves.unity
+    guid: 5a4250d340a180a41996b4fbe40ea18a
+  - enabled: 1
+    path: Assets/_00_Scenes/Events/StoryEnd.unity
+    guid: 79122d2ed6189c84da5e69e9aab8aaea
+  - enabled: 1
+    path: Assets/_00_Scenes/Events/StoryIntro.unity
+    guid: 5b029471002e11d49918ed198915d59a
+  - enabled: 1
+    path: Assets/_00_Scenes/Events/StoryChase_Galaxy.unity
+    guid: d5ad4ee01ca6a514cb1b0505e8cb7609
+  - enabled: 1
+    path: Assets/_00_Scenes/Events/StoryChase_Jungle.unity
+    guid: 50023c7978212ba4790dc62a2e0b20c5
+  - enabled: 1
+    path: Assets/_00_Scenes/Events/StoryChase_Lava.unity
+    guid: 84ec0d45820d04e4bbb9b28ffd07d9d5
+  - enabled: 1
+    path: Assets/_00_Scenes/Events/StoryChase_FoundDog.unity
+    guid: ce6fa3648a2778042997885510a5119b
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 37e6ebb870a7d9843a941b8abac99c55, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_UseUCBPForAssetBundles: 0

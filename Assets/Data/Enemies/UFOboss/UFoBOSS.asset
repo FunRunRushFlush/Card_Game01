@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
+  m_Name: UFoBOSS
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  <Image>k__BackingField: {fileID: 1822130505, guid: 5441903236ee6ae47aeab529b9ea45ce, type: 3}
+  <Health>k__BackingField: 400
+  <AttackValue>k__BackingField: 25
+  <MultiAttackValue>k__BackingField: 3
+  <BlockValue>k__BackingField: 15
+  <BurnValue>k__BackingField: 2
+  <StrengthValue>k__BackingField: 1
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 7140840544398809644, guid: 4b7fc135f45f8a345b669c8259aca14e, type: 3}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: 6668fef729275194f97e93eaa48b289e, type: 2}

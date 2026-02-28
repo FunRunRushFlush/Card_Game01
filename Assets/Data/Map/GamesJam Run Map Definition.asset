@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0022582cfaa62f4428ceeabecd1d9488, type: 3}
+  m_Name: GamesJam Run Map Definition
+  m_EditorClassIdentifier: Assembly-CSharp::RunMapDefinition
+  biomes:
+  - biome: 5
+    nodes:
+    - type: 3
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: StoryIntro
+      levelSceneOverride: 
+    - type: 3
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: StoryChase_Jungle
+      levelSceneOverride: 
+  - biome: 0
+    nodes:
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 3258398f7e89f2340af111ee99916e04, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 0efefb58dbffad044a3f256bb8701e01, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 9feb75e29d4786c4ca6232bc4a876a22, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: d0a4e08033b238a4cb0cd4590c0b762d, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 2
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 47c5cb4762feaf043b3b820a8d8acc91, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: a02ab0050b3362f4791144d87952e337, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 6dbf3b65eea39c042a2947a1c837dc93, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 2
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 4
+      combatOverride: {fileID: 11400000, guid: 3c57e2501721890458d464c21a83cbfb, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 3
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: StoryChase_Lava
+      levelSceneOverride: 
+  - biome: 1
+    nodes:
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: ba0d42c270c05bc409bf23a27b8240bf, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: bac5ba73ae0a3644498bd335998fb306, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 2
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: ddff58a392c44a14785e790b10db95a0, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 54fbc20b34d78ab41a271bde43a9b7fb, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: c3346385b95502b49919fc1f2f8d0fec, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 480722c874235884e9adc9e84c6de7ef, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: e9857e7f0cf36fe45a08766323e9b25f, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 2
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 4
+      combatOverride: {fileID: 11400000, guid: 3577c8e0b46e729458a7504a2837ee65, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 3
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: StoryChase_Galaxy
+      levelSceneOverride: 
+  - biome: 3
+    nodes:
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 2140c6b4c151faf4f9797d58707e5bfe, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 13c39f3056ef7a74b90ff8bda297d26a, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: b30a63180ee93f34885efa3bb0475f6e, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 79caa5b9cdb91bb498aa0ae8e28b10d4, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 2
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: a0bd47479ab224945b7a100449bafe90, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: b3b2df2ffd2ce5e4bb4cfefc2947cd71, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 2
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 0
+      combatOverride: {fileID: 11400000, guid: 743514cf0893c68418cb28a3e0bc5999, type: 2}
+      bossOverride: {fileID: 0}
+      sceneOverride: 
+      levelSceneOverride: 
+    - type: 4
+      combatOverride: {fileID: 11400000, guid: 3ab451aea38d4d54f9f2612f565e8879, type: 2}
+      bossOverride: {fileID: 11400000, guid: 3ab451aea38d4d54f9f2612f565e8879, type: 2}
+      sceneOverride: 
+      levelSceneOverride: 
+  - biome: 6
+    nodes:
+    - type: 3
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: StoryChase_FoundDog
+      levelSceneOverride: 
+    - type: 3
+      combatOverride: {fileID: 0}
+      bossOverride: {fileID: 0}
+      sceneOverride: StoryEnd
+      levelSceneOverride: 

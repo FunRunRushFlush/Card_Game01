@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4d2f2e8b4d51c4495011c79c932022, type: 3}
+  m_Name: Monkey
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  <Image>k__BackingField: {fileID: 529134489, guid: 1812330d2bfb8dd4f96a65b4aac44214, type: 3}
+  <Health>k__BackingField: 50
+  <AttackValue>k__BackingField: 8
+  <MultiAttackValue>k__BackingField: 5
+  <BlockValue>k__BackingField: 6
+  <BurnValue>k__BackingField: 2
+  <PoisonValue>k__BackingField: 4
+  <StrengthValue>k__BackingField: 1
+  <WeakValue>k__BackingField: 1
+  <ViewPrefab>k__BackingField: {fileID: 7879271128835504042, guid: 2a8ec5e1765d25c4cb012991d53f7c12, type: 3}
+  <Behaviour>k__BackingField: {fileID: 11400000, guid: 960d606f900dc1741ad7d68adfc17425, type: 2}
