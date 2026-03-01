@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 
@@ -44,6 +45,7 @@ public class CardView : MonoBehaviour
         Card = card;
         title.text = card.Title;
         rarity.text = card.Rarity.ToString();
+        description.text = card.Description;
         description.text = card.Description;
         mana.text = card.Mana.ToString();
         imageSR.sprite = card.Image;

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Fire Explosion
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  id: 0b6dd0855ab3369458f1fc921fef6e98
+  cardKey: Fire Explosion
+  DisplayName: Fire Explosion
+  <Description>k__BackingField: Deal 50 Damage. Apply 5 Burn.
+  <Mana>k__BackingField: 3
+  <Image>k__BackingField: {fileID: -1091159536, guid: b34af61e931135d48b73788ef9e08f8e, type: 3}
+  Rarity: 5
+  PreferredBiomes: 01000000
+  <Tags>k__BackingField: 02000000
+  <ManualTargetEffects>k__BackingField:
+  - rid: 792979244260261999
+  - rid: 792979244260262001
+  <OtherEffects>k__BackingField: []
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979244260261999
+      type: {class: DealDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageAmount: 50
+    - rid: 792979244260262001
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectType: 1
+        stackCount: 5

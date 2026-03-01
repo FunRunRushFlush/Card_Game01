@@ -1,0 +1,70 @@
+﻿CardKey,DisplayName,Mana,Rarity,Description,AssetGuid
+AdminBuff,Admin Buff,0,Admin,"Gain 2 Strength.",f69380031f219e848b9c0e004e682b9b
+AdminCardTest,Admin Cardtest,0,Admin,"POWER!!!",e9fa803c56cdcde49a17056ba8e84366
+AdminStrike,Admin Strike,0,Admin,"Kill all enemies.",05411ddc212355e4d87d3debf490073d
+Armor Shield,Armor Shield,1,Uncommon,"Gain 10 Block.",777aba2c95596da43b86caab57b764de
+Armor Up,Block,1,Starter,"Gain 6 Block.",ca153b58ae684c4439cf2e0f475f6194
+ArrowRain,Arrow Rain,2,Common,"Deal 9 Damage to all enemies.",87f00793cba045d4cb80979e2eb4f46e
+Axt swing,Axt Swing,1,Common,"Can only be played as the first Attack this turn. Discard your hand. Deal 30 Damage.",3fda7f9cfd3930e4cb1846a88d68e661
+Banana Peel,Banana Peel,0,Epic,"Deal 1 Damage. Apply 1 Weakness. Draw 1 card.",4a43b75a8e519f744bc4a7a2e48a4653
+BananaStrike,Banana Strike,1,Epic,"Deal 12 Damage. Draw 1 card.",2101be1f0119a8a4986f64a94f147fb8
+Blackdust,Black dust,0,Rare,"Apply 3 Burn and 3 Poison to an enemy.",246f7cbe07096cd458d2b0fc9b4577a3
+Blackhole,Blackhole,0,Rare,"Deal 2 Damage. Apply 3 Burn.",bd47e6c0b17e4b44089131b3701fad69
+Bomb,Bomb,3,Common,"Deal 15 Damage to the target. Apply 10 Burn to all enemies.",a3168bc1b3f69b74fa3e8c71d6b27754
+Book of Wisdom,Book 0f wisdom,0,Rare,"Draw 3 cards.",8947750d68673a24f96e92fae56d1394
+Bow Shot,Bow Shot,2,Uncommon,"Deal 15 Damage.",958933ece9a65b14aa1161edd9807bad
+Chest Platte on,Chestplatte on,3,Rare,"Gain 30 Block.",a987ea81a2722074bbebc0f4543b297a
+Claws,Claws,1,Common,"Deal 4 Damage to all enemies.",bfa979a3aa540b94f950a618fde900c6
+Cloak,Cloak,0,Uncommon,"Gain 7 Block. Apply 2 Burn to yourself.",e3a8928402a7e4c4d8688bcbac21052b
+Crossbow,Crossbow,1,Common,"Deal 18 Damage. Discard 2 random cards.",e2abd2670bd7cff4bb8ba1f21b9a1d7b
+Double Armor,Double Armor,1,Admin,"Gain 10 Armor. Requires at least 5 Armor.",34b480a06ed5b1d4db362fd91dc43cd8
+Double Strike,Double Strike,1,Common,"Deal 5 Damage. Deal 5 Damage to a random enemy.",be83a96c79527e14c9365180b016a315
+Dragon Breath,Dragon Breath,2,Epic,"Deal 20 Damage. Apply 5 Burn to all enemies. Draw 1 card.",647b6ab704dfd0447b57599ff6fa9a1b
+Fire Explosion,Fire Explosion,3,Epic,"Deal 50 Damage. Apply 5 Burn.",0b6dd0855ab3369458f1fc921fef6e98
+Fire power,Fire Power,1,Uncommon,"Deal 8 Damage. Apply 5 Burn.",6ade599ca7666664fba1b549f937426c
+Fire Shield,Fire Shield,1,Common,"Gain 12 Block. Apply 2 Burn to yourself.",f01d489047cc96047bfe6061775c0e73
+Fire Slash,Fire Slash,1,Common,"Apply 4 Burn to all enemies. Deal 2 Damage to a random enemy.",f4c375963e389c847b2e7a85df40e0d8
+Fireball,Fireball,2,Common,"Deal 11 Damage. Apply 3 Burn to all enemies.",d3584a265f8dc7748bc5a64d2121542e
+FireballRain,Fireball Rain,3,Epic,"Deal 30 Damage to all enemies. Apply 2 Burn to all enemies.",a17301d317aae8242a244b552a1dbafa
+Firestorm,Firestrom,3,Rare,"Deal 20 Damage to all enemies. Apply 5 Burn to all enemies.",3fa3de02b114885408baba155e0a7324
+Firestrike,Fire Strike,1,Common,"Deal 8 Damage. Apply 2 Burn.",1194a292436d5804398ed6f8727a1da2
+First Strike,First Strike,1,Common,"Can only be played as your first Attack this turn. Deal 16 Damage.",47217fc110712954186f84b95624dc3d
+Flames,Flames,2,Common,"Deal 15 Damage. Apply 2 Burn.",080f2106614a21341afa5ff2fa2720a3
+Flying Fireball,Flying Fireball,1,Uncommon,"Deal 20 Damage to a random enemy.",dd4ddc5764ae1ba45b8762044d0a0ac8
+Galaxy Power,Galaxy Power,1,Uncommon,"Deal 8 Damage. Apply 3 Weakness.",1c64ccff095f8d244a6527ce6ea52b42
+GalaxySlash,Galaxy Slash,1,Common,"Deal 10 Damage.",da5450fb7f6b92640876cc37de9eee35
+Helmet on,Helmet on,0,Common,"Gain 4 Block.",31f85c20b4c74014898ac8a077988f8a
+helmet on,HeavyHelmet on,0,Uncommon,"Gain 5 Block.",e3004514b759b37469a0807a91057e92
+Jungle Bomb,Jungle Bomb,3,Common,"Deal 15 Damage to the target. Apply 7 Poison to all enemies.",0d658a7c08e9fe9438a4947f44b580e6
+Jungle Power,Jungle Power,1,Uncommon,"Deal 8 Damage. Apply 3 Poison.",ee8447bdb14fdd0469ec644f318a9554
+Last Save,Last Save,0,Admin,"If your Health is below 30%, gain 50 Block.",053a28897e65ae34a93e854eae3d538e
+Lucky Draw,Lucky Draw?,1,Rare,"Discard your hand. Refill your Mana. Draw 1 card.",ff44270828be41243bb5da44c8e37ad3
+Magic Missles,Magic Missles,1,Common,"Deal 7 Damage. Apply 1 Weakness and 1 Burn.",15e85c03ff6b6f641879a0cec94b1ac3
+Meteor,Meteor,1,Common,"Deal 12 Damage. Apply 4 Burn.",6651cbde39854184f8d71e5f7d861f14
+Misseles of the Universe,Missiles of the Universe,2,Uncommon,"Deal 20 Damage to 2 random enemies.",b5886420a7c66054e92df3561b8c47ba
+Molten Shield,Molten Shield,1,Uncommon,"Gain 8 Block. Apply 3 Burn to all enemies.",ab835d40a79f9eb4b8769ff754f0dd1c
+No Risk no Fun,"No risk, no fun",3,Uncommon,"Discard your hand. Refill your Mana. Draw 3 cards.",2d5a7ead6f94ad5469f63597138e5dd9
+Pancakes,Pancakes,0,Common,"Gain 3 Strength. Draw 1 card. Discard 1 random card.",fd7448731a574fd459588df4b0ffb7c3
+Panic Block,Panic Block,1,Common,"Gain 16 Block. Discard 2 cards.",c7dd3d6f421f62b4a85cdd5f4b8e7f5c
+Poison,Poison,1,Common,"Apply 3 Poison to all enemies. Draw 1 card.",a3a9a56501c270d47a05f379c50b987a
+Poison Apple,Poison Apple,2,Admin,"Apply 2 Poison to yourself. Apply 5 Poison to all enemies.",66fd8749ee49d4b4c893c62d4df0d106
+Poison Arrow,Poison Arrow,1,Uncommon,"Deal 7 Damage. Apply 4 Poison.",9ad413f0c8300ee41b1b88e680ea0007
+Poison Misseles,Poison Missiles,2,Uncommon,"Deal 15 Damage. Apply 3 Poison.",63c6debee45dc3940b8eb9e5b4e43df1
+Poison Shield,Poison Shield,1,Common,"Gain 6 Block. Apply 2 Poison to all enemies.",ba1e7f0ee708ce944ad3b8d5e513a571
+Poisonous Slash,Poisonous Slash,0,Common,"Deal 1 Damage. Apply 3 Poison.",d6e522af37c91e641b92ac2e36d5b112
+Poissen Dagger,Poissen Dagger,1,Rare,"Deal 1 Damage. Apply 10 Poison.",42e74acfc26b4ff4baa7b63e5d5a0d6e
+PotOfGreed,Pot of Greed,0,Rare,"Draw 2 cards.",00d9a7cd111bb284ebff89ec5aa38431
+Power of Banana,Power of Banana,3,Epic,"Deal 15 Damage. Apply 1 Weakness and 5 Poison. Gain 10 Block.",2d45846d143555946b5e052fa739f64c
+Power Up,Power Up,1,Uncommon,"Gain 3 Strength.",1448383a8b6bb4745b6f442b82ad7f96
+Risky Strike,Risky Strike,2,Uncommon,"Deal 25 Damage. Discard 1 random card.",0ecb7fe226a10d64d9652191b1956831
+Shield Block,Shield Block,1,Common,"Gain 8 Block.",15d9926cf0e96b14d9c0a815ccb7ee98
+Shild,Shild,0,Uncommon,"Gain 5 Block.",edceaf805ac6af146ae2e637d6e83118
+Shooting Star,Shooting Star,2,Uncommon,"Deal 15 Damage. Apply 5 Burn.",9dd7d956eb2e68e43b6dfe5da7128545
+Sinning In the Stars,Shining in the Stars,3,Uncommon,"Apply 3 Weakness and 15 Burn to all enemies. Gain 3 Strength.",32c59a694db731e44810b0f672e08bab
+Spark,Spark,0,Uncommon,"Deal 2 Damage. Apply 4 Burn.",ecb3d3e8517ff3c4dac96ce72d734eef
+Sparking Strike,Sparking Strike,2,Uncommon,"Deal 10 Damage. Apply 10 Burn.",3ddb608d46e7c764cae40966407729d2
+Strike,Strike,1,Starter,"Deal 8 Damage.",e8ee693408315314d9229715e5d5a87e
+Sunbeam,Sunbeam,2,Common,"Deal 15 Damage. Apply 5 Burn.",b137214fdb5299b478d47fb73aba4dc0
+Total Chaos,Total Chaos,0,Rare,"Apply 3 Weakness to all units.",8babfb29bd9f255499e44a82d07f1ffe
+Total Madness,Total Madness,0,Rare,"All units gain 5 Strength.",f693241107fca944ab95a3713f344226
+Treasure,Treasure,0,Common,"Deal 1 Damage to all enemies. Draw 1 card.",10a0db0f3a51b4449b201d9b4b6feb88

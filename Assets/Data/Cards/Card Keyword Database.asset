@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891c668503e5de04cbe405a626030517, type: 3}
+  m_Name: Card Keyword Database
+  m_EditorClassIdentifier: Assembly-CSharp::KeywordDatabase
+  keywords:
+  - id: Burn
+    displayName: Burn
+    aliases: []
+    color: {r: 1, g: 0, b: 0, a: 0}
+    tooltip: Burn
+  - id: Poison
+    displayName: Poison
+    aliases: []
+    color: {r: 0.089953184, g: 1, b: 0, a: 0}
+    tooltip: Poison
+  - id: Block
+    displayName: Block
+    aliases: []
+    color: {r: 0, g: 0.46954274, b: 1, a: 0}
+    tooltip: Block
+  - id: Damage
+    displayName: Damage
+    aliases:
+    - damage
+    - Dmg
+    color: {r: 1, g: 0, b: 0, a: 0}
+    tooltip: Damage

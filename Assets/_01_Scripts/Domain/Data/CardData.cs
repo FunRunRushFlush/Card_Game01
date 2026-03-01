@@ -11,6 +11,10 @@ public class CardData : ScriptableObject
     [field: SerializeField] private string id;
     public string Id => id;
 
+    [Header("External Key (CSV)")]
+    [SerializeField] private string cardKey;
+    public string CardKey => cardKey;
+
     [field: SerializeField] public string DisplayName;
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public int Mana { get; private set; }

@@ -29,6 +29,7 @@ public class ActionSystem : Singleton<ActionSystem>
         Debug.Log($"{Indent}[AS] {msg}");
     }
 
+
     private sealed class ReactionSubscription : IDisposable
     {
         private readonly Action disposeAction;
@@ -206,6 +207,7 @@ public class ActionSystem : Singleton<ActionSystem>
             map = new Dictionary<Delegate, List<Action<GameAction>>>();
             wrapperLookup.Add(key, map);
         }
+
         if (!map.TryGetValue(reaction, out var wrappers))
         {
             wrappers = new List<Action<GameAction>>();

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Poison Apple
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  id: 66fd8749ee49d4b4c893c62d4df0d106
+  cardKey: Poison Apple
+  DisplayName: Poison Apple
+  <Description>k__BackingField: Apply 2 Poison to yourself. Apply 5 Poison to all
+    enemies.
+  <Mana>k__BackingField: 2
+  <Image>k__BackingField: {fileID: -521032350, guid: 762faa91e709b9348bf7b148318d5475, type: 3}
+  Rarity: 0
+  PreferredBiomes: 
+  <Tags>k__BackingField: 01000000
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 1986237386231906439
+  - rid: 1986237386231906442
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1986237386231906439
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 1986237386231906440
+        <Effect>k__BackingField:
+          rid: 1986237386231906441
+    - rid: 1986237386231906440
+      type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237386231906441
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectType: 2
+        stackCount: 5
+    - rid: 1986237386231906442
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 1986237386231906443
+        <Effect>k__BackingField:
+          rid: 1986237386231906444
+    - rid: 1986237386231906443
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237386231906444
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectType: 2
+        stackCount: 2

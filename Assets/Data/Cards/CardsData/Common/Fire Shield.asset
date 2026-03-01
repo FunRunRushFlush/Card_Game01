@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Fire Shield
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  id: f01d489047cc96047bfe6061775c0e73
+  cardKey: Fire Shield
+  DisplayName: Fire Shield
+  <Description>k__BackingField: Gain 12 Block. Apply 2 Burn to yourself.
+  <Mana>k__BackingField: 1
+  <Image>k__BackingField: {fileID: -362590377, guid: b34af61e931135d48b73788ef9e08f8e, type: 3}
+  Rarity: 2
+  PreferredBiomes: 00000000
+  <Tags>k__BackingField: 02000000
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 792979208258191526
+  - rid: 792979208258191529
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979208258191526
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979208258191527
+        <Effect>k__BackingField:
+          rid: 792979208258191545
+    - rid: 792979208258191527
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 792979208258191529
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260261990
+        <Effect>k__BackingField:
+          rid: 792979208258191531
+    - rid: 792979208258191531
+      type: {class: AddStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectType: 1
+        stackCount: 2
+    - rid: 792979208258191545
+      type: {class: AddBlockEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 12
+    - rid: 792979244260261990
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 

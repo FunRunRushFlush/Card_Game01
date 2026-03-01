@@ -20,10 +20,10 @@ public class StatusEffectSystem : MonoBehaviour
     {
         foreach (var target in addStatusEffectGA.Targets)
         {
-            if (!target) 
-                yield break;
-            if (target.CurrentHealth <= 0) 
-                yield break;
+            if (!target)
+                continue;
+            if (target.CurrentHealth <= 0)
+                continue;
 
             target.AddStatusEffect(addStatusEffectGA.StatusEffectType, addStatusEffectGA.StackCount);
             //TODO: Animation?
@@ -36,9 +36,9 @@ public class StatusEffectSystem : MonoBehaviour
         foreach (var target in removeStatusEffectGA.Targets)
         {
             if (!target)
-                yield break;
+                continue;
             if (target.CurrentHealth <= 0)
-                yield break;
+                continue;
 
             target.RemoveStatusEffect(removeStatusEffectGA.StatusEffectType, removeStatusEffectGA.StackCount);
             //TODO: Animation?

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dee9c57f373ebc4a8bb6971239e3b32, type: 3}
+  m_Name: Treasure
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  id: 10a0db0f3a51b4449b201d9b4b6feb88
+  cardKey: Treasure
+  DisplayName: Treasure
+  <Description>k__BackingField: Deal 1 Damage to all enemies. Draw 1 card.
+  <Mana>k__BackingField: 0
+  <Image>k__BackingField: {fileID: 576810202, guid: b34af61e931135d48b73788ef9e08f8e, type: 3}
+  Rarity: 2
+  PreferredBiomes: 
+  <Tags>k__BackingField: 01000000
+  <ManualTargetEffects>k__BackingField: []
+  <OtherEffects>k__BackingField:
+  - rid: 1986237391908110439
+  - rid: 792979244260261973
+  <PlayConditions>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 792979244260261973
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 792979244260261975
+        <Effect>k__BackingField:
+          rid: 792979244260261974
+    - rid: 792979244260261974
+      type: {class: DealDamageEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damageAmount: 1
+    - rid: 792979244260261975
+      type: {class: AllEnemiesTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237391908110439
+      type: {class: AutoTargetEffect, ns: , asm: Assembly-CSharp}
+      data:
+        <TargetMode>k__BackingField:
+          rid: 1986237391908110440
+        <Effect>k__BackingField:
+          rid: 1986237391908110441
+    - rid: 1986237391908110440
+      type: {class: HeroTM, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1986237391908110441
+      type: {class: DrawCardsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        drawAmount: 1

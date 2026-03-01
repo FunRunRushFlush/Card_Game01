@@ -7,7 +7,7 @@ public class Card
     public CardData Data => cardData;
 
     public string Title => string.IsNullOrWhiteSpace(cardData.DisplayName) ? cardData.name : cardData.DisplayName;
-    public string Description => cardData.Description;
+    public string Description => CardTextFormattingService.Instance.Format(cardData.Description);
     public CardRarity Rarity => cardData.Rarity;
 
 

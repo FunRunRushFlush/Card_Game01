@@ -959,6 +959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1985554460}
   - component: {fileID: 1985554461}
+  - component: {fileID: 1985554462}
   m_Layer: 0
   m_Name: CardViewCreator
   m_TagString: Untagged
@@ -995,6 +996,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardViewCreator
   cardViewPrefab: {fileID: 7190822987604780376, guid: 6604b35a2ebf5a7449d1ff0cffcaf71f, type: 3}
   cardViewUiPrefab: {fileID: -3489070397753815117, guid: 4984a44e75dd9be469282193309fa317, type: 3}
+--- !u!114 &1985554462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985554459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50ab9f28f739894cbf1771c8f1ffd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardTextFormattingService
+  keywordDatabase: {fileID: 11400000, guid: fbbbef62902ecfe478034ac3411925b5, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
