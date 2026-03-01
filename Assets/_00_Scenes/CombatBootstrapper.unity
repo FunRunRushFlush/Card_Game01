@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 215316446}
   - component: {fileID: 215316447}
+  - component: {fileID: 215316448}
   m_Layer: 0
   m_Name: GlovalCardViewCreator
   m_TagString: Untagged
@@ -165,6 +166,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardViewCreator
   cardViewPrefab: {fileID: 7190822987604780376, guid: 0c89782cd158b1b42ad2ca6a73d272a6, type: 3}
   cardViewUiPrefab: {fileID: -3489070397753815117, guid: 4984a44e75dd9be469282193309fa317, type: 3}
+--- !u!114 &215316448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215316445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50ab9f28f739894cbf1771c8f1ffd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardTextFormattingService
+  keywordDatabase: {fileID: 11400000, guid: fbbbef62902ecfe478034ac3411925b5, type: 2}
 --- !u!1 &510776731
 GameObject:
   m_ObjectHideFlags: 0

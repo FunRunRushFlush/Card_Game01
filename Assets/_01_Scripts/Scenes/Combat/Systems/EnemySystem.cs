@@ -69,13 +69,13 @@ public class EnemySystem : Singleton<EnemySystem>
         {
             if (!enemy) continue;
 
-            int burnStacks = enemy.GetStatusEffectStacks(StatusEffectType.BURN);
-            if (burnStacks > 0)
-                ActionSystem.Instance.AddReaction(new ApplyBurnGA(burnStacks, enemy));
+            //int burnStacks = enemy.GetStatusEffectStacks(StatusEffectType.BURN);
+            //if (burnStacks > 0)
+            //    ActionSystem.Instance.AddReaction(new ApplyBurnGA(burnStacks, enemy));
 
-            int poisonStacks = enemy.GetStatusEffectStacks(StatusEffectType.POISON);
-            if (poisonStacks > 0)
-                ActionSystem.Instance.AddReaction(new ApplyPoisonGA(poisonStacks, enemy));
+            //int poisonStacks = enemy.GetStatusEffectStacks(StatusEffectType.POISON);
+            //if (poisonStacks > 0)
+            //    ActionSystem.Instance.AddReaction(new ApplyPoisonGA(poisonStacks, enemy));
 
             // HINWEIS:
             // Aktionen trotzdem enqueue-n, aber Performer müssen robust sein!!! (siehe AttackHeroPerformer)

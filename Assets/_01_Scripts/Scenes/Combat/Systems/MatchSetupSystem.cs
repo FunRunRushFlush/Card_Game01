@@ -139,7 +139,7 @@ public class MatchSetupSystem : MonoBehaviour
             seed = seed,
 
             heroId = (int)session.Hero.Data.HeroID,
-            handSize = session.Hero.Data.HandSize,
+            handSize = session.Hero.Data.DrawPerTurn,
 
             biome = run.CurrentBiome.ToString(),
             nodeType = nodeType.ToString(),

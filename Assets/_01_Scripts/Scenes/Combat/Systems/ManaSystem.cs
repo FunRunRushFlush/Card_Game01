@@ -1,3 +1,4 @@
+using Game.Scenes.Core;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class ManaSystem : Singleton<ManaSystem>
 {
     [SerializeField] private ManaUI manaUI;
-    [SerializeField] private int maxMana = 3;
+    private int maxMana;
     private int currentMana;
 
 
@@ -13,6 +14,11 @@ public class ManaSystem : Singleton<ManaSystem>
 
     private void OnEnable()
     {
+        var herodata = CoreManager.Instance.Session.Hero.Data;
+        if (herodata != null)
+            maxMana = herodata.Mana;
+
+
         currentMana = maxMana;
         manaUI.UpdateManaText(currentMana);
 

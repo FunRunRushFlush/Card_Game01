@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Game.Logging;
+using Game.Scenes.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ public class CardSystem : Singleton<CardSystem>
     [SerializeField] private HandView handView;
     [SerializeField] private Transform drawPilePoint;
     [SerializeField] private Transform discardPilePoint;
-    public int MaxHandSize = 10;
+
+    private int MaxHandSize;
 
     private readonly List<Card> hand = new();
     private readonly List<Card> discardPile = new();
@@ -26,6 +28,10 @@ public class CardSystem : Singleton<CardSystem>
 
     void OnEnable()
     {
+        var herodata = CoreManager.Instance.Session.Hero.Data;
+        if (herodata != null)
+            MaxHandSize = herodata.MaxHandSize;
+
         ActionSystem.AttachPerformer<DrawCardsGA>(DrawCardsPerformer);
         ActionSystem.AttachPerformer<DiscardCardsGA>(DiscardCardsPerformer);
         ActionSystem.AttachPerformer<DiscardAllCardsGA>(DiscardAllCardsPerformer);

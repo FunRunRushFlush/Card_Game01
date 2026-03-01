@@ -32,7 +32,7 @@ public class DamageSystem : Singleton<DamageSystem>
             ? dealDamageGA.Caster.GetStatusEffectStacks(StatusEffectType.WEAKNESS)
             : 0;
 
-        int modifiedAmount = Mathf.Max(0, baseAmount + str - weak);
+        int modifiedAmount = DamageCalculator.Calculate(baseAmount, str, weak);
 
         foreach (var target in dealDamageGA.Targets)
         {
@@ -55,22 +55,24 @@ public class DamageSystem : Singleton<DamageSystem>
                 continue;
             }
 
-            if (target.CurrentHealth <= 0)
-            {
-                if (target is EnemyView enemyView)
-                {
-                    KillEnemyGA killEnemyGA = new(enemyView);
-                    ActionSystem.Instance.AddReaction(killEnemyGA);
-                }
-                else if (target is HeroView heroView)
-                {
-                    GameFlowController.Current.CombatLost();
-                }
-                else
-                {
-                    throw new System.Exception("Should this even happen? (TODO)");
-                }
-            }
+
+            ActionSystem.Instance.AddReaction(new ResolveDeathGA(target));
+            //if (target.CurrentHealth <= 0)
+            //{
+            //    if (target is EnemyView enemyView)
+            //    {
+            //        KillEnemyGA killEnemyGA = new(enemyView);
+            //        ActionSystem.Instance.AddReaction(killEnemyGA);
+            //    }
+            //    else if (target is HeroView heroView)
+            //    {
+            //        GameFlowController.Current.CombatLost();
+            //    }
+            //    else
+            //    {
+            //        throw new System.Exception("Should this even happen? (TODO)");
+            //    }
+            //}
         }
     }
 
