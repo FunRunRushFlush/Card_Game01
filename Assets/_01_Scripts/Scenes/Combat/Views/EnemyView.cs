@@ -1,3 +1,4 @@
+using Game.Logging;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class EnemyView : CombatantView
         Anim = animatorBehaviour as ICombatantAnimator;
 
         if (animatorBehaviour != null && Anim == null)
-            Debug.LogError($"[{name}] animatorBehaviour does not implement ICombatantAnimator", this);
+            Log.Error(LogArea.Combat, () => $"[{name}] animatorBehaviour does not implement ICombatantAnimator", this);
     }
 
     public void Setup(EnemyData enemyData)

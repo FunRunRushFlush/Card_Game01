@@ -5,6 +5,7 @@ namespace Game.Logging
         Core,
         Session,
         Combat,
+        Shop,
         Sandbox,
         Domain,   
         Editor, 

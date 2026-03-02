@@ -1,3 +1,4 @@
+using Game.Logging;
 using Game.Scenes.Core;
 using System.Collections;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class ChestInteract : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("CHEST CLICKED: " + gameObject.name);
+        Log.Info(LogArea.Combat, () => $"CHEST CLICKED: {gameObject.name}", this);
         StartCoroutine(TryOpen());
     }
 

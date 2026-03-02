@@ -1,3 +1,4 @@
+using Game.Logging;
 using UnityEngine;
 
 public class HeroView : CombatantView
@@ -11,7 +12,7 @@ public class HeroView : CombatantView
         Anim = animatorBehaviour as ICombatantAnimator;
 
         if (animatorBehaviour != null && Anim == null)
-            Debug.LogError($"[{name}] animatorBehaviour does not implement ICombatantAnimator", this);
+            Log.Error(LogArea.Combat, () => $"[{name}] animatorBehaviour does not implement ICombatantAnimator", this);
     }
 
     public void Setup(HeroData heroData)

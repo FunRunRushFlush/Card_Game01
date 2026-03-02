@@ -1,3 +1,4 @@
+using Game.Logging;
 using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class CardView : MonoBehaviour
         var res = CardPlayabilitySystem.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView);
         glow.SetPlayable(res.CanPlay);
         if (!res.CanPlay)
-            Debug.Log(res.TooltipText());
+            Log.Info(LogArea.Combat, () => res.TooltipText(),this);
 
         // Right click cancels only if we are interacting with THIS card
         if ((state == CardState.Dragging || state == CardState.Targeting) && Input.GetMouseButtonDown(1))

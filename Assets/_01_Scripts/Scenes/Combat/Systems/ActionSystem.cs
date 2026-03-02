@@ -1,9 +1,8 @@
+using Game.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class ActionSystem : Singleton<ActionSystem>
 {
@@ -17,18 +16,16 @@ public class ActionSystem : Singleton<ActionSystem>
 
     private static readonly Dictionary<(Type actionType, ReactionTiming timing), Dictionary<Delegate, List<Action<GameAction>>>> wrapperLookup = new();
 
-
-
     [SerializeField] private bool debugTrace = true; // optional im Inspector
     private static int _depth = 0;
 
     private string Indent => new string(' ', _depth * 2);
+
     private void Trace(string msg)
     {
         if (!debugTrace) return;
-        Debug.Log($"{Indent}[AS] {msg}");
+        Log.Debug(LogArea.Combat, () => $"{Indent}[AS] {msg}", this);
     }
-
 
     private sealed class ReactionSubscription : IDisposable
     {
@@ -50,27 +47,30 @@ public class ActionSystem : Singleton<ActionSystem>
 
     public void Perform(GameAction action, Action onPerformFinished = null)
     {
-
         if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
         {
-            Debug.Log($"Game is Paused!");
-            return ;
+            Log.Debug(LogArea.Combat, () => "Perform ignored: game is paused.", this);
+            return;
         }
 
         Trace($"Perform ROOT: {action.GetType().Name}");
 
         if (IsPerforming)
-        {
             return;
-        }
 
         IsPerforming = true;
         StartCoroutine(FlowWrapper(action, onPerformFinished));
     }
+
     public void AddReaction(GameAction gameAction)
     {
         if (debugTrace)
-            Debug.Log($"{Indent}[AS] AddReaction -> {(gameAction == null ? "NULL" : gameAction.GetType().Name)} (list={(reactions == null ? "null" : reactions.Count.ToString())})");
+        {
+            Log.Debug(LogArea.Combat, () =>
+                $"{Indent}[AS] AddReaction -> {(gameAction == null ? "NULL" : gameAction.GetType().Name)} (list={(reactions == null ? "null" : reactions.Count.ToString())})",
+                this);
+        }
+
         reactions?.Add(gameAction);
     }
 
@@ -78,6 +78,7 @@ public class ActionSystem : Singleton<ActionSystem>
     {
         _depth = 0;
         Trace($"FlowWrapper START: {action.GetType().Name}");
+
         try
         {
             yield return Flow(action);
@@ -115,22 +116,16 @@ public class ActionSystem : Singleton<ActionSystem>
         _depth--;
     }
 
-
-
     private void PerformSubscribers(GameAction action, Dictionary<Type, List<Action<GameAction>>> subs)
     {
         Type type = action.GetType();
         if (!subs.TryGetValue(type, out var list) || list.Count == 0)
-        {
             return;
-        }
 
         // Snapshot to avoid issues if callbacks subscribe/unsubscribe during iteration
         var snapshot = list.ToArray();
         foreach (var sub in snapshot)
-        {
             sub?.Invoke(action);
-        }
     }
 
     private IEnumerator PerformReactions()
@@ -149,13 +144,12 @@ public class ActionSystem : Singleton<ActionSystem>
         }
     }
 
-
     private IEnumerator PerformPerformer(GameAction action)
     {
         Type type = action.GetType();
         if (!performers.TryGetValue(type, out var performer))
         {
-            Debug.LogWarning($"{Indent}[AS] NO PERFORMER for {type.Name}");
+            Log.Warn(LogArea.Combat, () => $"{Indent}[AS] NO PERFORMER for {type.Name}", this);
             yield break;
         }
 
@@ -163,29 +157,22 @@ public class ActionSystem : Singleton<ActionSystem>
         yield return performer(action);
     }
 
-
     public static void AttachPerformer<T>(Func<T, IEnumerator> performer) where T : GameAction
     {
-
         Type type = typeof(T);
         IEnumerator wrappedPerformer(GameAction action) => performer((T)action);
+
         if (performers.ContainsKey(type))
-        {
             performers[type] = wrappedPerformer;
-        }
         else
-        {
             performers.Add(type, wrappedPerformer);
-        }
     }
 
     public static void DetachPerformer<T>() where T : GameAction
     {
         Type type = typeof(T);
         if (performers.ContainsKey(type))
-        {
             performers.Remove(type);
-        }
     }
 
     /// <summary>
@@ -276,6 +263,4 @@ public class ActionSystem : Singleton<ActionSystem>
                 wrapperLookup.Remove(key);
         }
     }
-
-
 }

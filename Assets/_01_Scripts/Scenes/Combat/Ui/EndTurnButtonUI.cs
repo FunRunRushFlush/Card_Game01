@@ -1,3 +1,4 @@
+using Game.Logging;
 using UnityEngine;
 
 public class EndTurnButtonUI : MonoBehaviour
@@ -7,15 +8,15 @@ public class EndTurnButtonUI : MonoBehaviour
     {
         if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
         {
-            Debug.Log($"Game is Paused!");
+            Log.Info(LogArea.Combat, () => $"Game is Paused!", this);
             return;
         }
         if (EnemySystem.Instance != null && EnemySystem.Instance.AreAllEnemiesDefeated())
         {
-            Debug.Log("End Turn ignored: combat already won.");
+            Log.Info(LogArea.Combat, () => "End Turn ignored: combat already won.", this);
             return;
         }
-        Debug.Log("End Turn Button clicked.");
+        Log.Info(LogArea.Combat, () => "End Turn Button clicked.", this);
         EnemyTurnGA enemyTurnGA = new();
         ActionSystem.Instance.Perform(enemyTurnGA);
     }

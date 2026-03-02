@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Logging;
 using Game.Scenes.Core;
 using UnityEngine;
 
@@ -33,6 +34,6 @@ public class OutcomeSystem : MonoBehaviour
             yield break;
         }
 
-        Debug.LogError("[OutcomeSystem] Unknown CombatantView type.");
+        Log.Error(LogArea.Combat, () => "Unknown CombatantView type.", this);
     }
 }

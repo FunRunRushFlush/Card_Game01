@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game.Logging;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,10 @@ public class EnemyBoardView : MonoBehaviour
     public void AddEnemy(EnemyData enemyData)
     {
         var slot = GetFirstFreeSlot();
-        if (slot == null) { Debug.LogWarning("No free enemy slot"); return; }
+        if (slot == null) {
+            Log.Warn(LogArea.Combat, () => "No free enemy slot");
+            return; 
+        }
 
         var enemyView = EnemyViewCreator.Instance.CreateEnemyView(enemyData, slot.position, slot.rotation);
         enemyView.transform.SetParent(slot, worldPositionStays: true);

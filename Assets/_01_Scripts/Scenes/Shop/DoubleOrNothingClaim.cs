@@ -1,3 +1,4 @@
+using Game.Logging;
 using Game.Scenes.Core;
 using System.Security.Claims;
 using UnityEngine;
@@ -22,8 +23,6 @@ public class DoubleOrNothingClaim : MonoBehaviour
     [Header("Optional: Close panel after action")]
     [SerializeField] private GameObject panelToClose;
 
-    [Header("Optional: Debug / Feedback")]
-    [SerializeField] private bool logResult = true;
 
 
     private bool _claimed;
@@ -102,12 +101,12 @@ public class DoubleOrNothingClaim : MonoBehaviour
         if (remove)
         {
             session.Hero.RemovePermanent(data);
-            if (logResult) Debug.Log($"[DoubleOrNothing] Removed: {data.name}");
+            Log.Info(LogArea.Shop, () => $"[DoubleOrNothing] Removed: {data.name}", this);
         }
         else
         {
             session.Hero.AddPermanent(data);
-            if (logResult) Debug.Log($"[DoubleOrNothing] Copied: {data.name}");
+            Log.Info(LogArea.Shop, () => $"[DoubleOrNothing] Copied: {data.name}",this);
         }
 
         // Refresh deck UI

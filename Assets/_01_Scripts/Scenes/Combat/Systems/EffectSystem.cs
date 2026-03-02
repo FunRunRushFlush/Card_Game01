@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Logging;
 using UnityEngine;
 
 public class EffectSystem : MonoBehaviour
@@ -15,15 +16,19 @@ public class EffectSystem : MonoBehaviour
 
     private IEnumerator PerformEffectPerformer(PerformEffectsGA performEffectsGA)
     {
-        Debug.Log($"[EffectSystem] PerformEffectsGA: effect={performEffectsGA.Effect?.GetType().Name} targets={(performEffectsGA.Targets == null ? 0 : performEffectsGA.Targets.Count)} caster={(performEffectsGA.Caster != null ? performEffectsGA.Caster.name : "null")}");
+        Log.Debug(LogArea.Combat, () =>
+            $"PerformEffectsGA: effect={performEffectsGA.Effect?.GetType().Name} targets={(performEffectsGA.Targets == null ? 0 : performEffectsGA.Targets.Count)} caster={(performEffectsGA.Caster != null ? performEffectsGA.Caster.name : "null")}",
+            this);
 
         // Fallback keeps current behaviour if a caster was not provided.
         CombatantView caster = performEffectsGA.Caster ?? HeroSystem.Instance.HeroView;
 
         GameAction effectAction = performEffectsGA.Effect.GetGameAction(performEffectsGA.Targets, caster);
         ActionSystem.Instance.AddReaction(effectAction);
-        Debug.Log($"[EffectSystem] Produced action: {(effectAction == null ? "NULL" : effectAction.GetType().Name)}");
 
+        Log.Debug(LogArea.Combat, () =>
+            $"Produced action: {(effectAction == null ? "NULL" : effectAction.GetType().Name)}",
+            this);
 
         yield return null;
     }
