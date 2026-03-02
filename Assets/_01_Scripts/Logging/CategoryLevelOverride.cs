@@ -5,7 +5,7 @@ namespace Game.Logging
     [Serializable]
     public struct CategoryLevelOverride
     {
-        public LogCat category;
+        public LogArea category;
         public LogLevel level;
     }
 }

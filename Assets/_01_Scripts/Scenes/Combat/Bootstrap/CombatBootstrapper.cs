@@ -1,3 +1,4 @@
+using Game.Logging;
 using Game.Scenes.Core;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,11 @@ public class CombatBootstrapper : MonoBehaviour
     private void BuildIndex()
     {
         if (cardDatabase == null)
-            Debug.LogError("[CombatBootstrapper] CardDatabase reference is missing.");
+            Log.Error(LogArea.Combat, () => "[CombatBootstrapper] CardDatabase reference is missing.");
 
         if (contentIndex == null)
         {
-            Debug.LogError("[CombatBootstrapper] CombatContentIndex reference is missing.");
+            Log.Error(LogArea.Combat, () => "[CombatBootstrapper] CombatContentIndex reference is missing.");
             enemyById = new Dictionary<string, EnemyData>(StringComparer.Ordinal);
             encounterById = new Dictionary<string, EncounterDefinition>(StringComparer.Ordinal);
             return;
@@ -41,14 +42,14 @@ public class CombatBootstrapper : MonoBehaviour
 
             if (string.IsNullOrWhiteSpace(e.Id))
             {
-                Debug.LogError($"[CombatBootstrapper] EnemyData '{e.name}' has empty Id.");
+                Log.Error(LogArea.Combat, () => $"[CombatBootstrapper] EnemyData '{e.name}' has empty Id.");
                 continue;
             }
 
             if (!enemyById.ContainsKey(e.Id))
                 enemyById.Add(e.Id, e);
             else
-                Debug.LogWarning($"[CombatBootstrapper] Duplicate EnemyData Id '{e.Id}' on '{e.name}'.");
+                Log.Warn(LogArea.Combat, () => $"[CombatBootstrapper] Duplicate EnemyData Id '{e.Id}' on '{e.name}'.");
         }
 
         encounterById = new Dictionary<string, EncounterDefinition>(StringComparer.Ordinal);
@@ -58,14 +59,14 @@ public class CombatBootstrapper : MonoBehaviour
 
             if (string.IsNullOrWhiteSpace(enc.Id))
             {
-                Debug.LogError($"[CombatBootstrapper] EncounterDefinition '{enc.name}' has empty Id.");
+                Log.Error(LogArea.Combat, () => $"[CombatBootstrapper] EncounterDefinition '{enc.name}' has empty Id.");
                 continue;
             }
 
             if (!encounterById.ContainsKey(enc.Id))
                 encounterById.Add(enc.Id, enc);
             else
-                Debug.LogWarning($"[CombatBootstrapper] Duplicate EncounterDefinition Id '{enc.Id}' on '{enc.name}'.");
+                Log.Warn(LogArea.Combat, () => $"[CombatBootstrapper] Duplicate EncounterDefinition Id '{enc.Id}' on '{enc.name}'.");
         }
 
         heroById = new Dictionary<int, HeroData>();
@@ -75,35 +76,35 @@ public class CombatBootstrapper : MonoBehaviour
 
             var key = (int)h.HeroID;
             if (!heroById.TryAdd(key, h))
-                Debug.LogWarning($"[CombatBootstrapper] Duplicate HeroID '{h.HeroID}' on '{h.name}'.");
+                Log.Warn(LogArea.Combat, () => $"[CombatBootstrapper] Duplicate HeroID '{h.HeroID}' on '{h.name}'.");
         }
 
-        Debug.Log($"[CombatBootstrapper] Index built. Enemies={enemyById.Count}, Encounters={encounterById.Count}");
+        Log.Info(LogArea.Combat, () => $"[CombatBootstrapper] Index built. Enemies={enemyById.Count}, Encounters={encounterById.Count}");
     }
 
     public void StartCombat(CombatSetupSnapshot snapshot)
     {
         if (snapshot == null)
         {
-            Debug.LogError("[CombatBootstrapper] Snapshot is null.");
+            Log.Error(LogArea.Combat, () => "[CombatBootstrapper] Snapshot is null.");
             return;
         }
 
         if (contentIndex == null)
         {
-            Debug.LogError("[CombatBootstrapper] CombatContentIndex is not assigned.");
+            Log.Error(LogArea.Combat, () => "[CombatBootstrapper] CombatContentIndex is not assigned.");
             return;
         }
 
         if (cardDatabase == null)
         {
-            Debug.LogError("[CombatBootstrapper] CardDatabase is not assigned.");
+            Log.Error(LogArea.Combat, () => "[CombatBootstrapper] CardDatabase is not assigned.");
             return;
         }
 
         if (!heroById.TryGetValue(snapshot.heroId, out var heroData) || heroData == null)
         {
-            Debug.LogError($"[CombatBootstrapper] Missing HeroData for heroId={snapshot.heroId}. " +
+            Log.Error(LogArea.Combat, () => $"[CombatBootstrapper] Missing HeroData for heroId={snapshot.heroId}. " +
                            "Fix: Rebuild CombatContentIndex and ensure heroes list includes your HeroData assets.");
             return;
         }
@@ -124,7 +125,7 @@ public class CombatBootstrapper : MonoBehaviour
 
         if (missingEnemyIds.Count > 0)
         {
-            Debug.LogError(
+            Log.Error(LogArea.Combat, () => 
                 "[CombatBootstrapper] Missing EnemyData for id(s):\n- " +
                 string.Join("\n- ", missingEnemyIds) +
                 "\nFix: Rebuild CombatContentIndex (Tools -> Combat -> Build Content Index) and ensure IDs were assigned."
@@ -149,7 +150,7 @@ public class CombatBootstrapper : MonoBehaviour
 
         if (missingCardIds.Count > 0)
         {
-            Debug.LogError(
+            Log.Error(LogArea.Combat, () => 
                 "[CombatBootstrapper] Missing CardData for id(s):\n- " +
                 string.Join("\n- ", missingCardIds) +
                 "\nFix: Ensure CardDatabase contains these cards and their Ids match the snapshot."

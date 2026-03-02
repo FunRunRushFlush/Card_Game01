@@ -1,3 +1,4 @@
+using Game.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -64,7 +65,7 @@ public static class CardCsvExporter
         File.WriteAllLines(DefaultExportPath, rows, Encoding.UTF8);
         AssetDatabase.Refresh();
 
-        Debug.Log($"[CardCsvExporter] Exported {guids.Length} CardData assets to: {DefaultExportPath}");
+        Log.Info(LogArea.Editor, () => $"Exported {guids.Length} CardData assets to: {DefaultExportPath}");
     }
 
     private static string TryGetCardKey(CardData card)

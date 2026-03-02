@@ -45,7 +45,7 @@ public class CombatantView : MonoBehaviour
     {
         if (!this)
         {
-            Log.Warn(LogCat.General, () => "Object does not Exist anymore");
+            Log.Warn(LogArea.General, () => "Object does not Exist anymore");
             return;
         }
         if (damageAmount <= 0)

@@ -5,9 +5,9 @@ public class LogTest : MonoBehaviour
 {
     void Start()
     {
-        Log.Info(LogCat.General, () => "Hello Logging", this);
-        Log.Debug(LogCat.Net, () => "Net debug message", this);
-        Log.Warn(LogCat.Save, () => "Save warning", this);
+        Log.Info(LogArea.General, () => "Hello Logging", this);
+        Log.Debug(LogArea.Net, () => "Net debug message", this);
+        Log.Warn(LogArea.Save, () => "Save warning", this);
         //Log.Error(LogCat.AI, () => "AI error", this);
     }
 }

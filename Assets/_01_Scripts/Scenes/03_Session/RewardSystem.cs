@@ -105,7 +105,7 @@ public class RewardSystem : MonoBehaviour
     {
         if (cfg == null)
         {
-            Log.Error(LogCat.General, () => "[RewardSystem] Missing CardRewardRarityConfig reference.");
+            Log.Error(LogArea.General, () => "[RewardSystem] Missing CardRewardRarityConfig reference.");
             return false;
         }
 
@@ -113,13 +113,13 @@ public class RewardSystem : MonoBehaviour
 
         if (cfg.ChoiceCount <= 0)
         {
-            Log.Error(LogCat.General, () => $"[RewardSystem] ChoiceCount must be > 0 but was {cfg.ChoiceCount}.");
+            Log.Error(LogArea.General, () => $"[RewardSystem] ChoiceCount must be > 0 but was {cfg.ChoiceCount}.");
             ok = false;
         }
 
         if (cfg.BiomeBoost < 0f)
         {
-            Log.Error(LogCat.General, () => $"[RewardSystem] BiomeBoost must be >= 0 but was {cfg.BiomeBoost}.");
+            Log.Error(LogArea.General, () => $"[RewardSystem] BiomeBoost must be >= 0 but was {cfg.BiomeBoost}.");
             ok = false;
         }
 
@@ -134,7 +134,7 @@ public class RewardSystem : MonoBehaviour
     {
         if (entries == null || entries.Length == 0)
         {
-            Log.Error(LogCat.General, () => $"[RewardSystem] {name} weights are null/empty.");
+            Log.Error(LogArea.General, () => $"[RewardSystem] {name} weights are null/empty.");
             return false;
         }
 
@@ -145,13 +145,13 @@ public class RewardSystem : MonoBehaviour
 
             if (float.IsNaN(w) || float.IsInfinity(w))
             {
-                Log.Error(LogCat.General, () => $"[RewardSystem] {name} has invalid weight (NaN/Inf) at index {i}.");
+                Log.Error(LogArea.General, () => $"[RewardSystem] {name} has invalid weight (NaN/Inf) at index {i}.");
                 return false;
             }
 
             if (w < 0f)
             {
-                Log.Error(LogCat.General, () => $"[RewardSystem] {name} has negative weight {w} at index {i}.");
+                Log.Error(LogArea.General, () => $"[RewardSystem] {name} has negative weight {w} at index {i}.");
                 return false;
             }
 
@@ -160,7 +160,7 @@ public class RewardSystem : MonoBehaviour
 
         if (sum <= 0f)
         {
-            Log.Error(LogCat.General, () => $"[RewardSystem] {name} total weight must be > 0 but was {sum}.");
+            Log.Error(LogArea.General, () => $"[RewardSystem] {name} total weight must be > 0 but was {sum}.");
             return false;
         }
 
@@ -169,7 +169,7 @@ public class RewardSystem : MonoBehaviour
 
     private static void LogConfigSummary(CardRewardRarityConfig cfg)
     {
-        Log.Info(LogCat.General, () =>
+        Log.Info(LogArea.General, () =>
             $"[RewardSystem] CardRewardConfig OK | ChoiceCount={cfg.ChoiceCount}, BiomeBoost={cfg.BiomeBoost}, IncludeAdminAndStarter={cfg.IncludeAdminAndStarter}");
     }
 }

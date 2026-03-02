@@ -153,7 +153,12 @@ public class CardSystem : Singleton<CardSystem>
         Card card = drawPile.Draw();
         hand.Add(card);
 
-        CardView cardView = CardViewCreator.Instance.CreateCardView(card, drawPilePoint.position, drawPilePoint.rotation);
+        CardView cardView = CardViewCreator.Instance.CreateCardView(
+            card,
+            drawPilePoint.position,
+            drawPilePoint.rotation,
+            handView.HandCardContrainer.transform
+        );
         yield return handView.AddCard(cardView);
 
         if (hand.Count > MaxHandSize)
@@ -194,7 +199,9 @@ public class CardSystem : Singleton<CardSystem>
 
     private IEnumerator PlayCardPerformer(PlayCardGA playCardGA)
     {
-        Debug.Log($"[CardSystem] PlayCardPerformer: {playCardGA.Card?.Title} Mana={playCardGA.Card?.Mana} ManualTarget={(playCardGA.ManualTarget != null)} Caster={(playCardGA.Caster != null)}");
+        Log.Info(LogArea.Combat, () =>
+            $"PlayCardPerformer: {playCardGA.Card?.Title} Mana={playCardGA.Card?.Mana} ManualTarget={(playCardGA.ManualTarget != null)} Caster={(playCardGA.Caster != null)}", this);
+
 
         // Validate centrally so illegal plays can't slip through UI checks
         var canCommit = CardPlayabilitySystem.Instance.EvaluateCommit(playCardGA.Card, HeroSystem.Instance.HeroView, playCardGA.ManualTarget);
@@ -209,17 +216,19 @@ public class CardSystem : Singleton<CardSystem>
 
         SpendManaGA spendManaGA = new(playCardGA.Card.Mana);
         ActionSystem.Instance.AddReaction(spendManaGA);
-        Debug.Log("[CardSystem] Added SpendManaGA");
+
+        Log.Debug(LogArea.Combat, () => "Added SpendManaGA", this);
 
         if (playCardGA.Card.HasManualTargetEffects)
         {
-            Log.Debug(LogCat.Gameplay, () =>
+            Log.Debug(LogArea.Combat, () =>
                 $"[CardSystem] ManualTargetEffects={playCardGA.Card.ManualTargetEffects?.Count ?? 0}, " +
                 $"OtherEffects={(playCardGA.Card.OtherEffects?.Count ?? 0)}");
 
             if (playCardGA.ManualTarget == null)
             {
-                Debug.LogWarning("[CardSystem] Card has ManualTargetEffects but ManualTarget is null. Skipping.");
+                Log.Warn(LogArea.Combat, () =>
+                    "Card has ManualTargetEffects but ManualTarget is null. Skipping.", this);
             }
             else
             {

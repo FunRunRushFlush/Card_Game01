@@ -50,6 +50,13 @@ public class ActionSystem : Singleton<ActionSystem>
 
     public void Perform(GameAction action, Action onPerformFinished = null)
     {
+
+        if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
+        {
+            Debug.Log($"Game is Paused!");
+            return ;
+        }
+
         Trace($"Perform ROOT: {action.GetType().Name}");
 
         if (IsPerforming)

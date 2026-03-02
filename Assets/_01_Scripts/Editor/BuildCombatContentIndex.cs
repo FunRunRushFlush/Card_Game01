@@ -1,3 +1,4 @@
+using Game.Logging;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public static class BuildCombatContentIndex
         var idx = Selection.activeObject as CombatContentIndex;
         if (idx == null)
         {
-            Debug.LogError("[BuildCombatContentIndex] Please select a CombatContentIndex asset in the Project window.");
+            Log.Error(LogArea.Editor, () => "Please select a CombatContentIndex asset in the Project window.");
             return;
         }
 
@@ -44,6 +45,6 @@ public static class BuildCombatContentIndex
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log($"[BuildCombatContentIndex] Done. Enemies={idx.enemies.Count}, Encounters={idx.encounters.Count}");
+        Log.Info(LogArea.Editor, () => $"Done. Enemies={idx.enemies.Count}, Encounters={idx.encounters.Count}");
     }
 }

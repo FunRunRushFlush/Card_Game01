@@ -9,6 +9,8 @@ public enum CardPlayFailCode
     NoValidTargets,
     TargetRequired,
     InvalidTarget,
+    CombatEnded,
+    GamePaused,
 
     // Conditions
     EnemyCountTooLow,

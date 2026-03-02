@@ -1,3 +1,4 @@
+using Game.Logging;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public static class ListExtenisons
     {
         if (list.Count == 0)
         {
-            Debug.LogWarning($"[{nameof(ListExtenisons)}]Cannot draw from an empty list.");
+            Log.Warn(LogArea.General, () => $"[{nameof(ListExtenisons)}]Cannot draw from an empty list.");
             return default;
         }
         int lastIndex = list.Count - 1;

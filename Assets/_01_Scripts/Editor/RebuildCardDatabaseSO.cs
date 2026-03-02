@@ -1,3 +1,4 @@
+using Game.Logging;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -10,7 +11,7 @@ public static class RebuildCardDatabaseSO
         var db = Selection.activeObject as CardDatabaseSO;
         if (db == null)
         {
-            Debug.LogError("[RebuildCardDatabaseSO] Please select a CardDatabaseSO asset in the Project window.");
+            Log.Error(LogArea.Editor, () => "Please select a CardDatabaseSO asset in the Project window.");
             return;
         }
 
@@ -31,6 +32,6 @@ public static class RebuildCardDatabaseSO
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log($"[RebuildCardDatabaseSO] Done. Cards={cards.Count}");
+        Log.Info(LogArea.Editor, () => $"Done. Cards={cards.Count}");
     }
 }

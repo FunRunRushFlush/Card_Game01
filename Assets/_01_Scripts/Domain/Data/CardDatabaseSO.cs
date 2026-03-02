@@ -1,3 +1,4 @@
+using Game.Logging;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,15 +28,15 @@ public class CardDatabaseSO : ScriptableObject
 
             if (string.IsNullOrWhiteSpace(c.Id))
             {
-                Debug.LogError($"[CardDatabaseSO] CardData '{c.name}' has empty Id.", c);
+                Log.Error(LogArea.Domain, () => $"CardData '{c.name}' has empty Id.", c);
                 continue;
             }
 
             if (!byId.TryAdd(c.Id, c))
-                Debug.LogWarning($"[CardDatabaseSO] Duplicate Card Id '{c.Id}' on '{c.name}'.", c);
+                Log.Warn(LogArea.Domain, () => $"Duplicate Card Id '{c.Id}' on '{c.name}'.", c);
         }
 
-        // Debug.Log($"[CardDatabaseSO] Index built. Cards={byId.Count}");
+        Log.Info(LogArea.Domain, () => $"Index built. Cards={byId.Count}");
     }
 
     public CardData GetById(string id)

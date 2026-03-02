@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 
 /// <summary>
@@ -7,6 +8,9 @@ using System.Collections.Generic;
 /// </summary>
 public class CardPlayabilitySystem : Singleton<CardPlayabilitySystem>
 {
+
+
+
     public CardPlayabilityResult EvaluateStart(Card card, CombatantView caster)
     {
         var result = new CardPlayabilityResult();
@@ -16,6 +20,18 @@ public class CardPlayabilitySystem : Singleton<CardPlayabilitySystem>
             result.AddReason(CardPlayFailCode.NoCard, "No card");
             return result;
         }
+        if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
+        {
+            result.AddReason(CardPlayFailCode.SystemNotReady, "Game is paused");
+            return result;
+        }
+
+        if (EnemySystem.Instance != null && EnemySystem.Instance.AreAllEnemiesDefeated())
+        {
+            result.AddReason(CardPlayFailCode.CombatEnded, "Combat is already won");
+            return result;
+        }
+
 
         if (ManaSystem.Instance == null)
         {
@@ -43,6 +59,17 @@ public class CardPlayabilitySystem : Singleton<CardPlayabilitySystem>
         if (card == null)
         {
             result.AddReason(CardPlayFailCode.NoCard, "No card");
+            return result;
+        }
+        if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
+        {
+            result.AddReason(CardPlayFailCode.SystemNotReady, "Game is paused");
+            return result;
+        }
+
+        if (EnemySystem.Instance != null && EnemySystem.Instance.AreAllEnemiesDefeated())
+        {
+            result.AddReason(CardPlayFailCode.CombatEnded, "Combat is already won");
             return result;
         }
 

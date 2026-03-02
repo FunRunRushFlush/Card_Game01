@@ -27,7 +27,7 @@ public class MatchSetupSystem : MonoBehaviour
         var biomeDef = biomeDb.Get(run.CurrentBiome);
         if (biomeDef == null)
         {
-            Log.Error(LogCat.General, () => $"No BiomeDefinition found for biome {run.CurrentBiome}");
+            Log.Error(LogArea.General, () => $"No BiomeDefinition found for biome {run.CurrentBiome}");
             return;
         }
 
@@ -36,13 +36,13 @@ public class MatchSetupSystem : MonoBehaviour
         // Safety: Combat scene should not be entered for Shop/Event nodes
         if (nodeType == MapNodeType.Shop || nodeType == MapNodeType.Event)
         {
-            Log.Error(LogCat.General, () => $"Entered Combat scene on non-combat node: {nodeType} (Biome={run.CurrentBiome}, Node={run.NodeIndexInBiome})");
+            Log.Error(LogArea.General, () => $"Entered Combat scene on non-combat node: {nodeType} (Biome={run.CurrentBiome}, Node={run.NodeIndexInBiome})");
             return;
         }
 
         if (combatBootstrapper == null)
         {
-            Log.Error(LogCat.General, () => "CombatBootstrapper is missing on MatchSetupSystem. Assign it in the inspector.");
+            Log.Error(LogArea.General, () => "CombatBootstrapper is missing on MatchSetupSystem. Assign it in the inspector.");
             return;
         }
 
@@ -82,7 +82,7 @@ public class MatchSetupSystem : MonoBehaviour
                         break;
                     }
 
-                    Log.Error(LogCat.General, () => $"Biome '{run.CurrentBiome}' has no eliteEncounters and no nodeEncounters configured.");
+                    Log.Error(LogArea.General, () => $"Biome '{run.CurrentBiome}' has no eliteEncounters and no nodeEncounters configured.");
                     return;
                 }
 
@@ -97,7 +97,7 @@ public class MatchSetupSystem : MonoBehaviour
 
                     if (biomeDef.nodeEncounters == null || biomeDef.nodeEncounters.Length == 0)
                     {
-                        Log.Error(LogCat.General, () => $"Biome '{run.CurrentBiome}' has no nodeEncounters configured.");
+                        Log.Error(LogArea.General, () => $"Biome '{run.CurrentBiome}' has no nodeEncounters configured.");
                         return;
                     }
 

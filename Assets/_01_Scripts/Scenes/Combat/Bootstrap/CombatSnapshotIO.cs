@@ -15,7 +15,7 @@ public static class CombatSnapshotIO
         var json = JsonUtility.ToJson(snapshot, prettyPrint: true);
 
 
-        Log.Debug(LogCat.Save, () => $"[CombatSnapshot] Snapshot JSON:\n{json}");
+        Log.Debug(LogArea.Save, () => $"[CombatSnapshot] Snapshot JSON:\n{json}");
 
 
         // Last.json (immer überschreiben)
@@ -27,8 +27,8 @@ public static class CombatSnapshotIO
         var timestampPath = Path.Combine(FolderPath, $"{safeTimestamp}.json");
         File.WriteAllText(timestampPath, json);
 
-        Log.Info(LogCat.Save, () => $"[CombatSnapshot] Saved: {lastPath}");
-        Log.Info(LogCat.Save, () => $"[CombatSnapshot] Saved: {timestampPath}");
+        Log.Info(LogArea.Save, () => $"[CombatSnapshot] Saved: {lastPath}");
+        Log.Info(LogArea.Save, () => $"[CombatSnapshot] Saved: {timestampPath}");
 
         return (lastPath, timestampPath);
     }

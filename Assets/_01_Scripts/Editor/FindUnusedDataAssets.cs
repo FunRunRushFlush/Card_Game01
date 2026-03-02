@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using Game.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -57,7 +58,7 @@ public static class FindUnusedDataAssets
                 unused.Add(so);
         }
 
-        Debug.Log($"[Unused SOs in {RootFolder}] {unused.Count}\n" + string.Join("\n", unused));
+        Log.Info(LogArea.Editor, () => $"[Unused SOs in {RootFolder}] {unused.Count}\n" + string.Join("\n", unused));
         Selection.objects = unused.Select(p => AssetDatabase.LoadMainAssetAtPath(p)).Where(o => o != null).ToArray();
     }
 }

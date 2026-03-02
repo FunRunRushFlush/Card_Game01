@@ -18,7 +18,7 @@ public class CombatManager : MonoBehaviour
 
     private void OnAllEnemiesDefeated()
     {
-        Log.Debug(LogCat.General, () => "AllEnemiesDefeated!");
+        Log.Debug(LogArea.General, () => "AllEnemiesDefeated!");
         if (chest != null) 
             chest.SetActive(true);
     }

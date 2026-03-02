@@ -38,7 +38,7 @@ public class DamageSystem : Singleton<DamageSystem>
         {
             if(!target)
             {
-                Log.Warn(LogCat.General, () => "target Object does not Exist anymore");
+                Log.Warn(LogArea.General, () => "target Object does not Exist anymore");
                 continue;
             }
             target.Damage(modifiedAmount);
@@ -51,7 +51,7 @@ public class DamageSystem : Singleton<DamageSystem>
 
             if (!target)
             {
-                Log.Warn(LogCat.General, () => "target Object does not Exist anymore");
+                Log.Warn(LogArea.General, () => "target Object does not Exist anymore");
                 continue;
             }
 

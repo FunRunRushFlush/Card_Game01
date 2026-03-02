@@ -1,3 +1,4 @@
+using Game.Logging;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -32,20 +33,20 @@ public static class ValidateStableIds
             if (string.IsNullOrWhiteSpace(id))
             {
                 missing++;
-                Debug.LogWarning($"[ValidateStableIds] Missing ID: {typeName} at {path}", obj);
+                Log.Warn(LogArea.Editor, () => $"Missing ID: {typeName} at {path}", obj);
                 continue;
             }
 
             if (seen.TryGetValue(id, out var otherPath))
             {
                 duplicates++;
-                Debug.LogError($"[ValidateStableIds] Duplicate ID '{id}'\n- {otherPath}\n- {path}", obj);
+                Log.Error(LogArea.Editor, () => $"Duplicate ID '{id}'\n- {otherPath}\n- {path}", obj);
                 continue;
             }
 
             seen[id] = path;
         }
 
-        Debug.Log($"[ValidateStableIds] {typeName}: checked={guids.Length}, missing={missing}, duplicates={duplicates}");
+        Log.Info(LogArea.Editor, () => $"{typeName}: checked={guids.Length}, missing={missing}, duplicates={duplicates}");
     }
 }

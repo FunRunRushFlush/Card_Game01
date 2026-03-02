@@ -1,3 +1,4 @@
+using Game.Logging;
 using Game.Scenes.Core;
 using System;
 using UnityEngine;
@@ -79,7 +80,7 @@ public class RunState : MonoBehaviour
     {
         if (!HasValidMap)
         {
-            Debug.LogError("[RunState] Missing/invalid RunMapDefinition. Please assign one in the inspector.");
+            Log.Error(LogArea.Combat, () => "[RunState] Missing/invalid RunMapDefinition. Please assign one in the inspector.");
             // trotzdem initialisieren, damit nix crasht
         }
 

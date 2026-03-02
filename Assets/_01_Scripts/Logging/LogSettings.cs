@@ -20,7 +20,7 @@ namespace Game.Logging
         public int maxFileBytes = 2_000_000;
         public int maxFileCount = 5;
 
-        public LogLevel GetLevel(LogCat cat)
+        public LogLevel GetLevel(LogArea cat)
         {
             if (overrides != null)
             {

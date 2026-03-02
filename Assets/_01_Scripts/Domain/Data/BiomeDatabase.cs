@@ -14,7 +14,7 @@ public class BiomeDatabase : ScriptableObject
         var def = biomes.Find(b => b.Biome == type);
         if (def == null)
         {
-            Log.Error(LogCat.General, () => $"BiomeDefinition missing for {type}");
+            Log.Error(LogArea.General, () => $"BiomeDefinition missing for {type}");
         }
         return def;
     }

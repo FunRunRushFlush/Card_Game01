@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game.Logging;
 using UnityEngine;
 
 public class CardViewCreator : Singleton<CardViewCreator>
@@ -10,10 +11,13 @@ public class CardViewCreator : Singleton<CardViewCreator>
     [SerializeField] private CardViewUI cardViewUiPrefab;
 
     public CardView CreateCardView(Card card, Vector3 position, Quaternion rotation)
+    => CreateCardView(card, position, rotation, null);
+    public CardView CreateCardView(Card card, Vector3 position, Quaternion rotation, Transform parent)
     {
-        CardView cardView = Instantiate(cardViewPrefab, position, rotation);
+        CardView cardView = Instantiate(cardViewPrefab, position, rotation, parent);
         cardView.Setup(card);
-        Debug.Log($"CreateCardView activeScene={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name} " +
+
+        Log.Debug(LogArea.Combat, () => $"CreateCardView activeScene={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name} " +
              $"spawnedScene={cardView.gameObject.scene.name}");
 
         return cardView;

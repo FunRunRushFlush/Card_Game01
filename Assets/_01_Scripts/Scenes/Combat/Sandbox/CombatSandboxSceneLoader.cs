@@ -1,3 +1,4 @@
+using Game.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ public class CombatSandboxSceneLoader : MonoBehaviour
         if (last != null) snapshotPaths.Add(last);
 
         selectedIndex = Mathf.Clamp(selectedIndex, 0, Mathf.Max(0, snapshotPaths.Count - 1));
-        Debug.Log($"[CombatSandbox] Found {snapshotPaths.Count} snapshot(s) in: {FolderPath}");
+        Log.Info(LogArea.Sandbox, () => $"Found {snapshotPaths.Count} snapshot(s) in: {FolderPath}", this);
     }
 
     public void LoadLastAndStart()
@@ -67,7 +68,8 @@ public class CombatSandboxSceneLoader : MonoBehaviour
 
         if (!File.Exists(LastPath))
         {
-            Debug.LogError($"[CombatSandbox] Last.json not found: {LastPath}\nStart a normal combat once to generate it.");
+            Log.Error(LogArea.Sandbox, () =>
+                $"Last.json not found: {LastPath}\nStart a normal combat once to generate it.", this);
             return;
         }
 
@@ -80,14 +82,14 @@ public class CombatSandboxSceneLoader : MonoBehaviour
 
         if (snapshotPaths.Count == 0)
         {
-            Debug.LogError("[CombatSandbox] No snapshots found. Press Refresh first.");
+            Log.Error(LogArea.Sandbox, () => "No snapshots found. Press Refresh first.", this);
             return;
         }
 
         var path = snapshotPaths[Mathf.Clamp(selectedIndex, 0, snapshotPaths.Count - 1)];
         if (!File.Exists(path))
         {
-            Debug.LogError($"[CombatSandbox] Snapshot missing: {path}");
+            Log.Error(LogArea.Sandbox, () => $"Snapshot missing: {path}", this);
             return;
         }
 
@@ -104,7 +106,7 @@ public class CombatSandboxSceneLoader : MonoBehaviour
     public void CopySnapshotsFolderPath()
     {
         GUIUtility.systemCopyBuffer = FolderPath;
-        Debug.Log($"[CombatSandbox] Copied snapshots folder path to clipboard:\n{FolderPath}");
+        Log.Info(LogArea.Sandbox, () => $"Copied snapshots folder path to clipboard:\n{FolderPath}", this);
     }
 
     private IEnumerator LoadCombatSceneAndStart(string snapshotPath)
@@ -120,51 +122,56 @@ public class CombatSandboxSceneLoader : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"[CombatSandbox] Failed to load snapshot '{snapshotPath}'. Exception:\n{e}");
+            Log.Error(LogArea.Sandbox, () =>
+                $"Failed to load snapshot '{snapshotPath}'. Exception:\n{e}", this);
             yield break;
         }
 
         if (snapshot == null)
         {
-            Debug.LogError($"[CombatSandbox] Snapshot loaded as null: {snapshotPath}");
+            Log.Error(LogArea.Sandbox, () => $"Snapshot loaded as null: {snapshotPath}", this);
             yield break;
         }
 
         // Load real Combat scene additively if not loaded yet
         if (!IsSceneLoaded(combatSceneName))
         {
-            Debug.Log($"[CombatSandbox] Loading scene '{combatSceneName}' additively...");
+            Log.Info(LogArea.Sandbox, () => $"Loading scene '{combatSceneName}' additively...", this);
             var op = SceneManager.LoadSceneAsync(combatSceneName, LoadSceneMode.Additive);
             if (op == null)
             {
-                Debug.LogError($"[CombatSandbox] LoadSceneAsync returned null for '{combatSceneName}'. Is it in Build Settings?");
+                Log.Error(LogArea.Sandbox, () =>
+                    $"LoadSceneAsync returned null for '{combatSceneName}'. Is it in Build Settings?", this);
                 yield break;
             }
 
             while (!op.isDone)
                 yield return null;
 
-            Debug.Log($"[CombatSandbox] Scene '{combatSceneName}' loaded.");
+            Log.Info(LogArea.Sandbox, () => $"Scene '{combatSceneName}' loaded.", this);
         }
 
         // Find bootstrapper
         var bootstrapper = FindFirstObjectByType<CombatBootstrapper>();
         if (bootstrapper == null)
         {
-            Debug.LogError("[CombatSandbox] Could not find CombatBootstrapper in loaded Combat scene.");
+            Log.Error(LogArea.Sandbox, () =>
+                "Could not find CombatBootstrapper in loaded Combat scene.", this);
             yield break;
         }
 
         // Optional dependency check (nice error instead of NRE)
         if (CardViewCreator.Instance == null)
         {
-            Debug.LogError("[CombatSandbox] CardViewCreator.Instance is null. Ensure it exists in the Combat scene.");
+            Log.Error(LogArea.Sandbox, () =>
+                "CardViewCreator.Instance is null. Ensure it exists in the Combat scene.", this);
             yield break;
         }
 
-        Debug.Log($"[CombatSandbox] Starting from '{Path.GetFileName(snapshotPath)}' (seed={snapshot.seed}, encounter={snapshot.encounterId})");
-        started = true;
+        Log.Info(LogArea.Sandbox, () =>
+            $"Starting from '{Path.GetFileName(snapshotPath)}' (seed={snapshot.seed}, encounter={snapshot.encounterId})", this);
 
+        started = true;
         bootstrapper.StartCombat(snapshot);
     }
 
@@ -172,7 +179,8 @@ public class CombatSandboxSceneLoader : MonoBehaviour
     {
         if (started)
         {
-            Debug.LogWarning("[CombatSandbox] Combat already started. Reload Sandbox to start again.");
+            Log.Warn(LogArea.Sandbox, () =>
+                "Combat already started. Reload Sandbox to start again.", this);
             return false;
         }
         return true;

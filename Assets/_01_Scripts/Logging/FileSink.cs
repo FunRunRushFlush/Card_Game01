@@ -33,7 +33,7 @@ namespace Game.Logging
             OpenOrCreate();
         }
 
-        public void Write(LogLevel lvl, LogCat cat, string msg, UnityEngine.Object ctx)
+        public void Write(LogLevel lvl, LogArea cat, string msg, UnityEngine.Object ctx)
         {
             if (msg == null) msg = "<null>";
 

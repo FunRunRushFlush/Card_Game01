@@ -23,7 +23,7 @@ public static class MouseUtil
         var cam = MainCam;
         if (cam == null)
         {
-            Log.Warn(LogCat.General, () => "MouseUtil: No Camera.main found (tag MainCamera missing?)");
+            Log.Warn(LogArea.General, () => "MouseUtil: No Camera.main found (tag MainCamera missing?)");
             return Vector3.zero;
         }
 
@@ -33,7 +33,7 @@ public static class MouseUtil
         if (plane.Raycast(ray, out float distance))
             return ray.GetPoint(distance);
 
-        Log.Error(LogCat.General, () => "MouseUtil: Could not raycast to plane.");
+        Log.Error(LogArea.General, () => "MouseUtil: Could not raycast to plane.");
         return Vector3.zero;
     }
 }

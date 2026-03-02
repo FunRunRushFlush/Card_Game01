@@ -18,40 +18,44 @@ namespace Game.Logging
             ApplyStackTracePolicy(_settings);
         }
 
-        public static bool IsEnabled(LogCat cat, LogLevel lvl)
+        public static bool IsEnabled(LogArea cat, LogLevel lvl)
             => _settings != null && lvl >= _settings.GetLevel(cat);
 
-        public static void Info(LogCat cat, Func<string> msg, UnityEngine.Object ctx = null)
+        public static void Info(LogArea cat, Func<string> msg, UnityEngine.Object ctx = null)
             => Write(LogLevel.Info, cat, msg, ctx);
 
-        public static void Warn(LogCat cat, Func<string> msg, UnityEngine.Object ctx = null)
+        public static void Warn(LogArea cat, Func<string> msg, UnityEngine.Object ctx = null)
             => Write(LogLevel.Warning, cat, msg, ctx);
 
-        public static void Error(LogCat cat, Func<string> msg, UnityEngine.Object ctx = null)
+        public static void Error(LogArea cat, Func<string> msg, UnityEngine.Object ctx = null)
             => Write(LogLevel.Error, cat, msg, ctx);
 
         // Debug/Trace optional compile-time:
         [Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD"), Conditional("LOG_DEBUG")]
-        public static void Debug(LogCat cat, Func<string> msg, UnityEngine.Object ctx = null)
+        public static void Debug(LogArea cat, Func<string> msg, UnityEngine.Object ctx = null)
             => Write(LogLevel.Debug, cat, msg, ctx);
 
         [Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD"), Conditional("LOG_DEBUG")]
-        public static void Trace(LogCat cat, Func<string> msg, UnityEngine.Object ctx = null)
+        public static void Trace(LogArea cat, Func<string> msg, UnityEngine.Object ctx = null)
             => Write(LogLevel.Trace, cat, msg, ctx);
 
-        private static void Write(LogLevel lvl, LogCat cat, Func<string> msg, UnityEngine.Object ctx)
+        private static void Write(LogLevel lvl, LogArea cat, Func<string> msg, UnityEngine.Object ctx)
         {
             // Falls jemand vor Init loggt, nicht crashen:
             if (_settings == null || _sinks == null || _sinks.Length == 0)
             {
                 // minimal fallback (ohne fancy format):
-                if (lvl >= LogLevel.Error) UnityEngine.Debug.LogError(msg?.Invoke(), ctx);
-                else if (lvl >= LogLevel.Warning) UnityEngine.Debug.LogWarning(msg?.Invoke(), ctx);
-                else UnityEngine.Debug.Log(msg?.Invoke(), ctx);
+                if (lvl >= LogLevel.Error) 
+                    UnityEngine.Debug.LogError(msg?.Invoke(), ctx);
+                else if (lvl >= LogLevel.Warning) 
+                    UnityEngine.Debug.LogWarning(msg?.Invoke(), ctx);
+                else 
+                    UnityEngine.Debug.Log(msg?.Invoke(), ctx);
                 return;
             }
 
-            if (!IsEnabled(cat, lvl)) return;
+            if (!IsEnabled(cat, lvl)) 
+                return;
 
             // Lazy eval -> keine String Allocations wenn disabled
             var text = msg?.Invoke() ?? "<null>";

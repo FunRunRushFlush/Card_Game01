@@ -4,9 +4,15 @@ namespace Game.Logging
 {
     public sealed class UnityConsoleSink : ILogSink
     {
-        public void Write(LogLevel lvl, LogCat cat, string msg, Object ctx)
+        public void Write(LogLevel lvl, LogArea cat, string msg, Object ctx)
         {
-            var line = $"[{cat}] {msg}";
+            string ctxPart = "";
+            if (ctx != null)
+            {
+                ctxPart = $"[{ctx.GetType().Name}:{ctx.name}] ";
+            }
+
+            var line = $"[{cat}] {ctxPart}{msg}";
 
             if (lvl >= LogLevel.Error)
             {

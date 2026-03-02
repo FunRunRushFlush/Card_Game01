@@ -40,7 +40,7 @@ namespace Game.Scenes.Core
         {
             if (isBusy)
             {
-                Log.Warn(LogCat.General, () => "Scene change already in progress!", this);
+                Log.Warn(LogArea.Core, () => "Scene change already in progress!", this);
                 return null;
             }
             isBusy = true;
@@ -49,7 +49,7 @@ namespace Game.Scenes.Core
 
         private IEnumerator ChangeSceneRoutine(SceneTransitionPlan plan)
         {
-            Log.Info(LogCat.General, () => $"{nameof(ChangeSceneRoutine)}: {plan.ActiveSceneName}", this);
+            Log.Info(LogArea.Core, () => $"{nameof(ChangeSceneRoutine)}: {plan.ActiveSceneName}", this);
             if (plan.Overlay)
             {
                 yield return loadingOverlay.FadeInBlack();

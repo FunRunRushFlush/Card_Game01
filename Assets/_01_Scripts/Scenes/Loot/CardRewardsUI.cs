@@ -33,17 +33,17 @@ public class CardRewardsUI : MonoBehaviour
     {
         if (CardViewCreator.Instance == null)
         {
-            Log.Error(LogCat.UI, () => "CardViewCreator.Instance is null.", this);
+            Log.Error(LogArea.UI, () => "CardViewCreator.Instance is null.", this);
             return;
         }
         if (rewardsContainer == null)
         {
-            Log.Error(LogCat.UI, () => "rewardsContainer is null.", this);
+            Log.Error(LogArea.UI, () => "rewardsContainer is null.", this);
             return;
         }
         if (selectionGroup == null)
         {
-            Log.Error(LogCat.UI, () => "selectionGroup is null. Assign MultiSelectionGroup.", this);
+            Log.Error(LogArea.UI, () => "selectionGroup is null. Assign MultiSelectionGroup.", this);
             return;
         }
 
@@ -53,7 +53,7 @@ public class CardRewardsUI : MonoBehaviour
 
         if (cards == null || cards.Count == 0)
         {
-            Log.Warn(LogCat.UI, () => "No cards provided for rewards UI.", this);
+            Log.Warn(LogArea.UI, () => "No cards provided for rewards UI.", this);
             return;
         }
 

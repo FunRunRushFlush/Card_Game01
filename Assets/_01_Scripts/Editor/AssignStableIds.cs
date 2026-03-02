@@ -1,3 +1,4 @@
+using Game.Logging;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -16,7 +17,8 @@ public static class AssignStableIds
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log($"[AssignStableIds] Done. Updated assets: {changed}");
+
+        Log.Info(LogArea.Editor, () => $"Done. Updated assets: {changed}");
     }
 
     private static int AssignForType(string typeName)
@@ -38,7 +40,7 @@ public static class AssignStableIds
             var idProp = so.FindProperty("id") ?? so.FindProperty("<Id>k__BackingField");
             if (idProp == null || idProp.propertyType != SerializedPropertyType.String)
             {
-                Debug.LogWarning($"[AssignStableIds] Could not find id field on {typeName}: {path}");
+                Log.Warn(LogArea.Editor, () => $"Could not find id field on {typeName}: {path}");
                 continue;
             }
 
@@ -51,7 +53,7 @@ public static class AssignStableIds
             changed++;
         }
 
-        Debug.Log($"[AssignStableIds] {typeName}: set IDs on {changed} assets.");
+        Log.Info(LogArea.Editor, () => $"{typeName}: set IDs on {changed} assets.");
         return changed;
     }
 }

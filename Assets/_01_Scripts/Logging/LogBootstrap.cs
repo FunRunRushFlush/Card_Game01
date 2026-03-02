@@ -25,7 +25,7 @@ namespace Game.Logging
 
             Log.Initialize(settings, sinks.ToArray());
 
-            Log.Info(LogCat.General, () => $"Logging initialized. GlobalLevel={settings.globalLevel}", null);
+            Log.Info(LogArea.General, () => $"Logging initialized. GlobalLevel={settings.globalLevel}", null);
         }
     }
 }

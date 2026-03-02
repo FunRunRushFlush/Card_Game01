@@ -8,6 +8,8 @@ using UnityEngine.Splines;
 public class HandView : MonoBehaviour
 {
     [SerializeField] private SplineContainer splineContainer;
+    [SerializeField] public GameObject HandCardContrainer;
+
 
     [Header("Layout")]
     [SerializeField] private float cardSpacingFactor = 1.0f;
@@ -173,6 +175,15 @@ public class HandView : MonoBehaviour
                 layoutSeq.Join(cv.transform.DOMove(worldPos, duration));
                 layoutSeq.Join(cv.transform.DORotate(rot.eulerAngles, duration));
             }
+        }
+    }
+    public void CancelAllDragging()
+    {
+        if (dragging != null)
+        {
+            // Karte zurücksnappen / Layout neu bauen
+            CancelDrag(dragging);
+            dragging = null;
         }
     }
 

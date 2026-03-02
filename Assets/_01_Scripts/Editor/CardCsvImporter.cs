@@ -1,3 +1,4 @@
+using Game.Logging;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,14 +16,14 @@ public static class CardCsvImporter
     {
         if (!File.Exists(CsvPath))
         {
-            Debug.LogError($"[CardCsvImporter] CSV not found: {CsvPath}");
+            Log.Error(LogArea.Editor, () => $"CSV not found: {CsvPath}");
             return;
         }
 
         var lines = File.ReadAllLines(CsvPath, Encoding.UTF8);
         if (lines.Length <= 1)
         {
-            Debug.LogError("[CardCsvImporter] CSV has no data rows.");
+            Log.Error(LogArea.Editor, () => "CSV has no data rows.");
             return;
         }
 
@@ -53,14 +54,14 @@ public static class CardCsvImporter
             string cardKey = Get(row, col, "CardKey")?.Trim();
             if (string.IsNullOrWhiteSpace(cardKey))
             {
-                Debug.LogWarning($"[CardCsvImporter] Row {i + 1}: missing CardKey.");
+                Log.Warn(LogArea.Editor, () => $"Row {i + 1}: missing CardKey.");
                 errors++;
                 continue;
             }
 
             if (!existing.TryGetValue(cardKey, out var card) || card == null)
             {
-                Debug.LogWarning($"[CardCsvImporter] Card '{cardKey}' not found as CardData asset. Skipping row {i + 1}.");
+                Log.Warn(LogArea.Editor, () => $"Card '{cardKey}' not found as CardData asset. Skipping row {i + 1}.");
                 skippedMissing++;
                 continue;
             }
@@ -72,14 +73,14 @@ public static class CardCsvImporter
 
             if (!int.TryParse(manaStr, NumberStyles.Integer, CultureInfo.InvariantCulture, out int mana))
             {
-                Debug.LogWarning($"[CardCsvImporter] Row {i + 1} ({cardKey}): invalid Mana '{manaStr}'.");
+                Log.Warn(LogArea.Editor, () => $"Row {i + 1} ({cardKey}): invalid Mana '{manaStr}'.");
                 errors++;
                 continue;
             }
 
             if (!Enum.TryParse(rarityStr, ignoreCase: true, out CardRarity rarity))
             {
-                Debug.LogWarning($"[CardCsvImporter] Row {i + 1} ({cardKey}): invalid Rarity '{rarityStr}'.");
+                Log.Warn(LogArea.Editor, () => $"Row {i + 1} ({cardKey}): invalid Rarity '{rarityStr}'.");
                 errors++;
                 continue;
             }
@@ -112,7 +113,7 @@ public static class CardCsvImporter
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
-        Debug.Log($"[CardCsvImporter] Done. Updated={updated}, SkippedMissing={skippedMissing}, Errors={errors}");
+        Log.Info(LogArea.Editor, () => $"Done. Updated={updated}, SkippedMissing={skippedMissing}, Errors={errors}");
     }
 
     private static Dictionary<string, CardData> LoadAllCardsByKeyOrName()
