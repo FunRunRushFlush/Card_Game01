@@ -17,7 +17,7 @@ public class DeckViewUI : MonoBehaviour
         var session = CoreManager.Instance?.Session;
         if (session == null || session.Hero == null)
         {
-            Log.Error(LogArea.UI, () => "Session or Hero is null. Cannot build deck UI.", this);
+            Log.Error(LogArea.Combat, () => "Session or Hero is null. Cannot build deck UI.", this);
             return;
         }
 
@@ -31,17 +31,17 @@ public class DeckViewUI : MonoBehaviour
     {
         if (CardViewCreator.Instance == null)
         {
-            Log.Error(LogArea.UI, () => "CardViewCreator.Instance is null.", this);
+            Log.Error(LogArea.Combat, () => "CardViewCreator.Instance is null.", this);
             return;
         }
         if (deckContainer == null)
         {
-            Log.Error(LogArea.UI, () => "deckContainer is null. Assign the ScrollView Content transform.", this);
+            Log.Error(LogArea.Combat, () => "deckContainer is null. Assign the ScrollView Content transform.", this);
             return;
         }
         if (selectionGroup == null)
         {
-            Log.Error(LogArea.UI, () => "selectionGroup is null. Assign MultiSelectionGroup.", this);
+            Log.Error(LogArea.Combat, () => "selectionGroup is null. Assign MultiSelectionGroup.", this);
             return;
         }
 
@@ -49,7 +49,7 @@ public class DeckViewUI : MonoBehaviour
 
         if (deck == null || deck.Count == 0)
         {
-            Log.Warn(LogArea.UI, () => "Deck is empty. No cards to display.", this);
+            Log.Warn(LogArea.Combat, () => "Deck is empty. No cards to display.", this);
             return;
         }
 

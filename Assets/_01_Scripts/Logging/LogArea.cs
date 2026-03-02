@@ -8,7 +8,8 @@ namespace Game.Logging
         Shop,
         Sandbox,
         Domain,   
-        Editor, 
+        Editor,
+        UI,
         General   // fallback 
     }
 }
