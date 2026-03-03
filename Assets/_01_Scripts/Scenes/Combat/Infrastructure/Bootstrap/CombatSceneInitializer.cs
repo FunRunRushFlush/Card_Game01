@@ -3,13 +3,13 @@ using Game.Logging;
 using Game.Scenes.Core;
 using UnityEngine;
 
-public class MatchSetupSystem : MonoBehaviour
+public class CombatSceneInitializer : MonoBehaviour
 {
     [SerializeField] private BiomeDatabase biomeDb;
     [SerializeField] private PerkData perkData;
 
     [Header("Bootstrap")]
-    [SerializeField] private CombatBootstrapper combatBootstrapper;
+    [SerializeField] private CombatSessionBootstrapper combatBootstrapper;
 
     void Start()
     {

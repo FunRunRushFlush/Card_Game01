@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class DrawCardsEffect : Effect
 {
-    [SerializeField] private int drawAmount;
-    public override GameAction GetGameAction(List<CombatantView> targets, CombatantView caster)
-    {
-        DrawCardsGA drawCardsGA = new DrawCardsGA(drawAmount);
-        return drawCardsGA;
-    }
+    [SerializeField] private int amount = 1;
+
+    public override GameAction GetGameAction(IReadOnlyList<CombatantId> targets, CombatantId? caster)
+        => new DrawCardsGA(amount);
 }

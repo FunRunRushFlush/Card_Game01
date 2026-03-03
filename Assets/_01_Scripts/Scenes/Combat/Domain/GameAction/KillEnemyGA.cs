@@ -1,9 +1,9 @@
 public class KillEnemyGA : GameAction
 {
-    public EnemyView EnemyView { get; private set; }
+    public CombatantId EnemyId { get; }
 
-    public KillEnemyGA(EnemyView enemyView)
+    public KillEnemyGA(CombatantId enemyId)
     {
-        EnemyView = enemyView;
+        EnemyId = enemyId;
     }
 }

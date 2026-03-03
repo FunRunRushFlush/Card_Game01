@@ -11,7 +11,7 @@ public class EnemyBlockSelfMoveSO : EnemyMoveSO
     {
         return new List<GameAction>
         {
-            new AddBlockGA(enemy.BlockValue, new List<CombatantView> { enemy }, enemy)
+            new AddBlockGA(enemy.BlockValue, new List<CombatantId> { enemy.Id }, enemy.Id)
         };
     }
 }

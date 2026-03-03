@@ -1,79 +1,72 @@
-using Game.Logging;
-using Game.Scenes.Core;
 using System.Collections;
 using UnityEngine;
 
 public class DamageSystem : Singleton<DamageSystem>
 {
     [SerializeField] private GameObject damageVFX;
+    [SerializeField] private CombatantViewRegistry viewRegistry;
+
 
 
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<DealDamageGA>(DealDamagePerformer);
-
     }
-
 
     private void OnDisable()
     {
         ActionSystem.DetachPerformer<DealDamageGA>();
     }
 
-    private IEnumerator DealDamagePerformer(DealDamageGA dealDamageGA)
+    private IEnumerator DealDamagePerformer(DealDamageGA ga)
     {
-        int baseAmount = dealDamageGA.Amount;
 
-        int str = dealDamageGA.Caster != null
-            ? dealDamageGA.Caster.GetStatusEffectStacks(StatusEffectType.STRENGTH)
-            : 0;
+        var state = CombatContextService.Instance.State;
+        if (state == null)
+        {
+            Debug.LogError("DamageSystem: CombatStateSystem.State is NULL. Did you forget to initialize it in CombatBootstrapper?");
+            yield break;
+        }
 
-        int weak = dealDamageGA.Caster != null
-            ? dealDamageGA.Caster.GetStatusEffectStacks(StatusEffectType.WEAKNESS)
-            : 0;
+        if (ga.Targets == null || ga.Targets.Count == 0)
+            yield break;
+
+        int baseAmount = ga.Amount;
+
+        int str = 0;
+        int weak = 0;
+
+        if (ga.Caster.HasValue && state.TryGet(ga.Caster.Value, out var casterState))
+        {
+            str = casterState.GetStatus(StatusEffectType.STRENGTH);
+            weak = casterState.GetStatus(StatusEffectType.WEAKNESS);
+        }
 
         int modifiedAmount = DamageCalculator.Calculate(baseAmount, str, weak);
 
-        foreach (var target in dealDamageGA.Targets)
+        foreach (var targetId in ga.Targets)
         {
-            if(!target)
-            {
-                Log.Warn(LogArea.General, () => "target Object does not Exist anymore");
+            if (!state.TryGet(targetId, out var targetState))
                 continue;
+
+            // 1) Domain: Schaden anwenden
+            targetState.TakeDamage(modifiedAmount);
+
+            // 2) Presentation: Feedback + VFX + UI rendern
+            if (viewRegistry != null && viewRegistry.TryGet(targetId, out var view) && view != null)
+            {
+                view.PlayHitFeedback();
+
+                if (damageVFX)
+                    Instantiate(damageVFX, view.transform.position, Quaternion.identity);
+
+                view.Render(targetState);
             }
-            target.Damage(modifiedAmount);
-
-            if (damageVFX && target)
-                Instantiate(damageVFX, target.transform.position, Quaternion.identity);
-
 
             yield return new WaitForSeconds(0.15f);
 
-            if (!target)
-            {
-                Log.Warn(LogArea.General, () => "target Object does not Exist anymore");
-                continue;
-            }
-
-
-            ActionSystem.Instance.AddReaction(new ResolveDeathGA(target));
-            //if (target.CurrentHealth <= 0)
-            //{
-            //    if (target is EnemyView enemyView)
-            //    {
-            //        KillEnemyGA killEnemyGA = new(enemyView);
-            //        ActionSystem.Instance.AddReaction(killEnemyGA);
-            //    }
-            //    else if (target is HeroView heroView)
-            //    {
-            //        GameFlowController.Current.CombatLost();
-            //    }
-            //    else
-            //    {
-            //        throw new System.Exception("Should this even happen? (TODO)");
-            //    }
-            //}
+            // 3) Death-Reaction jetzt idealerweise ebenfalls über ID:
+            ActionSystem.Instance.AddReaction(new ResolveDeathGA(targetId));
         }
     }
-
 }

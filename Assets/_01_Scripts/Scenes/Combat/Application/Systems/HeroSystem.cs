@@ -7,6 +7,8 @@ public class HeroSystem : Singleton<HeroSystem>
 {
     [field: SerializeField] public HeroView HeroView { get; private set; }
 
+    [SerializeField] private CombatantViewRegistry viewRegistry;
+
     private IDisposable enemyTurnPreSub;
     private IDisposable enemyTurnPostSub;
 
@@ -25,8 +27,11 @@ public class HeroSystem : Singleton<HeroSystem>
         enemyTurnPostSub = null;
     }
 
-    public void Setup(HeroData heroData)
+    public void Setup(CombatantId id, HeroData heroData)
     {
+        HeroView.AssignId(id);
+        viewRegistry?.Register(HeroView);
+
         HeroView.Setup(heroData);
     }
 
@@ -37,7 +42,7 @@ public class HeroSystem : Singleton<HeroSystem>
 
     private void EnemyTurnPostReaction(EnemyTurnGA enemyTurnGA)
     {
-        var heroContext = CombatContextSystem.Instance.Hero;
+        var heroContext = CombatContextService.Instance.Hero;
         if (heroContext == null || heroContext.DrawPerTurn < 1)
         {
             Log.Error(LogArea.Combat, () => "CombatContext.Instance.Hero.DrawPerTurn missing or invalid.", this);

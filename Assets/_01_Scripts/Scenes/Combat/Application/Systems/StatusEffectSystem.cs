@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class StatusEffectSystem : MonoBehaviour
 {
+    [SerializeField] private CombatantViewRegistry viewRegistry;
+
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<AddStatusEffectGA>(AddStatusEffectPerformer);
@@ -16,34 +17,41 @@ public class StatusEffectSystem : MonoBehaviour
         ActionSystem.DetachPerformer<RemoveStatusEffectGA>();
     }
 
-    private IEnumerator AddStatusEffectPerformer(AddStatusEffectGA addStatusEffectGA)
+    private IEnumerator AddStatusEffectPerformer(AddStatusEffectGA ga)
     {
-        foreach (var target in addStatusEffectGA.Targets)
+        foreach (var targetId in ga.Targets)
         {
-            if (!target)
-                continue;
-            if (target.CurrentHealth <= 0)
+            if (!CombatContextService.Instance.State.TryGet(targetId, out var st))
                 continue;
 
-            target.AddStatusEffect(addStatusEffectGA.StatusEffectType, addStatusEffectGA.StackCount);
-            //TODO: Animation?
+            if (st.Health <= 0)
+                continue;
+
+            st.AddStatus(ga.StatusEffectType, ga.StackCount);
+
+            if (viewRegistry && viewRegistry.TryGet(targetId, out var view) && view)
+                view.Render(st);
+
             yield return null;
         }
     }
 
-    private IEnumerator RemoveStatusEffectPerformer(RemoveStatusEffectGA removeStatusEffectGA)
+    private IEnumerator RemoveStatusEffectPerformer(RemoveStatusEffectGA ga)
     {
-        foreach (var target in removeStatusEffectGA.Targets)
+        foreach (var targetId in ga.Targets)
         {
-            if (!target)
-                continue;
-            if (target.CurrentHealth <= 0)
+            if (!CombatContextService.Instance.State.TryGet(targetId, out var st))
                 continue;
 
-            target.RemoveStatusEffect(removeStatusEffectGA.StatusEffectType, removeStatusEffectGA.StackCount);
-            //TODO: Animation?
+            if (st.Health <= 0)
+                continue;
+
+            st.RemoveStatus(ga.StatusEffectType, ga.StackCount);
+
+            if (viewRegistry && viewRegistry.TryGet(targetId, out var view) && view)
+                view.Render(st);
+
             yield return null;
         }
     }
-
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PerkSystem : Singleton<PerkSystem>
+public class PerkService : Singleton<PerkService>
 {
     [SerializeField] private PerksUI perksUI;
     private readonly List<Perk> _perks = new List<Perk>();

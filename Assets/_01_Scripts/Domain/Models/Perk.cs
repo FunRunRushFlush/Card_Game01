@@ -32,18 +32,34 @@ public class Perk
 
     private void Reaction(GameAction gameAction)
     {
-        if (_perkCondition.SubConditionIsMet(gameAction))
+        if (!_perkCondition.SubConditionIsMet(gameAction))
+            return;
+
+        var targetIds = new List<CombatantId>();
+
+        // Optional: use action caster as target
+        if (_data.UseActionCasterAsTarget && gameAction is IHaveCaster haveCaster)
         {
-            List<CombatantView> targets = new();
-
-            if (_data.UseActionCasterAsTarget && gameAction is IHaveCaster haveCaster)
-                targets.Add(haveCaster.Caster);
-
-            if (_data.UseAutoTarget)
-                targets.AddRange(_autoTargetEffect.TargetMode.GetTargets());
-
-            GameAction perkEffectAction = _autoTargetEffect.Effect.GetGameAction(targets, HeroSystem.Instance.HeroView);
-            ActionSystem.Instance.AddReaction(perkEffectAction);
+            if (haveCaster.Caster.HasValue)
+                targetIds.Add(haveCaster.Caster.Value);
         }
+
+        // Optional: auto target mode
+        if (_data.UseAutoTarget)
+        {
+            var autoIds = _autoTargetEffect.TargetMode.GetTargetIds();
+            if (autoIds != null && autoIds.Count > 0)
+                targetIds.AddRange(autoIds);
+        }
+
+        // If no targets were collected, do nothing (prevents null/empty issues)
+        if (targetIds.Count == 0)
+            return;
+
+        // Perk caster is the hero (domain id)
+        var heroCasterId = (CombatantId?)HeroSystem.Instance.HeroView.Id;
+
+        GameAction perkEffectAction = _autoTargetEffect.Effect.GetGameAction(targetIds, heroCasterId);
+        ActionSystem.Instance.AddReaction(perkEffectAction);
     }
 }

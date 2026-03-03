@@ -14,10 +14,15 @@ public class RequireStatusStacksCondition : CardCondition
 
     public override bool IsMet(in CardPlayabilityContext context)
     {
-        CombatantView c = subject == ConditionSubject.Caster ? context.Caster : context.ManualTarget;
+        var c = subject == ConditionSubject.Caster ? context.Caster : context.ManualTarget;
         if (c == null) return false;
 
-        return c.GetStatusEffectStacks(statusEffect) >= minStacks;
+        var combatState = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
+        if (combatState == null) return false;
+
+        if (!combatState.TryGet(c.Id, out var st)) return false;
+
+        return st.GetStatus(statusEffect) >= minStacks;
     }
 
     public override CardPlayFailReason GetFailReason(in CardPlayabilityContext context)

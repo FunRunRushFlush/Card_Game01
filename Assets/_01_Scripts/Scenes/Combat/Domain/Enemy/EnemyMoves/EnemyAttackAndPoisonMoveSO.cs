@@ -11,13 +11,12 @@ public class EnemyAttackAndPoisonMoveSO : EnemyMoveSO
     {
         var actions = new List<GameAction>();
 
-
-        actions.Add(new AttackHeroGA(enemy));
+        actions.Add(new AttackHeroGA(enemy.Id));
 
         actions.Add(new AddStatusEffectGA(
             StatusEffectType.POISON,
             enemy.PoisonValue,
-            new List<CombatantView> { HeroSystem.Instance.HeroView }
+            new List<CombatantId> { HeroSystem.Instance.HeroView.Id }
         ));
 
         return actions;

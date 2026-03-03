@@ -11,8 +11,6 @@ public class CleanseEffect : Effect
     [SerializeField] private StatusEffectType statusEffectType = StatusEffectType.WEAKNESS;
     [SerializeField] private int stackCount = 1;
 
-    public override GameAction GetGameAction(List<CombatantView> targets, CombatantView caster)
-    {
-        return new RemoveStatusEffectGA(statusEffectType, stackCount, targets);
-    }
+    public override GameAction GetGameAction(IReadOnlyList<CombatantId> targets, CombatantId? caster)
+        => new RemoveStatusEffectGA(statusEffectType, stackCount, targets);
 }

@@ -11,14 +11,12 @@ public class EnemyAttackAndBurnMoveSO : EnemyMoveSO
     {
         var actions = new List<GameAction>();
 
-        //Attack
-        actions.Add(new AttackHeroGA(enemy));
+        actions.Add(new AttackHeroGA(enemy.Id)); // AttackHeroGA siehe unten
 
-        //Burn
         actions.Add(new AddStatusEffectGA(
             StatusEffectType.BURN,
             enemy.BurnValue,
-            new List<CombatantView> { HeroSystem.Instance.HeroView }
+            new List<CombatantId> { HeroSystem.Instance.HeroView.Id }
         ));
 
         return actions;

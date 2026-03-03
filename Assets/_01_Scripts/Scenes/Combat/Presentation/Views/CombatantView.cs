@@ -1,6 +1,4 @@
 using DG.Tweening;
-using Game.Logging;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,151 +12,39 @@ public class CombatantView : MonoBehaviour
     [SerializeField] private GameObject blockRoot;
     [SerializeField] private TMP_Text blockText;
 
+    public CombatantId Id { get; private set; }
+    public void AssignId(CombatantId id) => Id = id;
 
-    public int MaxHealth { get; private set; }
-    public int CurrentHealth { get; private set; }
-
-    public int CurrentBlock { get; private set; }
-
-    private Dictionary<StatusEffectType, int> statusEffects = new();
-
-    protected void SetupBase(int health, Sprite image)
+    // Shared presentation setup used by HeroView and EnemyView.
+    // Keeps CombatantView presentation-only (no gameplay state stored here).
+    protected void SetupBase(int maxHealth, Sprite image)
     {
-        MaxHealth = CurrentHealth = health;
-        CurrentBlock = 0;
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = image;
 
+        if (healthBar != null)
+            healthBar.SetMaxHealth(maxHealth);
+    }
+
+    public void SetupPresentation(CombatantId id, int maxHealth, Sprite image)
+    {
+        Id = id;
         spriteRenderer.sprite = image;
-        healthBar.SetMaxHealth(MaxHealth);
-        UpdateHealthbarUI();
+        healthBar.SetMaxHealth(maxHealth);
     }
 
-
-    private void UpdateHealthbarUI()
+    public void Render(CombatantState state)
     {
-        healthBar.SetHealthAndBlock(CurrentHealth, CurrentBlock);
+        healthBar.SetHealthAndBlock(state.Health, state.Block);
+
+        // Optional: Status-UI komplett neu zeichnen
+        // (oder nur Delta-Updates, wenn ihr später Events einführt)
+        // statusEffectsManagerUI.RenderAll(state);  // falls ihr sowas baut
     }
-    /// <summary>
-    /// Regular damage that is absorbed by Block first, then reduces HP.
-    /// If you want damage to bypass Block (e.g. Poison/HP loss), use LoseHealth().
-    /// </summary>
-    public void Damage(int damageAmount)
+
+    public void PlayHitFeedback()
     {
-        if (!this)
-        {
-            Log.Warn(LogArea.General, () => "Object does not Exist anymore");
-            return;
-        }
-        if (damageAmount <= 0)
-            return;
-
-        int remainingDamage = damageAmount;
-
-        // 1) Absorb with Block
-        if (CurrentBlock > 0)
-        {
-            int absorbed = Mathf.Min(CurrentBlock, remainingDamage);
-            CurrentBlock -= absorbed;
-            remainingDamage -= absorbed;
-            UpdateHealthbarUI();
-        }
-
-        // 2) Apply remaining to HP
-        if (remainingDamage > 0)
-        {
-            CurrentHealth -= remainingDamage;
-            if (CurrentHealth < 0)
-                CurrentHealth = 0;
-
-            UpdateHealthbarUI();
-        }
-
-        if(transform != null)
-        {
+        if (transform != null)
             transform.DOShakePosition(0.2f, 0.5f);
-        }
     }
-    /// <summary>
-    /// HP loss that bypasses Block.
-    /// Useful for mechanics like Poison or self-damage that should ignore Block.
-    /// </summary>
-    public void LoseHealth(int amount)
-    {
-        if (amount <= 0)
-            return;
-
-        CurrentHealth -= amount;
-        if (CurrentHealth < 0)
-            CurrentHealth = 0;
-
-        transform.DOShakePosition(0.2f, 0.5f);
-        UpdateHealthbarUI();
-    }
-
-    public void AddBlock(int amount)
-    {
-        if (amount <= 0)
-            return;
-
-        CurrentBlock += amount;
-        if (CurrentBlock < 0)
-            CurrentBlock = 0;
-
-        UpdateHealthbarUI();
-    }
-
-    public void ClearBlock()
-    {
-        if (CurrentBlock == 0)
-            return;
-
-        CurrentBlock = 0;
-        UpdateHealthbarUI();
-    }
-
-
-
-    public void AddStatusEffect(StatusEffectType type, int stackCount)
-    {
-        if (!this) return;                
-        if (stackCount <= 0) return;
-
-  
-        if (CurrentHealth <= 0) return;
-
-        if (!statusEffects.ContainsKey(type))
-            statusEffects[type] = 0;
-
-        statusEffects[type] += stackCount;
-
-        if (statusEffectsManagerUI)
-        {
-            statusEffectsManagerUI.UpdateStatusEfectUI(type, statusEffects[type]);
-        }
-    }
-
-    public void RemoveStatusEffect(StatusEffectType type, int stackCount)
-    {
-        if (!this) return;
-        if (CurrentHealth <= 0) return;
-
-        if (!statusEffects.ContainsKey(type)) return;
-
-        statusEffects[type] -= stackCount;
-        if (statusEffects[type] <= 0)
-            statusEffects.Remove(type);
-
-        if (statusEffectsManagerUI)
-        {
-            statusEffectsManagerUI.UpdateStatusEfectUI(type, GetStatusEffectStacks(type));
-        }
-    }
-
-    public int GetStatusEffectStacks(StatusEffectType type)
-    {
-        if (statusEffects.ContainsKey(type))
-            return statusEffects[type];
-
-        return 0;
-    }
-
 }

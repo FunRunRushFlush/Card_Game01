@@ -1,4 +1,4 @@
-public class InteractionSystem : Singleton<InteractionSystem>
+public class InteractionService : Singleton<InteractionService>
 {
     public bool PlayerIsDragging { get; set; } = false;
     public bool PlayerCanInteract()

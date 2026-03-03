@@ -1,5 +1,4 @@
 public interface IHaveCaster
 {
-    CombatantView Caster { get; }
-
+    CombatantId? Caster { get; }
 }

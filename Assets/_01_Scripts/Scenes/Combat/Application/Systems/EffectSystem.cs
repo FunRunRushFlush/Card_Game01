@@ -14,16 +14,16 @@ public class EffectSystem : MonoBehaviour
         ActionSystem.DetachPerformer<PerformEffectsGA>();
     }
 
-    private IEnumerator PerformEffectPerformer(PerformEffectsGA performEffectsGA)
+    private IEnumerator PerformEffectPerformer(PerformEffectsGA ga)
     {
+        // Fallback keeps current behaviour if a caster was not provided.
+        var casterId = ga.Caster ?? HeroSystem.Instance.HeroView.Id;
+
         Log.Debug(LogArea.Combat, () =>
-            $"PerformEffectsGA: effect={performEffectsGA.Effect?.GetType().Name} targets={(performEffectsGA.Targets == null ? 0 : performEffectsGA.Targets.Count)} caster={(performEffectsGA.Caster != null ? performEffectsGA.Caster.name : "null")}",
+            $"PerformEffectsGA: effect={ga.Effect?.GetType().Name} targets={(ga.Targets == null ? 0 : ga.Targets.Count)} casterId={(casterId.Value)}",
             this);
 
-        // Fallback keeps current behaviour if a caster was not provided.
-        CombatantView caster = performEffectsGA.Caster ?? HeroSystem.Instance.HeroView;
-
-        GameAction effectAction = performEffectsGA.Effect.GetGameAction(performEffectsGA.Targets, caster);
+        var effectAction = ga.Effect.GetGameAction(ga.Targets, casterId);
         ActionSystem.Instance.AddReaction(effectAction);
 
         Log.Debug(LogArea.Combat, () =>

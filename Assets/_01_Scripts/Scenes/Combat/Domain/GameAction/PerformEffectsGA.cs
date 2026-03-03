@@ -1,19 +1,15 @@
 using System.Collections.Generic;
 
-public class PerformEffectsGA : GameAction, IHaveCaster
+public class PerformEffectsGA : GameAction
 {
-    public Effect Effect { get; private set; }
-    public List<CombatantView> Targets { get; private set; }
+    public Effect Effect { get; }
+    public IReadOnlyList<CombatantId> Targets { get; }
+    public CombatantId? Caster { get; }
 
-    public CombatantView Caster { get; private set; }
-
-    public PerformEffectsGA(Effect effect, List<CombatantView> targets, CombatantView caster)
+    public PerformEffectsGA(Effect effect, IReadOnlyList<CombatantId> targets, CombatantId? caster)
     {
         Effect = effect;
-        Targets = targets == null ? null : new List<CombatantView>(targets);
+        Targets = targets;
         Caster = caster;
     }
-
-    // Convenience overload( but prefer passing caster explicitly!)
-    public PerformEffectsGA(Effect effect, List<CombatantView> targets) : this(effect, targets, null) { }
 }

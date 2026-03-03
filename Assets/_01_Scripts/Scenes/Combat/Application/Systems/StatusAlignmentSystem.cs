@@ -6,6 +6,8 @@ public class StatusAlignmentSystem : MonoBehaviour
 {
     [SerializeField] private GameObject burnVFX;
     [SerializeField] private GameObject poisonVFX;
+    [SerializeField] private CombatantViewRegistry viewRegistry;
+
 
     private void OnEnable()
     {
@@ -21,44 +23,40 @@ public class StatusAlignmentSystem : MonoBehaviour
 
     private IEnumerator ApplyBurnPerformer(ApplyBurnGA ga)
     {
-        var target = ga.Target;
-        if (!target || target.CurrentHealth <= 0) yield break;
+        var id = ga.Target;
 
-        var guardCheck = target.transform;        
-        if (guardCheck) 
-        { 
-            Instantiate(burnVFX, guardCheck.position, Quaternion.identity);
+        if (!CombatContextService.Instance.State.TryGet(id, out var st) || st.Health <= 0)
+            yield break;
+
+        if (viewRegistry && viewRegistry.TryGet(id, out var view) && view)
+        {
+            if (burnVFX) Instantiate(burnVFX, view.transform.position, Quaternion.identity);
         }
 
+        // Burn tick also consumes 1 stack (like your old code)
+        st.RemoveStatus(StatusEffectType.BURN, 1);
 
-        if (!target) 
-            yield break;
+        if (viewRegistry && viewRegistry.TryGet(id, out var view2) && view2)
+            view2.Render(st);
 
-        target.RemoveStatusEffect(StatusEffectType.BURN, 1);
-
-
-        if (!target) 
-            yield break;
-
-        ActionSystem.Instance.AddReaction(
-            new DealDamageGA(ga.BurnDamage, new() { target }, caster: null)
-        );
+        ActionSystem.Instance.AddReaction(new DealDamageGA(ga.BurnDamage, new List<CombatantId> { id }, caster: null));
 
         yield return new WaitForSeconds(1f);
     }
+
     private IEnumerator ApplyPoisonPerformer(ApplyPoisonGA ga)
     {
-        var target = ga.Target;
-        if (!target || target.CurrentHealth <= 0) yield break;
+        var id = ga.Target;
 
-        var guardCheck = target.transform;
-        if (guardCheck) 
-            Instantiate(poisonVFX, guardCheck.position, Quaternion.identity);
+        if (!CombatContextService.Instance.State.TryGet(id, out var st) || st.Health <= 0)
+            yield break;
 
-        if (!target) yield break;
-        ActionSystem.Instance.AddReaction(
-            new DealDamageGA(ga.PoisonDamage, new() { target }, caster: null)
-        );
+        if (viewRegistry && viewRegistry.TryGet(id, out var view) && view)
+        {
+            if (poisonVFX) Instantiate(poisonVFX, view.transform.position, Quaternion.identity);
+        }
+
+        ActionSystem.Instance.AddReaction(new DealDamageGA(ga.PoisonDamage, new List<CombatantId> { id }, caster: null));
 
         yield return new WaitForSeconds(1f);
     }

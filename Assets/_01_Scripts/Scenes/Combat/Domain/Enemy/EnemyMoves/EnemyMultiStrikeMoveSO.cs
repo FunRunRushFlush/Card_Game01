@@ -16,7 +16,7 @@ public class EnemyMultiStrikeMoveSO : EnemyMoveSO
             Icon = IntentIcon,
             ShowValue = true,
             Value = total,
-            ValueText = $"{hitCount}×{perHit}"
+            ValueText = $"{hitCount}Ã—{perHit}"
         };
     }
 
@@ -26,7 +26,7 @@ public class EnemyMultiStrikeMoveSO : EnemyMoveSO
 
         var actions = new List<GameAction>(hitCount);
         for (int i = 0; i < hitCount; i++)
-            actions.Add(new AttackHeroGA(enemy, perHit));
+            actions.Add(new AttackHeroGA(enemy.Id, perHit));
 
         return actions;
     }

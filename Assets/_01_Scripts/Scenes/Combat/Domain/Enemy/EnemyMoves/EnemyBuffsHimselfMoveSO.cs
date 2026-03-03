@@ -17,7 +17,7 @@ public class EnemyBuffsHimselfMoveSO : EnemyMoveSO
         actions.Add(new AddStatusEffectGA(
       BuffType,
       enemy.StrengthValue,
-      new List<CombatantView> {  enemy  }
+      new List<CombatantId> {  enemy.Id  }
          ));
 
 

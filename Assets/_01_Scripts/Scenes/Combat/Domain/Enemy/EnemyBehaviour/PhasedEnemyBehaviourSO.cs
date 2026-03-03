@@ -11,7 +11,13 @@ public class PhasedEnemyBehaviourSO : EnemyBehaviourSO
     {
         if (enemy == null) return null;
 
-        float hpPct = enemy.MaxHealth <= 0 ? 0 : (enemy.CurrentHealth / (float)enemy.MaxHealth);
+        var combatState = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
+        if (combatState == null) return phase1 != null ? phase1.PickNextMove(state, enemy) : null;
+
+        if (!combatState.TryGet(enemy.Id, out var st))
+            return phase1 != null ? phase1.PickNextMove(state, enemy) : null;
+
+        float hpPct = st.MaxHealth <= 0 ? 0 : (st.Health / (float)st.MaxHealth);
         var behaviour = hpPct <= phase2AtHpPercent ? phase2 : phase1;
 
         return behaviour != null ? behaviour.PickNextMove(state, enemy) : null;

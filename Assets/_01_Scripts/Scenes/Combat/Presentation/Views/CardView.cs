@@ -57,7 +57,7 @@ public class CardView : MonoBehaviour
         if (glow == null)
             throw new MissingReferenceException();
 
-        var res = CardPlayabilitySystem.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView);
+        var res = CardPlayabilityService.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView);
         glow.SetPlayable(res.CanPlay);
         if (!res.CanPlay)
             Log.Info(LogArea.Combat, () => res.TooltipText(),this);
@@ -71,34 +71,34 @@ public class CardView : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!InteractionSystem.Instance.PlayerCanHover()) return;
+        if (!InteractionService.Instance.PlayerCanHover()) return;
 
         wrapper.SetActive(false);
         Vector3 pos = new(transform.position.x, 0, 0);
-        CardViewHoverSystem.Instance.Show(Card, pos);
+        CardViewHoverService.Instance.Show(Card, pos);
     }
 
     private void OnMouseExit()
     {
-        if (!InteractionSystem.Instance.PlayerCanHover()) return;
+        if (!InteractionService.Instance.PlayerCanHover()) return;
 
-        CardViewHoverSystem.Instance.Hide();
+        CardViewHoverService.Instance.Hide();
         wrapper.SetActive(true);
     }
 
     private void OnMouseDown()
     {
-        if (!InteractionSystem.Instance.PlayerCanInteract()) return;
+        if (!InteractionService.Instance.PlayerCanInteract()) return;
 
         cancelRequested = false;
         state = CardState.Dragging;
 
-        InteractionSystem.Instance.PlayerIsDragging = true;
+        InteractionService.Instance.PlayerIsDragging = true;
 
         ownerHand?.BeginDrag(this);
 
         wrapper.SetActive(true);
-        CardViewHoverSystem.Instance.Hide();
+        CardViewHoverService.Instance.Hide();
 
         // begin at mouse
         transform.rotation = Quaternion.identity;
@@ -107,23 +107,23 @@ public class CardView : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (!InteractionSystem.Instance.PlayerCanInteract()) return;
+        if (!InteractionService.Instance.PlayerCanInteract()) return;
 
-        if (!InteractionSystem.Instance.PlayerIsDragging) return;
+        if (!InteractionService.Instance.PlayerIsDragging) return;
         if (cancelRequested) return;
 
         if (state == CardState.Targeting)
             return;
 
 
-        if (Card.HasManualTargetEffects && !IsTargeting() && IsOverDropArea() && CardPlayabilitySystem.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView).CanPlay)
+        if (Card.HasManualTargetEffects && !IsTargeting() && IsOverDropArea() && CardPlayabilityService.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView).CanPlay)
         {
             state = CardState.Targeting;
 
 
             SnapToSlot();
 
-            ManualTargetSystem.Instance.StartTargeting(transform.position);
+            ManualTargetService.Instance.StartTargeting(transform.position);
             return;
         }
 
@@ -134,7 +134,7 @@ public class CardView : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (!InteractionSystem.Instance.PlayerCanInteract()) return;
+        if (!InteractionService.Instance.PlayerCanInteract()) return;
 
         // Cancel must suppress any play logic
         if (cancelRequested)
@@ -147,11 +147,13 @@ public class CardView : MonoBehaviour
 
         if (state == CardState.Targeting)
         {
-            EnemyView target = ManualTargetSystem.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
-            if (CardPlayabilitySystem.Instance.EvaluateCommit(Card, HeroSystem.Instance.HeroView, target).CanPlay)
+            EnemyView target = ManualTargetService.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
+            if (CardPlayabilityService.Instance.EvaluateCommit(Card, HeroSystem.Instance.HeroView, target).CanPlay)
             {
                 played = true;
-                ActionSystem.Instance.Perform(new PlayCardGA(Card, target, HeroSystem.Instance.HeroView));
+                var casterId = HeroSystem.Instance.HeroView.Id;
+                var targetId = target != null ? (CombatantId?)target.Id : null;
+                ActionSystem.Instance.Perform(new PlayCardGA(Card, casterId, targetId));
                 ownerHand?.CancelDrag(this); // remove will follow elsewhere
             }
             else
@@ -162,10 +164,11 @@ public class CardView : MonoBehaviour
         }
         else // Dragging
         {
-            if (IsOverDropArea() && CardPlayabilitySystem.Instance.EvaluateCommit(Card, HeroSystem.Instance.HeroView, null).CanPlay)
+            if (IsOverDropArea() && CardPlayabilityService.Instance.EvaluateCommit(Card, HeroSystem.Instance.HeroView, null).CanPlay)
             {
                 played = true;
-                ActionSystem.Instance.Perform(new PlayCardGA(Card, HeroSystem.Instance.HeroView));
+                var casterId = HeroSystem.Instance.HeroView.Id;
+                ActionSystem.Instance.Perform(new PlayCardGA(Card, casterId));
                 ownerHand?.CancelDrag(this); // remove will follow elsewhere
             }
             else
@@ -187,7 +190,7 @@ public class CardView : MonoBehaviour
         if (state == CardState.Targeting)
         {
             //ManualTargetSystem.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
-            ManualTargetSystem.Instance.CancelTargeting();
+            ManualTargetService.Instance.CancelTargeting();
 
         }
 
@@ -196,7 +199,7 @@ public class CardView : MonoBehaviour
 
     private void FinishInteraction(bool snap)
     {
-        InteractionSystem.Instance.PlayerIsDragging = false;
+        InteractionService.Instance.PlayerIsDragging = false;
 
         if (snap)
         {
@@ -207,7 +210,7 @@ public class CardView : MonoBehaviour
         state = CardState.Idle;
         cancelRequested = false;
 
-        CardViewHoverSystem.Instance.Hide();
+        CardViewHoverService.Instance.Hide();
         wrapper.SetActive(true);
     }
 

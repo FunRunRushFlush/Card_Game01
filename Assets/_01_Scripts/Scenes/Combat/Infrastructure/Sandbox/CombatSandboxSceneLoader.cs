@@ -152,7 +152,7 @@ public class CombatSandboxSceneLoader : MonoBehaviour
         }
 
         // Find bootstrapper
-        var bootstrapper = FindFirstObjectByType<CombatBootstrapper>();
+        var bootstrapper = FindFirstObjectByType<CombatSessionBootstrapper>();
         if (bootstrapper == null)
         {
             Log.Error(LogArea.Sandbox, () =>

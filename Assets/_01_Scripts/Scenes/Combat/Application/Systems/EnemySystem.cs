@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemySystem : Singleton<EnemySystem>
 {
     [SerializeField] private EnemyBoardView enemyBoardView;
+    [SerializeField] private CombatantViewRegistry viewRegistry;
     public List<EnemyView> Enemies => enemyBoardView.EnemyViews;
 
     public event Action AllEnemiesDefeated;
@@ -20,11 +21,12 @@ public class EnemySystem : Singleton<EnemySystem>
         ActionSystem.AttachPerformer<KillEnemyGA>(KillEnemyPerformer);
 
         // TODO: ?
-        // Nach dem EnemyTurn: nächsten Intent wählen
+        // Nach dem EnemyTurn: nÃ¤chsten Intent wÃ¤hlen
         enemyTurnPostSub = ActionSystem.SubscribeReaction<EnemyTurnGA>(_ =>
         {
             foreach (var enemy in enemyBoardView.EnemyViews)
             {
+                if (!enemy) continue;
                 enemy.AIState?.AdvanceTurn();
                 enemy.ChooseNextIntent();
             }
@@ -43,17 +45,17 @@ public class EnemySystem : Singleton<EnemySystem>
     }
     public void Setup(List<EnemyData> enemyDatas)
     {
+        // Clear current board
         foreach (EnemyData data in enemyDatas)
         {
-            enemyBoardView.AddEnemy(data);
+            // Deterministic ids: 1..n
+            var id = new CombatantId(enemyBoardView.EnemyViews.Count + 1);
+            enemyBoardView.AddEnemy(data, id);
         }
 
-
-        // TODO:
-        // Optional: falls AddEnemy/Setup nicht schon ChooseNextIntent macht,
-        // hier nochmal sicherstellen, dass jeder Enemy einen Intent hat.
         foreach (var enemy in enemyBoardView.EnemyViews)
-        { 
+        {
+            if (!enemy) continue;
             enemy.ChooseNextIntent();
         }
     }
@@ -69,16 +71,6 @@ public class EnemySystem : Singleton<EnemySystem>
         {
             if (!enemy) continue;
 
-            //int burnStacks = enemy.GetStatusEffectStacks(StatusEffectType.BURN);
-            //if (burnStacks > 0)
-            //    ActionSystem.Instance.AddReaction(new ApplyBurnGA(burnStacks, enemy));
-
-            //int poisonStacks = enemy.GetStatusEffectStacks(StatusEffectType.POISON);
-            //if (poisonStacks > 0)
-            //    ActionSystem.Instance.AddReaction(new ApplyPoisonGA(poisonStacks, enemy));
-
-            // HINWEIS:
-            // Aktionen trotzdem enqueue-n, aber Performer müssen robust sein!!! (siehe AttackHeroPerformer)
             var actions = enemy.BuildActionsFromCurrentIntent();
             foreach (var ga in actions)
             {
@@ -89,41 +81,47 @@ public class EnemySystem : Singleton<EnemySystem>
         yield return null;
     }
 
-    private IEnumerator AttackHeroPerformer(AttackHeroGA attackHeroGA)
+    private IEnumerator AttackHeroPerformer(AttackHeroGA ga)
     {
-        EnemyView attacker = attackHeroGA.Attacker;
-
-        if (!attacker)
-        {
+        if (viewRegistry == null || !viewRegistry.TryGet(ga.AttackerId, out var attackerView) || !attackerView)
             yield break;
-        }
 
-        Tween tween = attacker.transform.DOMoveX(attacker.transform.position.x - 1f, 0.15f);
+        // anim
+        var tween = attackerView.transform.DOMoveX(attackerView.transform.position.x - 1f, 0.15f);
         yield return tween.WaitForCompletion();
-        
-        if(!attacker)
-        {
-            yield break;
-        }
 
-        attacker.transform.DOMoveX(attacker.transform.position.x + 1f, 0.25f);
-        if (!HeroSystem.Instance || !HeroSystem.Instance.HeroView)
-            yield break;
+        if (!attackerView) yield break;
 
-        int damage = attackHeroGA.DamageOverride ?? attacker.AttackValue;
-        DealDamageGA dealDamageGA = new(damage, new() { HeroSystem.Instance.HeroView }, attackHeroGA.Caster);
-        ActionSystem.Instance.AddReaction(dealDamageGA);
+        attackerView.transform.DOMoveX(attackerView.transform.position.x + 1f, 0.25f);
+
+        var heroId = HeroSystem.Instance.HeroView.Id;
+
+        // damage value (solange AttackValue noch im View steckt)
+        int damage = ga.DamageOverride ?? ((EnemyView)attackerView).AttackValue;
+
+        ActionSystem.Instance.AddReaction(
+            new DealDamageGA(damage, new List<CombatantId> { heroId }, ga.CasterId)
+        );
     }
 
 
     private IEnumerator KillEnemyPerformer(KillEnemyGA killEnemyGA)
     {
-        if (killEnemyGA == null || killEnemyGA.EnemyView == null)
+        if (killEnemyGA == null)
+            throw new ArgumentNullException(nameof(killEnemyGA));
+
+        // Find the EnemyView by id
+        EnemyView enemyView = null;
+        foreach (var e in enemyBoardView.EnemyViews)
         {
-            throw new ArgumentNullException($"{nameof(KillEnemyPerformer)}");
+            if (!e) continue;
+            if (e.Id.Value == killEnemyGA.EnemyId.Value) { enemyView = e; break; }
         }
 
-        yield return enemyBoardView.RemoveEnemy(killEnemyGA.EnemyView);
+        if (enemyView == null)
+            yield break;
+
+        yield return enemyBoardView.RemoveEnemy(enemyView);
 
 
         if (AreAllEnemiesDefeated())

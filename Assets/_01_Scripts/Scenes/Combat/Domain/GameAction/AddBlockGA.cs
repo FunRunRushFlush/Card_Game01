@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 
-
-public class AddBlockGA : GameAction, IHaveCaster
+public class AddBlockGA : GameAction
 {
-    public int Amount { get; private set; }
-    public List<CombatantView> Targets { get; private set; }
-    public CombatantView Caster { get; private set; }
+    public int Amount { get; }
+    public IReadOnlyList<CombatantId> Targets { get; }
+    public CombatantId? Caster { get; }
 
-    public AddBlockGA(int amount, List<CombatantView> targets, CombatantView caster)
+    public AddBlockGA(int amount, IReadOnlyList<CombatantId> targets, CombatantId? caster)
     {
         Amount = amount;
-        Targets = new(targets);
+        Targets = targets;
         Caster = caster;
     }
 }

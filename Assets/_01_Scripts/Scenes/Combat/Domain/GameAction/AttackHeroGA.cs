@@ -1,15 +1,13 @@
-public class AttackHeroGA : GameAction, IHaveCaster
+public class AttackHeroGA : GameAction
 {
-    public EnemyView Attacker { get; private set; }
-    public CombatantView Caster { get; private set; }
+    public CombatantId AttackerId { get; }
+    public CombatantId CasterId { get; }
+    public int? DamageOverride { get; } //multistrike
 
-    // For MultiStrike
-    public int? DamageOverride { get; private set; }
-
-    public AttackHeroGA(EnemyView attacker, int? damageOverride = null)
+    public AttackHeroGA(CombatantId attackerId, int? damageOverride = null)
     {
-        Attacker = attacker;
-        Caster = attacker;
+        AttackerId = attackerId;
+        CasterId = attackerId;
         DamageOverride = damageOverride;
     }
 }

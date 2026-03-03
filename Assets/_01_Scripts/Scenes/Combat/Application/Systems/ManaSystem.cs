@@ -14,13 +14,10 @@ public class ManaSystem : Singleton<ManaSystem>
 
     private void OnEnable()
     {
-
-
         ActionSystem.AttachPerformer<SpendManaGA>(SpendManaPerformer);
         ActionSystem.AttachPerformer<RefillManaGA>(RefillManaPerformer);
 
         enemyTurnPostSub = ActionSystem.SubscribeReaction<EnemyTurnGA>(EnemyTurnPostReaction, ReactionTiming.POST);
-
 
         CombatContextHelpers.SubscribeInitialized(OnCombatInitialized);
     }
@@ -37,7 +34,7 @@ public class ManaSystem : Singleton<ManaSystem>
     }
     private void OnCombatInitialized()
     {
-        var hero = CombatContextSystem.Instance.Hero;
+        var hero = CombatContextService.Instance.Hero;
         maxMana = hero.MaxMana;
         currentMana = maxMana;
         manaUI.UpdateManaText(currentMana);
@@ -56,7 +53,7 @@ public class ManaSystem : Singleton<ManaSystem>
 
     private IEnumerator RefillManaPerformer(RefillManaGA ga)
     {
-        maxMana = CombatContextSystem.Instance.Hero.MaxMana;
+        maxMana = CombatContextService.Instance.Hero.MaxMana;
         currentMana = maxMana;
         manaUI.UpdateManaText(currentMana);
         yield return null;

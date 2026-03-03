@@ -16,8 +16,8 @@ public class EnemyGuardedStrikeMoveSO : EnemyMoveSO
 
         return new List<GameAction>
         {
-            new AttackHeroGA(enemy),
-            new AddBlockGA(block, new List<CombatantView> { enemy }, enemy)
+            new AttackHeroGA(enemy.Id),
+            new AddBlockGA(block, new List<CombatantId> { enemy.Id }, enemy.Id)
         };
     }
 }

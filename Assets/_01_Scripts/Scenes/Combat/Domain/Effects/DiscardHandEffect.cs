@@ -6,9 +6,6 @@ using System.Collections.Generic;
 /// </summary>
 public class DiscardHandEffect : Effect
 {
-    public override GameAction GetGameAction(List<CombatantView> targets, CombatantView caster)
-    {
-        // Discarding the hand is a card-system operation and doesn't need targets.
-        return new DiscardAllCardsGA();
-    }
+    public override GameAction GetGameAction(IReadOnlyList<CombatantId> targets, CombatantId? caster)
+        => new DiscardAllCardsGA();
 }

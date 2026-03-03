@@ -8,5 +8,5 @@ public class EnemyAttackMoveSO : EnemyMoveSO
         => IntentData.IconWithValue(IntentIcon, enemy.AttackValue);
 
     public override List<GameAction> BuildActions(EnemyView enemy)
-        => new() { new AttackHeroGA(enemy) };
+        => new() { new AttackHeroGA(enemy.Id) };
 }

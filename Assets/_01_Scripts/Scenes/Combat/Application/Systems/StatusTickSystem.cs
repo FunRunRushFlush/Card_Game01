@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class StatusTickSystem : MonoBehaviour
 {
+
     private IDisposable enemyTurnPreSub;
 
     private void OnEnable()
@@ -18,28 +19,34 @@ public class StatusTickSystem : MonoBehaviour
 
     private void OnEnemyTurnPre(EnemyTurnGA _)
     {
-        // Hero
-        TickCombatant(HeroSystem.Instance?.HeroView);
 
-        // Enemies (Snapshot, falls Liste sich w‰hrend Reactions ‰ndert)
+        // Hero
+        var hero = HeroSystem.Instance != null ? HeroSystem.Instance.HeroView : null;
+        if (hero != null)
+            TickCombatant(hero.Id);
+
+        // Enemies (Snapshot, falls Liste sich w√§hrend Reactions √§ndert)
         var enemies = EnemySystem.Instance?.Enemies;
         if (enemies == null) return;
 
         for (int i = 0; i < enemies.Count; i++)
-            TickCombatant(enemies[i]);
+        {
+            if (!enemies[i]) continue;
+            TickCombatant(enemies[i].Id);
+        }
     }
 
-    private void TickCombatant(CombatantView target)
+    private void TickCombatant(CombatantId targetId)
     {
-        if (!target || target.CurrentHealth <= 0)
+        if (!CombatContextService.Instance.State.TryGet(targetId, out var st) || st.Health <= 0)
             return;
 
-        int burn = target.GetStatusEffectStacks(StatusEffectType.BURN);
+        int burn = st.GetStatus(StatusEffectType.BURN);
         if (burn > 0)
-            ActionSystem.Instance.AddReaction(new ApplyBurnGA(burn, target));
+            ActionSystem.Instance.AddReaction(new ApplyBurnGA(burn, targetId));
 
-        int poison = target.GetStatusEffectStacks(StatusEffectType.POISON);
+        int poison = st.GetStatus(StatusEffectType.POISON);
         if (poison > 0)
-            ActionSystem.Instance.AddReaction(new ApplyPoisonGA(poison, target));
+            ActionSystem.Instance.AddReaction(new ApplyPoisonGA(poison, targetId));
     }
 }

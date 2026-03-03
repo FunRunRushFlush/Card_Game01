@@ -1,9 +1,5 @@
 public class ResolveDeathGA : GameAction
 {
-    public CombatantView Target { get; }
-
-    public ResolveDeathGA(CombatantView target)
-    {
-        Target = target;
-    }
+    public CombatantId Target { get; }
+    public ResolveDeathGA(CombatantId target) => Target = target;
 }

@@ -2,14 +2,14 @@ using System.Collections.Generic;
 
 public class RemoveStatusEffectGA : GameAction
 {
-    public StatusEffectType StatusEffectType { get; private set; }
-    public int StackCount { get; private set; }
-    public List<CombatantView> Targets { get; private set; }
+    public StatusEffectType StatusEffectType { get; }
+    public int StackCount { get; }
+    public IReadOnlyList<CombatantId> Targets { get; }
 
-    public RemoveStatusEffectGA(StatusEffectType statusEffectType, int stackCount, List<CombatantView> targets)
+    public RemoveStatusEffectGA(StatusEffectType type, int stacks, IReadOnlyList<CombatantId> targets)
     {
-        StatusEffectType = statusEffectType;
-        StackCount = stackCount;
+        StatusEffectType = type;
+        StackCount = stacks;
         Targets = targets;
     }
 }

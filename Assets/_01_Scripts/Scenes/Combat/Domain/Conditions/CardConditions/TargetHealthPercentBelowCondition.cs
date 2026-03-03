@@ -18,9 +18,13 @@ public class TargetHealthPercentBelowCondition : CardCondition
         if (c == null)
             return context.Phase == CardPlayPhase.StartPlay;
 
-        if (c.MaxHealth <= 0) return false;
+        var combatState = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
+        if (combatState == null) return false;
 
-        float pct = (float)c.CurrentHealth / c.MaxHealth;
+        if (!combatState.TryGet(c.Id, out var st)) return false;
+        if (st.MaxHealth <= 0) return false;
+
+        float pct = (float)st.Health / st.MaxHealth;
         return pct <= maxHealthPercent;
     }
 

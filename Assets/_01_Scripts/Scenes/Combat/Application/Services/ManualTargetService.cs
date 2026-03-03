@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ManualTargetSystem : Singleton<ManualTargetSystem>
+public class ManualTargetService : Singleton<ManualTargetService>
 {
     [SerializeField] private ArrowView arrowView;
     [SerializeField] private LayerMask targetLayerMask;

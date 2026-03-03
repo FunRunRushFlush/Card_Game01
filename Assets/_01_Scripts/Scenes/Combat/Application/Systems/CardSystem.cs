@@ -149,7 +149,7 @@ public class CardSystem : Singleton<CardSystem>
 
         yield return handView.AddCard(cardView);
 
-        var limit = CombatContextSystem.Instance.Hero?.MaxHandSize ?? MaxHandSizeSafty;
+        var limit = CombatContextService.Instance.Hero?.MaxHandSize ?? MaxHandSizeSafty;
         if (hand.Count > limit)
         {
             hand.Remove(cardView.Card);
@@ -187,11 +187,16 @@ public class CardSystem : Singleton<CardSystem>
     private IEnumerator PlayCardPerformer(PlayCardGA playCardGA)
     {
         Log.Info(LogArea.Combat, () =>
-            $"PlayCardPerformer: {playCardGA.Card?.Title} Mana={playCardGA.Card?.Mana} ManualTarget={(playCardGA.ManualTarget != null)} Caster={(playCardGA.Caster != null)}",
+            $"PlayCardPerformer: {playCardGA.Card?.Title} Mana={playCardGA.Card?.Mana} ManualTarget={(playCardGA.ManualTargetId.HasValue)} CasterId={playCardGA.CasterId.Value}",
             this);
 
         // Validate centrally so illegal plays can't slip through UI checks
-        var canCommit = CardPlayabilitySystem.Instance.EvaluateCommit(playCardGA.Card, HeroSystem.Instance.HeroView, playCardGA.ManualTarget);
+        // CardPlayabilitySystem is still View-based -> resolve manual target view from id.
+        EnemyView manualTargetView = null;
+        if (playCardGA.ManualTargetId.HasValue)
+            manualTargetView = FindEnemyViewById(playCardGA.ManualTargetId.Value);
+
+        var canCommit = CardPlayabilityService.Instance.EvaluateCommit(playCardGA.Card, HeroSystem.Instance.HeroView, manualTargetView);
         if (!canCommit.CanPlay)
             yield break;
 
@@ -208,39 +213,46 @@ public class CardSystem : Singleton<CardSystem>
 
         if (playCardGA.Card.HasManualTargetEffects)
         {
-            Log.Debug(LogArea.Combat, () =>
-                $"ManualTargetEffects={playCardGA.Card.ManualTargetEffects?.Count ?? 0}, OtherEffects={(playCardGA.Card.OtherEffects?.Count ?? 0)}",
-                this);
+            if (!playCardGA.ManualTargetId.HasValue)
+                yield break;
 
-            if (playCardGA.ManualTarget == null)
+            var targetIds = new List<CombatantId> { playCardGA.ManualTargetId.Value };
+            var casterId = (CombatantId?)playCardGA.CasterId;
+
+            foreach (var effect in playCardGA.Card.ManualTargetEffects)
             {
-                Log.Warn(LogArea.Combat, () => "Card has ManualTargetEffects but ManualTarget is null. Skipping.", this);
-            }
-            else
-            {
-                var targets = new List<CombatantView> { playCardGA.ManualTarget };
-
-                foreach (var effect in playCardGA.Card.ManualTargetEffects)
-                {
-                    if (effect == null) continue;
-
-                    var performEffectsGA = new PerformEffectsGA(effect, targets, playCardGA.Caster);
-                    ActionSystem.Instance.AddReaction(performEffectsGA);
-                }
+                if (effect == null) continue;
+                ActionSystem.Instance.AddReaction(new PerformEffectsGA(effect, targetIds, casterId));
             }
         }
 
         var otherEffects = playCardGA.Card.OtherEffects;
         if (otherEffects != null)
         {
+            var casterId = (CombatantId?)playCardGA.CasterId;
+
             foreach (var effectWrapper in otherEffects)
             {
-                List<CombatantView> targets = effectWrapper.TargetMode.GetTargets();
-                PerformEffectsGA performEffectsGA = new(effectWrapper.Effect, targets, playCardGA.Caster);
-                ActionSystem.Instance.AddReaction(performEffectsGA);
+                var targetIds = effectWrapper.TargetMode.GetTargetIds(); // siehe TargetMode-Teil unten
+                ActionSystem.Instance.AddReaction(new PerformEffectsGA(effectWrapper.Effect, targetIds, casterId));
             }
         }
 
         UpdatePileCounts();
+    }
+
+    private EnemyView FindEnemyViewById(CombatantId id)
+    {
+        var enemies = EnemySystem.Instance != null ? EnemySystem.Instance.Enemies : null;
+        if (enemies == null) return null;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            var e = enemies[i];
+            if (!e) continue;
+            if (e.Id.Value == id.Value) return e;
+        }
+
+        return null;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 /// Single source of truth for whether a card can be played.
 /// UI can query this for glow; gameplay validates again server-side in CardSystem.
 /// </summary>
-public class CardPlayabilitySystem : Singleton<CardPlayabilitySystem>
+public class CardPlayabilityService : Singleton<CardPlayabilityService>
 {
 
 

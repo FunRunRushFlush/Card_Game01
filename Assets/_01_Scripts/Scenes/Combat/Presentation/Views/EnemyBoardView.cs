@@ -7,17 +7,25 @@ using UnityEngine;
 public class EnemyBoardView : MonoBehaviour
 {
     [SerializeField] private List<Transform> slots;
+    [SerializeField] private CombatantViewRegistry viewRegistry;
+
     public List<EnemyView> EnemyViews { get; private set; } = new();
-    public void AddEnemy(EnemyData enemyData)
+
+    public void AddEnemy(EnemyData enemyData, CombatantId id)
     {
         var slot = GetFirstFreeSlot();
-        if (slot == null) {
+        if (slot == null)
+        {
             Log.Warn(LogArea.Combat, () => "No free enemy slot");
-            return; 
+            return;
         }
 
         var enemyView = EnemyViewCreator.Instance.CreateEnemyView(enemyData, slot.position, slot.rotation);
         enemyView.transform.SetParent(slot, worldPositionStays: true);
+
+        enemyView.AssignId(id);
+        viewRegistry?.Register(enemyView);
+
         EnemyViews.Add(enemyView);
     }
 
@@ -26,9 +34,7 @@ public class EnemyBoardView : MonoBehaviour
         foreach (var s in slots)
         {
             if (s.childCount == 0)
-            {
                 return s;
-            }
         }
         return null;
     }

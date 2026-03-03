@@ -1,9 +1,9 @@
 public class ApplyPoisonGA : GameAction
 {
-    public CombatantView Target { get; }
     public int PoisonDamage { get; }
+    public CombatantId Target { get; }
 
-    public ApplyPoisonGA(int poisonDamage, CombatantView target)
+    public ApplyPoisonGA(int poisonDamage, CombatantId target)
     {
         PoisonDamage = poisonDamage;
         Target = target;

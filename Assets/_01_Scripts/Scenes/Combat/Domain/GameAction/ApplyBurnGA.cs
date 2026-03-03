@@ -1,10 +1,9 @@
 public class ApplyBurnGA : GameAction
 {
-    public int BurnDamage { get; private set; }
+    public int BurnDamage { get; }
+    public CombatantId Target { get; }
 
-    public CombatantView Target { get; private set; }
-
-    public ApplyBurnGA(int burnDamage, CombatantView target)
+    public ApplyBurnGA(int burnDamage, CombatantId target)
     {
         BurnDamage = burnDamage;
         Target = target;

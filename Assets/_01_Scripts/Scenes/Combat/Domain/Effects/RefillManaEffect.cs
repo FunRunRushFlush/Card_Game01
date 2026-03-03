@@ -1,12 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-/// <summary>
-/// Refills mana back to max.
-/// </summary>
 public class RefillManaEffect : Effect
 {
-    public override GameAction GetGameAction(List<CombatantView> targets, CombatantView caster)
-    {
-        return new RefillManaGA();
-    }
+    public override GameAction GetGameAction(IReadOnlyList<CombatantId> targets, CombatantId? caster)
+        => new RefillManaGA();
 }

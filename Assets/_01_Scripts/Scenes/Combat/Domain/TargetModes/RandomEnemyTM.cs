@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class RandomEnemyTM : TargetMode
 {
-    public override List<CombatantView> GetTargets()
+    public override List<CombatantId> GetTargetIds()
     {
-        CombatantView target = EnemySystem.Instance.Enemies[Random.Range(0, EnemySystem.Instance.Enemies.Count)];
-        return new() { target };
+        var enemies = EnemySystem.Instance.Enemies;
+        if (enemies == null || enemies.Count == 0) return new();
+
+        var enemy = enemies[Random.Range(0, enemies.Count)];
+        return enemy ? new() { enemy.Id } : new();
     }
 }

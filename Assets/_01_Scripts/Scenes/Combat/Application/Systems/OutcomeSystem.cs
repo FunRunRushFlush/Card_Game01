@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OutcomeSystem : MonoBehaviour
 {
+    [SerializeField] private CombatantViewRegistry viewRegistry;
+
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<ResolveDeathGA>(ResolveDeathPerformer);
@@ -17,23 +19,30 @@ public class OutcomeSystem : MonoBehaviour
 
     private IEnumerator ResolveDeathPerformer(ResolveDeathGA ga)
     {
-        var target = ga.Target;
-        if (!target) yield break;
+        var targetId = ga.Target;
 
-        if (target.CurrentHealth > 0) yield break;
-
-        if (target is EnemyView enemy)
+        var combatState = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
+        if (combatState == null)
         {
-            ActionSystem.Instance.AddReaction(new KillEnemyGA(enemy));
+            Log.Error(LogArea.Combat, () => "CombatStateSystem.State is null", this);
             yield break;
         }
 
-        if (target is HeroView)
+        if (!combatState.TryGet(targetId, out var st))
+            yield break;
+
+        if (st.Health > 0)
+            yield break;
+
+        // Hero defeated?
+        var hero = HeroSystem.Instance != null ? HeroSystem.Instance.HeroView : null;
+        if (hero != null && hero.Id.Value == targetId.Value)
         {
             GameFlowController.Current.CombatLost();
             yield break;
         }
 
-        Log.Error(LogArea.Combat, () => "Unknown CombatantView type.", this);
+        // Enemy defeated
+        ActionSystem.Instance.AddReaction(new KillEnemyGA(targetId));
     }
 }
