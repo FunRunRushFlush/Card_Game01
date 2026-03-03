@@ -12,7 +12,7 @@ public class CardSystem : Singleton<CardSystem>
     [SerializeField] private Transform drawPilePoint;
     [SerializeField] private Transform discardPilePoint;
 
-    private int MaxHandSize;
+    private int MaxHandSizeSafty = 99;
 
     private readonly List<Card> hand = new();
     private readonly List<Card> discardPile = new();
@@ -26,10 +26,6 @@ public class CardSystem : Singleton<CardSystem>
 
     void OnEnable()
     {
-        var herodata = CoreManager.Instance.Session.Hero.Data;
-        if (herodata != null)
-            MaxHandSize = herodata.MaxHandSize;
-
         ActionSystem.AttachPerformer<DrawCardsGA>(DrawCardsPerformer);
         ActionSystem.AttachPerformer<DiscardCardsGA>(DiscardCardsPerformer);
         ActionSystem.AttachPerformer<DiscardAllCardsGA>(DiscardAllCardsPerformer);
@@ -153,7 +149,8 @@ public class CardSystem : Singleton<CardSystem>
 
         yield return handView.AddCard(cardView);
 
-        if (hand.Count > MaxHandSize)
+        var limit = CombatContextSystem.Instance.Hero?.MaxHandSize ?? MaxHandSizeSafty;
+        if (hand.Count > limit)
         {
             hand.Remove(cardView.Card);
             handView.RemoveCard(cardView.Card);

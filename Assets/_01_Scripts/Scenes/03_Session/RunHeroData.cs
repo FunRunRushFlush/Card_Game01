@@ -38,7 +38,20 @@ public class RunHeroData : MonoBehaviour
     {
         return new List<CardData>(deck);
     }
-
+    public CombatHeroSnapshot CreateCombatHeroSnapshot()
+    {
+        // Aktuell kommen alle Werte aus dem Template,
+        // später kannst du hier Run-modifier reinrechnen (Perks/Relics/Shop/etc.)
+        return new CombatHeroSnapshot
+        {
+            HeroTemplate = selectedHero,
+            DrawPerTurn = selectedHero.DrawPerTurn,
+            MaxHandSize = selectedHero.MaxHandSize,
+            MaxMana = selectedHero.Mana,
+            Health = selectedHero.Health,
+            Deck = new List<CardData>(deck) //Copy!!!
+        };
+    }
     public void AddPermanent(CardData card) => deck.Add(card);
     public void RemovePermanent(CardData card) => deck.Remove(card);
 }

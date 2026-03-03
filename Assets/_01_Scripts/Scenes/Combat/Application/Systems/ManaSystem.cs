@@ -14,18 +14,15 @@ public class ManaSystem : Singleton<ManaSystem>
 
     private void OnEnable()
     {
-        var herodata = CoreManager.Instance.Session.Hero.Data;
-        if (herodata != null)
-            maxMana = herodata.Mana;
 
-
-        currentMana = maxMana;
-        manaUI.UpdateManaText(currentMana);
 
         ActionSystem.AttachPerformer<SpendManaGA>(SpendManaPerformer);
         ActionSystem.AttachPerformer<RefillManaGA>(RefillManaPerformer);
 
         enemyTurnPostSub = ActionSystem.SubscribeReaction<EnemyTurnGA>(EnemyTurnPostReaction, ReactionTiming.POST);
+
+
+        CombatContextHelpers.SubscribeInitialized(OnCombatInitialized);
     }
 
     private void OnDisable()
@@ -35,6 +32,15 @@ public class ManaSystem : Singleton<ManaSystem>
 
         enemyTurnPostSub?.Dispose();
         enemyTurnPostSub = null;
+
+        CombatContextHelpers.UnsubscribeInitialized(OnCombatInitialized);
+    }
+    private void OnCombatInitialized()
+    {
+        var hero = CombatContextSystem.Instance.Hero;
+        maxMana = hero.MaxMana;
+        currentMana = maxMana;
+        manaUI.UpdateManaText(currentMana);
     }
 
     public bool HasEnoughMana(int mana)
@@ -48,8 +54,9 @@ public class ManaSystem : Singleton<ManaSystem>
         yield return null;
     }
 
-    private IEnumerator RefillManaPerformer(RefillManaGA refillManaGA)
+    private IEnumerator RefillManaPerformer(RefillManaGA ga)
     {
+        maxMana = CombatContextSystem.Instance.Hero.MaxMana;
         currentMana = maxMana;
         manaUI.UpdateManaText(currentMana);
         yield return null;

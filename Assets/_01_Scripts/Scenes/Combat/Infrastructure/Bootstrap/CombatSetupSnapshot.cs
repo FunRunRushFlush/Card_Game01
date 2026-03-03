@@ -10,7 +10,10 @@ public class CombatSetupSnapshot
     public int seed;
 
     public int heroId;              // Heros enum als int (robust)
-    public int handSize;
+    public int handSize;      // Start-Hand ziehen (kann = drawPerTurn sein)
+    public int drawPerTurn;   // pro Turn ziehen
+    public int maxHandSize;   // Handlimit
+    public int maxMana;       // Mana cap
 
     public string biome;            // optional (debug)
     public string nodeType;         // optional (debug)

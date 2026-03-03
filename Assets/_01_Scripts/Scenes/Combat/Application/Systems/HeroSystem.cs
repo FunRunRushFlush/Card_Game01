@@ -37,14 +37,13 @@ public class HeroSystem : Singleton<HeroSystem>
 
     private void EnemyTurnPostReaction(EnemyTurnGA enemyTurnGA)
     {
-        var herodata = CoreManager.Instance.Session.Hero.Data;
-
-        if (herodata == null || herodata.DrawPerTurn < 1)
+        var heroContext = CombatContextSystem.Instance.Hero;
+        if (heroContext == null || heroContext.DrawPerTurn < 1)
         {
-            Log.Error(LogArea.Combat, () => "Session.Hero.Data.DrawPerTurn missing or invalid.", this);
+            Log.Error(LogArea.Combat, () => "CombatContext.Instance.Hero.DrawPerTurn missing or invalid.", this);
             return;
         }
 
-        ActionSystem.Instance.AddReaction(new DrawCardsGA(herodata.DrawPerTurn));
+        ActionSystem.Instance.AddReaction(new DrawCardsGA(heroContext.DrawPerTurn));
     }
 }

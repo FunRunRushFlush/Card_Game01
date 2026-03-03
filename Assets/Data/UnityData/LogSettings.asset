@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e7ef7b0baa68b9449506eca3c5e300d, type: 3}
   m_Name: LogSettings
   m_EditorClassIdentifier: Assembly-CSharp::Game.Logging.LogSettings
-  globalLevel: 2
+  globalLevel: 1
   overrides: []
-  logToUnityConsole: 1
+  logToUnityConsole: 0
   logToFile: 0
   includeStacktraceForWarnings: 1
   maxFileBytes: 2000000

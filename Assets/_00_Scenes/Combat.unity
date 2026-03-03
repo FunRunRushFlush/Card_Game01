@@ -3769,6 +3769,7 @@ Transform:
   - {fileID: 1623301940}
   - {fileID: 1844000414}
   - {fileID: 1014641119}
+  - {fileID: 1201487074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &724330914
@@ -6608,6 +6609,50 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1201487073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201487074}
+  - component: {fileID: 1201487075}
+  m_Layer: 0
+  m_Name: CombatContextSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201487074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201487073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 676178166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201487075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201487073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653a3bd1d66650d469da97b69e6de7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatContextSystem
 --- !u!1 &1225629670
 GameObject:
   m_ObjectHideFlags: 0
@@ -9208,7 +9253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45fa38cc3f01ad4f99099ac662f1d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatRulesSystem
-  rules: {fileID: 11400000, guid: 0286d4dd6a7fe8d4d90056db5fe2ae75, type: 2}
 --- !u!1 &1871296191
 GameObject:
   m_ObjectHideFlags: 0

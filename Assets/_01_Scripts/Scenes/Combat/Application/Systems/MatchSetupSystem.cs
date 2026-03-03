@@ -19,6 +19,7 @@ public class MatchSetupSystem : MonoBehaviour
             return;
         }
 
+
         var session = CoreManager.Instance.Session;
         var run = session.Run;
 
@@ -141,7 +142,12 @@ public class MatchSetupSystem : MonoBehaviour
             seed = seed,
 
             heroId = (int)session.Hero.Data.HeroID,
+
+            drawPerTurn = session.Hero.Data.DrawPerTurn,
             handSize = session.Hero.Data.DrawPerTurn,
+
+            maxHandSize = session.Hero.Data.MaxHandSize,
+            maxMana = session.Hero.Data.Mana,
 
             biome = run.CurrentBiome.ToString(),
             nodeType = nodeType.ToString(),

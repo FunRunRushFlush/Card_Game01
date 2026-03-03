@@ -90,6 +90,7 @@ public class CombatBootstrapper : MonoBehaviour
             return;
         }
 
+
         if (contentIndex == null)
         {
             Log.Error(LogArea.Combat, () => "[CombatBootstrapper] CombatContentIndex is not assigned.");
@@ -108,8 +109,6 @@ public class CombatBootstrapper : MonoBehaviour
                            "Fix: Rebuild CombatContentIndex and ensure heroes list includes your HeroData assets.");
             return;
         }
-
-        HeroSystem.Instance.Setup(heroData);
 
         // Resolve Enemies
         var enemies = new List<EnemyData>(snapshot.enemyIds.Count);
@@ -133,6 +132,8 @@ public class CombatBootstrapper : MonoBehaviour
             return; // fail-fast to avoid NRE
         }
 
+        CombatContextSystem.Instance.Initialize(snapshot);
+        HeroSystem.Instance.Setup(heroData);
         EnemySystem.Instance.Setup(enemies);
 
         // Resolve Deck
