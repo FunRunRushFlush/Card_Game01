@@ -8,6 +8,8 @@ public class CombatantView : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private StatusEffectsManagerUI statusEffectsManagerUI;
 
+    //[SerializeField] private Transform hitPoint;
+
     [Header("Block")]
     [SerializeField] private GameObject blockRoot;
     [SerializeField] private TMP_Text blockText;
@@ -40,5 +42,17 @@ public class CombatantView : MonoBehaviour
     {
         if (transform != null)
             transform.DOShakePosition(0.2f, 0.5f);
+    }
+
+    public Vector3 HitPointWorld
+    {
+        get
+        {
+            //if (hitPoint) return hitPoint.position;
+            if (spriteRenderer) 
+                return spriteRenderer.bounds.center;
+            return 
+                transform.position;
+        }
     }
 }

@@ -1,14 +1,9 @@
 using Game.Logging;
-using Game.Scenes.Core;
 using System;
 using UnityEngine;
 
 public class HeroSystem : Singleton<HeroSystem>
 {
-    [field: SerializeField] public HeroView HeroView { get; private set; }
-
-    [SerializeField] private CombatantViewRegistry viewRegistry;
-
     private IDisposable enemyTurnPreSub;
     private IDisposable enemyTurnPostSub;
 
@@ -29,18 +24,16 @@ public class HeroSystem : Singleton<HeroSystem>
 
     public void Setup(CombatantId id, HeroData heroData)
     {
-        HeroView.AssignId(id);
-        viewRegistry?.Register(HeroView);
-
-        HeroView.Setup(heroData);
+        // Presentation-only
+        CombatEventBus.Publish(new HeroSpawnRequestedEvent(id, heroData));
     }
 
-    private void EnemyTurnPreReaction(EnemyTurnGA enemyTurnGA)
+    private void EnemyTurnPreReaction(EnemyTurnGA _)
     {
         ActionSystem.Instance.AddReaction(new DiscardAllCardsGA());
     }
 
-    private void EnemyTurnPostReaction(EnemyTurnGA enemyTurnGA)
+    private void EnemyTurnPostReaction(EnemyTurnGA _)
     {
         var heroContext = CombatContextService.Instance.Hero;
         if (heroContext == null || heroContext.DrawPerTurn < 1)

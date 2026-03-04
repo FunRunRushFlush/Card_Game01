@@ -17,7 +17,7 @@ public class EffectSystem : MonoBehaviour
     private IEnumerator PerformEffectPerformer(PerformEffectsGA ga)
     {
         // Fallback keeps current behaviour if a caster was not provided.
-        var casterId = ga.Caster ?? HeroSystem.Instance.HeroView.Id;
+        var casterId = ga.Caster ?? CombatantIds.Hero;
 
         Log.Debug(LogArea.Combat, () =>
             $"PerformEffectsGA: effect={ga.Effect?.GetType().Name} targets={(ga.Targets == null ? 0 : ga.Targets.Count)} casterId={(casterId.Value)}",

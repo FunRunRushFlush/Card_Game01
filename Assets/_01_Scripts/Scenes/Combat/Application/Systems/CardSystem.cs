@@ -196,15 +196,26 @@ public class CardSystem : Singleton<CardSystem>
         if (playCardGA.ManualTargetId.HasValue)
             manualTargetView = FindEnemyViewById(playCardGA.ManualTargetId.Value);
 
-        var canCommit = CardPlayabilityService.Instance.EvaluateCommit(playCardGA.Card, HeroSystem.Instance.HeroView, manualTargetView);
+        var canCommit = CardPlayabilityService.Instance.EvaluateCommit(playCardGA.Card, CombatPresentationController.Instance.HeroView, manualTargetView);
         if (!canCommit.CanPlay)
             yield break;
 
         RoundStateSystem.Instance.NotifyCardPlayed(playCardGA.Card);
 
+
         hand.Remove(playCardGA.Card);
-        CardView cardView = handView.RemoveCard(playCardGA.Card);
-        yield return DiscardCard(cardView);
+        var cardView = handView.RemoveCard(playCardGA.Card);
+
+        // logisch schon mal in discard
+        discardPile.Add(playCardGA.Card);
+
+        // Presentation gate: wait until card animation finished
+        int token = PresentationGate.NewToken();
+        CombatEventBus.Publish(new CardPlayPresentationRequestedEvent(cardView, discardPilePoint.position, token));
+        yield return PresentationGate.Wait(token);
+        //hand.Remove(playCardGA.Card);
+        //CardView cardView = handView.RemoveCard(playCardGA.Card);
+        //yield return DiscardCard(cardView);
 
         SpendManaGA spendManaGA = new(playCardGA.Card.Mana);
         ActionSystem.Instance.AddReaction(spendManaGA);
@@ -243,16 +254,9 @@ public class CardSystem : Singleton<CardSystem>
 
     private EnemyView FindEnemyViewById(CombatantId id)
     {
-        var enemies = EnemySystem.Instance != null ? EnemySystem.Instance.Enemies : null;
-        if (enemies == null) return null;
+        var pc = CombatPresentationController.Instance;
+        if (pc == null) return null;
 
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            var e = enemies[i];
-            if (!e) continue;
-            if (e.Id.Value == id.Value) return e;
-        }
-
-        return null;
+        return pc.TryGetEnemyView(id, out var view) ? view : null;
     }
 }

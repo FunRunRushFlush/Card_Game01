@@ -105,14 +105,15 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
 
     private bool HasAnyManualTargetsInternal()
     {
-        var enemies = EnemySystem.Instance != null ? EnemySystem.Instance.Enemies : null;
+        var presentation = CombatPresentationController.Instance;
+        var enemies = presentation != null ? presentation.EnemyViews : null;
         return enemies != null && enemies.Count > 0;
     }
 
     private bool IsValidManualTarget(EnemyView target)
     {
-        var enemies = EnemySystem.Instance != null ? EnemySystem.Instance.Enemies : null;
-        return enemies != null && enemies.Contains(target);
+        var presentation = CombatPresentationController.Instance;
+        return presentation != null && presentation.ContainsEnemyView(target);
     }
 
     private void EvaluateCustomConditions(CardPlayabilityResult result, in CardPlayabilityContext context)

@@ -1219,8 +1219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424b7220020103a43beec0d235d6ce2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem
-  enemyBoardView: {fileID: 1225629672}
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &270859877
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,8 +3462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b381f1bca5a214e8a3d314fd751d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeroSystem
-  <HeroView>k__BackingField: {fileID: 1238981097}
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &621434355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3755,7 +3751,6 @@ Transform:
   - {fileID: 500385354}
   - {fileID: 1095413315}
   - {fileID: 171825707}
-  - {fileID: 1656299847}
   - {fileID: 1280726573}
   - {fileID: 393468152}
   - {fileID: 267657753}
@@ -6424,7 +6419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef957d649feb023409f9170db1020e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlockSystem
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &1110836741
 GameObject:
   m_ObjectHideFlags: 0
@@ -7070,8 +7064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57544192b8f9f7d419ea24a5f73a57db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageSystem
-  damageVFX: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &1295183577
 GameObject:
   m_ObjectHideFlags: 0
@@ -8641,6 +8633,55 @@ Transform:
   - {fileID: 1088580995}
   m_Father: {fileID: 270859878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1632960416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632960417}
+  - component: {fileID: 1632960418}
+  m_Layer: 0
+  m_Name: CombatPresentationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1632960417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632960416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1801508556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1632960418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632960416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d82a3727fd8354089667395d821551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatPresentationController
+  enemyBoardView: {fileID: 1225629672}
+  viewRegistry: {fileID: 1656299848}
+  heroView: {fileID: 1238981097}
+  damageVFX: {fileID: 6263782476919498309, guid: 1fd2749f2a4056446881dce86ed70c39, type: 3}
+  sfxSource: {fileID: 330585548}
 --- !u!1 &1647640503
 GameObject:
   m_ObjectHideFlags: 0
@@ -8703,12 +8744,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656299846}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 676178166}
+  m_Father: {fileID: 1801508556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1656299848
 MonoBehaviour:
@@ -9146,6 +9187,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1801508555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801508556}
+  m_Layer: 0
+  m_Name: --- View Controller ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1801508556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801508555}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1632960417}
+  - {fileID: 1656299847}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1810849722
 GameObject:
   m_ObjectHideFlags: 0
@@ -86003,6 +86077,7 @@ SceneRoots:
   - {fileID: 270859878}
   - {fileID: 676178166}
   - {fileID: 1110836742}
+  - {fileID: 1801508556}
   - {fileID: 2019108292}
   - {fileID: 1539389333}
   - {fileID: 451513726}

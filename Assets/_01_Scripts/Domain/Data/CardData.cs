@@ -34,6 +34,11 @@ public class CardData : ScriptableObject
 
     [field: SerializeReference, SR] public List<CardCondition> PlayConditions { get; private set; } = new();
 
+
+    [Header("Presentation")]
+    [SerializeField] private CardAnimationSequenceSO animationSequence;
+    public CardAnimationSequenceSO AnimationSequence => animationSequence;
+
 }
 
 

@@ -4,10 +4,10 @@ public class AllEnemiesTM : TargetMode
 {
     public override List<CombatantId> GetTargetIds()
     {
-        var enemies = EnemySystem.Instance.Enemies;
-        var ids = new List<CombatantId>(enemies.Count);
-        foreach (var e in enemies)
-            if (e) ids.Add(e.Id);
-        return ids;
+        var enemyIds = EnemySystem.Instance != null ? EnemySystem.Instance.EnemyIds : null;
+        if (enemyIds == null || enemyIds.Count == 0)
+            return new();
+
+        return new List<CombatantId>(enemyIds);
     }
 }

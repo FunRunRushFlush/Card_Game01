@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BlockSystem : Singleton<BlockSystem>
 {
-    [SerializeField] private CombatantViewRegistry viewRegistry;
-
-
     private IDisposable enemyTurnPreSub;
     private IDisposable enemyTurnPostSub;
 
@@ -38,9 +35,7 @@ public class BlockSystem : Singleton<BlockSystem>
 
             targetState.AddBlock(ga.Amount);
 
-            if (viewRegistry && viewRegistry.TryGet(targetId, out var view) && view)
-                view.Render(targetState);
-
+            CombatEventBus.Publish(new CombatantStateChangedEvent(targetId));
             yield return null;
         }
     }
@@ -50,31 +45,24 @@ public class BlockSystem : Singleton<BlockSystem>
         var enemySystem = EnemySystem.Instance;
         if (enemySystem == null) return;
 
-        foreach (var enemyView in enemySystem.Enemies)
+        foreach (var enemyId in enemySystem.EnemyIds)
         {
-            if (!enemyView) continue;
-            var id = enemyView.Id;
+            if (!CombatContextService.Instance.State.TryGet(enemyId, out var st))
+                continue;
 
-            if (CombatContextService.Instance.State.TryGet(id, out var st))
-            {
-                st.ClearBlock();
-                if (viewRegistry && viewRegistry.TryGet(id, out var view) && view)
-                    view.Render(st);
-            }
+            st.ClearBlock();
+            CombatEventBus.Publish(new CombatantStateChangedEvent(enemyId));
         }
     }
 
     private void OnEnemyTurnPost(EnemyTurnGA _)
     {
-        var hero = HeroSystem.Instance?.HeroView;
-        if (!hero) return;
+        var heroId = CombatantIds.Hero;
 
-        var id = hero.Id;
-        if (CombatContextService.Instance.State.TryGet(id, out var st))
-        {
-            st.ClearBlock();
-            if (viewRegistry && viewRegistry.TryGet(id, out var view) && view)
-                view.Render(st);
-        }
+        if (!CombatContextService.Instance.State.TryGet(heroId, out var st))
+            return;
+
+        st.ClearBlock();
+        CombatEventBus.Publish(new CombatantStateChangedEvent(heroId));
     }
 }

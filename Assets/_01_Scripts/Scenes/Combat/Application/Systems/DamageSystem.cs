@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class DamageSystem : Singleton<DamageSystem>
 {
-    [SerializeField] private GameObject damageVFX;
-    [SerializeField] private CombatantViewRegistry viewRegistry;
-
-
-
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<DealDamageGA>(DealDamagePerformer);
@@ -20,11 +15,10 @@ public class DamageSystem : Singleton<DamageSystem>
 
     private IEnumerator DealDamagePerformer(DealDamageGA ga)
     {
-
         var state = CombatContextService.Instance.State;
         if (state == null)
         {
-            Debug.LogError("DamageSystem: CombatStateSystem.State is NULL. Did you forget to initialize it in CombatBootstrapper?");
+            Debug.LogError("DamageSystem: CombatContextService.State is NULL.");
             yield break;
         }
 
@@ -49,24 +43,18 @@ public class DamageSystem : Singleton<DamageSystem>
             if (!state.TryGet(targetId, out var targetState))
                 continue;
 
-            // 1) Domain: Schaden anwenden
+            var wasAlive = targetState.Health > 0;
             targetState.TakeDamage(modifiedAmount);
 
-            // 2) Presentation: Feedback + VFX + UI rendern
-            if (viewRegistry != null && viewRegistry.TryGet(targetId, out var view) && view != null)
-            {
-                view.PlayHitFeedback();
 
-                if (damageVFX)
-                    Instantiate(damageVFX, view.transform.position, Quaternion.identity);
+            // notify presentation
+            CombatEventBus.Publish(new DamageAppliedEvent(targetId, modifiedAmount, ga.Caster));
+            CombatEventBus.Publish(new CombatantStateChangedEvent(targetId));
 
-                view.Render(targetState);
-            }
+            if (wasAlive && targetState.Health <= 0)
+                ActionSystem.Instance.AddReaction(new ResolveDeathGA(targetId));
 
-            yield return new WaitForSeconds(0.15f);
-
-            // 3) Death-Reaction jetzt idealerweise ebenfalls über ID:
-            ActionSystem.Instance.AddReaction(new ResolveDeathGA(targetId));
+            yield return null;
         }
     }
 }

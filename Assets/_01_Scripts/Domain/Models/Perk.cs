@@ -57,7 +57,7 @@ public class Perk
             return;
 
         // Perk caster is the hero (domain id)
-        var heroCasterId = (CombatantId?)HeroSystem.Instance.HeroView.Id;
+        var heroCasterId = (CombatantId?)CombatantIds.Hero;
 
         GameAction perkEffectAction = _autoTargetEffect.Effect.GetGameAction(targetIds, heroCasterId);
         ActionSystem.Instance.AddReaction(perkEffectAction);

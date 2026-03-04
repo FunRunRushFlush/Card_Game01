@@ -57,7 +57,7 @@ public class CardView : MonoBehaviour
         if (glow == null)
             throw new MissingReferenceException();
 
-        var res = CardPlayabilityService.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView);
+        var res = CardPlayabilityService.Instance.EvaluateStart(Card, CombatPresentationController.Instance.HeroView);
         glow.SetPlayable(res.CanPlay);
         if (!res.CanPlay)
             Log.Info(LogArea.Combat, () => res.TooltipText(),this);
@@ -116,7 +116,7 @@ public class CardView : MonoBehaviour
             return;
 
 
-        if (Card.HasManualTargetEffects && !IsTargeting() && IsOverDropArea() && CardPlayabilityService.Instance.EvaluateStart(Card, HeroSystem.Instance.HeroView).CanPlay)
+        if (Card.HasManualTargetEffects && !IsTargeting() && IsOverDropArea() && CardPlayabilityService.Instance.EvaluateStart(Card, CombatPresentationController.Instance.HeroView).CanPlay)
         {
             state = CardState.Targeting;
 
@@ -148,26 +148,26 @@ public class CardView : MonoBehaviour
         if (state == CardState.Targeting)
         {
             EnemyView target = ManualTargetService.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
-            if (CardPlayabilityService.Instance.EvaluateCommit(Card, HeroSystem.Instance.HeroView, target).CanPlay)
+            if (CardPlayabilityService.Instance.EvaluateCommit(Card, CombatPresentationController.Instance.HeroView, target).CanPlay)
             {
                 played = true;
-                var casterId = HeroSystem.Instance.HeroView.Id;
+                var casterId = CombatantIds.Hero;
                 var targetId = target != null ? (CombatantId?)target.Id : null;
                 ActionSystem.Instance.Perform(new PlayCardGA(Card, casterId, targetId));
                 ownerHand?.CancelDrag(this); // remove will follow elsewhere
             }
             else
-            {
+            {   
                 // not played => just snap back into hand
                 FinishInteraction(snap: true);
             }
         }
         else // Dragging
         {
-            if (IsOverDropArea() && CardPlayabilityService.Instance.EvaluateCommit(Card, HeroSystem.Instance.HeroView, null).CanPlay)
+            if (IsOverDropArea() && CardPlayabilityService.Instance.EvaluateCommit(Card, CombatPresentationController.Instance.HeroView, null).CanPlay)
             {
                 played = true;
-                var casterId = HeroSystem.Instance.HeroView.Id;
+                var casterId = CombatPresentationController.Instance.HeroView.Id;
                 ActionSystem.Instance.Perform(new PlayCardGA(Card, casterId));
                 ownerHand?.CancelDrag(this); // remove will follow elsewhere
             }

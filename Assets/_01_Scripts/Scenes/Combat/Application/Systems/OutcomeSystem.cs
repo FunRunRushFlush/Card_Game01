@@ -35,8 +35,7 @@ public class OutcomeSystem : MonoBehaviour
             yield break;
 
         // Hero defeated?
-        var hero = HeroSystem.Instance != null ? HeroSystem.Instance.HeroView : null;
-        if (hero != null && hero.Id.Value == targetId.Value)
+        if (targetId.Value == CombatantIds.Hero.Value)
         {
             GameFlowController.Current.CombatLost();
             yield break;

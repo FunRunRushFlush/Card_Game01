@@ -8,8 +8,8 @@ public class EnemyCountAtLeastCondition : CardCondition
     public override bool IsMet(in CardPlayabilityContext context)
     {
         if (EnemySystem.Instance == null) return false;
-        var enemies = EnemySystem.Instance.Enemies;
-        return enemies != null && enemies.Count >= minEnemies;
+        var ids = EnemySystem.Instance.EnemyIds;
+        return ids != null && ids.Count >= minEnemies;
     }
 
     public override CardPlayFailReason GetFailReason(in CardPlayabilityContext context)

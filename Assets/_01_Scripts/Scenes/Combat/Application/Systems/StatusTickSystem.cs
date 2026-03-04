@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class StatusTickSystem : MonoBehaviour
 {
-
     private IDisposable enemyTurnPreSub;
 
     private void OnEnable()
@@ -19,21 +18,15 @@ public class StatusTickSystem : MonoBehaviour
 
     private void OnEnemyTurnPre(EnemyTurnGA _)
     {
+        // Hero (no view access)
+        TickCombatant(CombatantIds.Hero);
 
-        // Hero
-        var hero = HeroSystem.Instance != null ? HeroSystem.Instance.HeroView : null;
-        if (hero != null)
-            TickCombatant(hero.Id);
+        // Enemies (no view access)
+        var enemySystem = EnemySystem.Instance;
+        if (enemySystem == null) return;
 
-        // Enemies (Snapshot, falls Liste sich während Reactions ändert)
-        var enemies = EnemySystem.Instance?.Enemies;
-        if (enemies == null) return;
-
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            if (!enemies[i]) continue;
-            TickCombatant(enemies[i].Id);
-        }
+        foreach (var enemyId in enemySystem.EnemyIds)
+            TickCombatant(enemyId);
     }
 
     private void TickCombatant(CombatantId targetId)
