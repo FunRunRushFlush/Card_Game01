@@ -26,12 +26,6 @@ public class CombatantView : MonoBehaviour
             healthBar.SetMaxHealth(maxHealth);
     }
 
-    public void SetupPresentation(CombatantId id, int maxHealth, Sprite image)
-    {
-        Id = id;
-        spriteRenderer.sprite = image;
-        healthBar.SetMaxHealth(maxHealth);
-    }
 
     public void Render(CombatantState state)
     {

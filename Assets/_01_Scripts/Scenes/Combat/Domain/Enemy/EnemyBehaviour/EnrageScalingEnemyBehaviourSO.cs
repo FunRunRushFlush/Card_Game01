@@ -10,14 +10,13 @@ public class EnrageScalingEnemyBehaviourSO : EnemyBehaviourSO
     [SerializeField] private EnemyMoveSO enrageMove;
 
     [Header("Timing")]
-    [Min(1)][SerializeField] private int startAtTurn = 3;  
-    [Min(1)][SerializeField] private int everyNTurns = 1;  
+    [Min(1)][SerializeField] private int startAtTurn = 3;
+    [Min(1)][SerializeField] private int everyNTurns = 1;
 
-    public override EnemyMoveSO PickNextMove(EnemyAIState state, EnemyView enemy)
+    public override EnemyMoveSO PickNextMove(EnemyAIState state, IEnemyActor enemy)
     {
         if (state == null) return null;
 
-        
         int nextTurn = state.TurnIndex + 1;
 
         bool shouldEnrage =
@@ -28,8 +27,6 @@ public class EnrageScalingEnemyBehaviourSO : EnemyBehaviourSO
         if (shouldEnrage)
             return enrageMove;
 
-        return baseBehaviour != null
-            ? baseBehaviour.PickNextMove(state, enemy)
-            : null;
+        return baseBehaviour != null ? baseBehaviour.PickNextMove(state, enemy) : null;
     }
 }

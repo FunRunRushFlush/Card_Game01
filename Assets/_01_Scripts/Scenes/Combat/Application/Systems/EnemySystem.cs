@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,33 +9,36 @@ public class EnemySystem : Singleton<EnemySystem>
 {
     [SerializeField] private EnemyBoardView enemyBoardView;
     [SerializeField] private CombatantViewRegistry viewRegistry;
+
     public List<EnemyView> Enemies => enemyBoardView.EnemyViews;
 
     public event Action AllEnemiesDefeated;
 
     private IDisposable enemyTurnPostSub;
 
-    void OnEnable()
+    // Logic-only runtime models (no views inside)
+    private readonly Dictionary<CombatantId, EnemyRuntime> runtimeById = new();
+
+    private void OnEnable()
     {
         ActionSystem.AttachPerformer<EnemyTurnGA>(EnemyTurnPerformer);
         ActionSystem.AttachPerformer<AttackHeroGA>(AttackHeroPerformer);
         ActionSystem.AttachPerformer<KillEnemyGA>(KillEnemyPerformer);
 
-        // TODO: ?
-        // Nach dem EnemyTurn: nächsten Intent wählen
+        // After EnemyTurn: advance AI and choose next intent (logic), then render in views (presentation)
         enemyTurnPostSub = ActionSystem.SubscribeReaction<EnemyTurnGA>(_ =>
         {
-            foreach (var enemy in enemyBoardView.EnemyViews)
+            foreach (var runtime in runtimeById.Values)
             {
-                if (!enemy) continue;
-                enemy.AIState?.AdvanceTurn();
-                enemy.ChooseNextIntent();
+                runtime.AIState?.AdvanceTurn();
+                runtime.ChooseNextIntent();
             }
+
+            RenderAllIntents();
         }, ReactionTiming.POST);
     }
 
-
-    void OnDisable()
+    private void OnDisable()
     {
         ActionSystem.DetachPerformer<EnemyTurnGA>();
         ActionSystem.DetachPerformer<AttackHeroGA>();
@@ -43,21 +47,39 @@ public class EnemySystem : Singleton<EnemySystem>
         enemyTurnPostSub?.Dispose();
         enemyTurnPostSub = null;
     }
+
     public void Setup(List<EnemyData> enemyDatas)
     {
-        // Clear current board
-        foreach (EnemyData data in enemyDatas)
+        if (enemyBoardView == null)
         {
-            // Deterministic ids: 1..n
-            var id = new CombatantId(enemyBoardView.EnemyViews.Count + 1);
+            Log.Error(LogArea.Combat, () => "[EnemySystem] EnemyBoardView reference is missing.", this);
+            return;
+        }
+
+        runtimeById.Clear();
+
+        // Spawn views + create runtime logic (deterministic ids: 1..n)
+        for (int i = 0; i < enemyDatas.Count; i++)
+        {
+            var data = enemyDatas[i];
+            if (data == null) continue;
+
+            var id = CombatantIds.Enemy(i);
+
+            // Create runtime (logic)
+            int seed = id.Value; // if CombatantId has different API, replace accordingly
+            var runtime = new EnemyRuntime(id, data, seed);
+            runtimeById[id] = runtime;
+
+            // Spawn view (presentation)
             enemyBoardView.AddEnemy(data, id);
         }
 
-        foreach (var enemy in enemyBoardView.EnemyViews)
-        {
-            if (!enemy) continue;
-            enemy.ChooseNextIntent();
-        }
+        // Choose + render initial intents
+        foreach (var runtime in runtimeById.Values)
+            runtime.ChooseNextIntent();
+
+        RenderAllIntents();
     }
 
     private IEnumerator EnemyTurnPerformer(EnemyTurnGA action)
@@ -65,17 +87,22 @@ public class EnemySystem : Singleton<EnemySystem>
         if (AreAllEnemiesDefeated())
             yield break;
 
+        // Keep the execution order stable using the current view order (1..n).
         var enemiesSnapshot = new List<EnemyView>(enemyBoardView.EnemyViews);
 
-        foreach (var enemy in enemiesSnapshot)
+        foreach (var enemyView in enemiesSnapshot)
         {
-            if (!enemy) continue;
+            if (!enemyView) continue;
 
-            var actions = enemy.BuildActionsFromCurrentIntent();
+            if (!runtimeById.TryGetValue(enemyView.Id, out var runtime) || runtime == null)
+                continue;
+
+            var actions = runtime.BuildActionsFromCurrentIntent();
+            if (actions == null || actions.Count == 0)
+                continue;
+
             foreach (var ga in actions)
-            {
                 ActionSystem.Instance.AddReaction(ga);
-            }
         }
 
         yield return null;
@@ -83,10 +110,11 @@ public class EnemySystem : Singleton<EnemySystem>
 
     private IEnumerator AttackHeroPerformer(AttackHeroGA ga)
     {
+        // Find attacker view for animation
         if (viewRegistry == null || !viewRegistry.TryGet(ga.AttackerId, out var attackerView) || !attackerView)
             yield break;
 
-        // anim
+        // Optional: animate attacker lunge (presentation only)
         var tween = attackerView.transform.DOMoveX(attackerView.transform.position.x - 1f, 0.15f);
         yield return tween.WaitForCompletion();
 
@@ -94,23 +122,36 @@ public class EnemySystem : Singleton<EnemySystem>
 
         attackerView.transform.DOMoveX(attackerView.transform.position.x + 1f, 0.25f);
 
-        var heroId = HeroSystem.Instance.HeroView.Id;
+        // Hero id should not come from HeroView anymore
+        var heroId = CombatantIds.Hero;
 
-        // damage value (solange AttackValue noch im View steckt)
-        int damage = ga.DamageOverride ?? ((EnemyView)attackerView).AttackValue;
+        // Damage value comes from runtime, not from view
+        int damage = ga.DamageOverride ?? GetAttackDamageFromRuntime(ga.AttackerId);
+        if (damage <= 0)
+            yield break;
 
         ActionSystem.Instance.AddReaction(
             new DealDamageGA(damage, new List<CombatantId> { heroId }, ga.CasterId)
         );
     }
 
+    private int GetAttackDamageFromRuntime(CombatantId attackerId)
+    {
+        if (runtimeById.TryGetValue(attackerId, out var runtime) && runtime != null)
+            return runtime.AttackValue;
+
+        return 0;
+    }
 
     private IEnumerator KillEnemyPerformer(KillEnemyGA killEnemyGA)
     {
         if (killEnemyGA == null)
             throw new ArgumentNullException(nameof(killEnemyGA));
 
-        // Find the EnemyView by id
+        // Remove runtime first
+        runtimeById.Remove(killEnemyGA.EnemyId);
+
+        // Find the EnemyView by id (presentation)
         EnemyView enemyView = null;
         foreach (var e in enemyBoardView.EnemyViews)
         {
@@ -123,17 +164,28 @@ public class EnemySystem : Singleton<EnemySystem>
 
         yield return enemyBoardView.RemoveEnemy(enemyView);
 
-
         if (AreAllEnemiesDefeated())
-        {
             AllEnemiesDefeated?.Invoke();
+    }
+
+    private void RenderAllIntents()
+    {
+        if (enemyBoardView == null || enemyBoardView.EnemyViews == null)
+            return;
+
+        foreach (var view in enemyBoardView.EnemyViews)
+        {
+            if (!view) continue;
+
+            if (runtimeById.TryGetValue(view.Id, out var runtime) && runtime != null)
+                view.RenderIntent(runtime.CurrentIntent);
+            else
+                view.RenderIntent(default);
         }
     }
 
-
     public bool AreAllEnemiesDefeated()
     {
-
         return enemyBoardView == null
                || enemyBoardView.EnemyViews == null
                || enemyBoardView.EnemyViews.Count == 0;

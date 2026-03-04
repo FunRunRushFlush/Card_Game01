@@ -6,7 +6,7 @@ public class EnemyMultiStrikeMoveSO : EnemyMoveSO
 {
     [Min(2)][SerializeField] private int hitCount = 2;
 
-    public override IntentData GetIntent(EnemyView enemy)
+    public override IntentData GetIntent(IEnemyActor enemy)
     {
         int perHit = Mathf.Max(0, enemy.MultiAttackValue);
         int total = perHit * hitCount;
@@ -20,7 +20,7 @@ public class EnemyMultiStrikeMoveSO : EnemyMoveSO
         };
     }
 
-    public override List<GameAction> BuildActions(EnemyView enemy)
+    public override List<GameAction> BuildActions(IEnemyActor enemy)
     {
         int perHit = Mathf.Max(0, enemy.MultiAttackValue);
 

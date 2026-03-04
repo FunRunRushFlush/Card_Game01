@@ -4,21 +4,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Combat/EnemyMoves/AttackAndPoison")]
 public class EnemyAttackAndPoisonMoveSO : EnemyMoveSO
 {
-    public override IntentData GetIntent(EnemyView enemy)
+    public override IntentData GetIntent(IEnemyActor enemy)
         => IntentData.IconWithValue(IntentIcon, enemy.AttackValue);
 
-    public override List<GameAction> BuildActions(EnemyView enemy)
+    public override List<GameAction> BuildActions(IEnemyActor enemy)
     {
-        var actions = new List<GameAction>();
-
-        actions.Add(new AttackHeroGA(enemy.Id));
-
-        actions.Add(new AddStatusEffectGA(
-            StatusEffectType.POISON,
-            enemy.PoisonValue,
-            new List<CombatantId> { HeroSystem.Instance.HeroView.Id }
-        ));
-
-        return actions;
+        return new List<GameAction>
+        {
+            new AttackHeroGA(enemy.Id),
+            new AddStatusEffectGA(
+                StatusEffectType.POISON,
+                enemy.PoisonValue,
+                new List<CombatantId> { CombatantIds.Hero }
+            )
+        };
     }
 }

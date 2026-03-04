@@ -7,10 +7,10 @@ public class EnemyGuardedStrikeMoveSO : EnemyMoveSO
     [SerializeField] private bool useEnemyBlockValue = true;
     [Min(0)][SerializeField] private int blockOverride = 4;
 
-    public override IntentData GetIntent(EnemyView enemy)
+    public override IntentData GetIntent(IEnemyActor enemy)
         => IntentData.IconWithValue(IntentIcon, enemy.AttackValue);
 
-    public override List<GameAction> BuildActions(EnemyView enemy)
+    public override List<GameAction> BuildActions(IEnemyActor enemy)
     {
         int block = useEnemyBlockValue ? enemy.BlockValue : blockOverride;
 

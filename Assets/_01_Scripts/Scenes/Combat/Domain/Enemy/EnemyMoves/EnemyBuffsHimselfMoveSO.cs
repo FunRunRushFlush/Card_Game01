@@ -1,26 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu(menuName = "Combat/EnemyMoves/SelfBuff")]
 public class EnemyBuffsHimselfMoveSO : EnemyMoveSO
 {
     [SerializeField] private StatusEffectType BuffType = StatusEffectType.STRENGTH;
 
-    public override IntentData GetIntent(EnemyView enemy)
-        => IntentData.IconWithValue(IntentIcon, enemy.StrengthValue);
+    public override IntentData GetIntent(IEnemyActor enemy)
+        => IntentData.IconWithValue(IntentIcon, GetBuffValue(enemy));
 
-    public override List<GameAction> BuildActions(EnemyView enemy)
+    public override List<GameAction> BuildActions(IEnemyActor enemy)
     {
-        var actions = new List<GameAction>();
+        return new List<GameAction>
+        {
+            new AddStatusEffectGA(
+                BuffType,
+                GetBuffValue(enemy),
+                new List<CombatantId> { enemy.Id }
+            )
+        };
+    }
 
-        actions.Add(new AddStatusEffectGA(
-      BuffType,
-      enemy.StrengthValue,
-      new List<CombatantId> {  enemy.Id  }
-         ));
-
-
-        return actions;
+    private int GetBuffValue(IEnemyActor enemy)
+    {
+        return BuffType switch
+        {
+            StatusEffectType.STRENGTH => enemy.StrengthValue,
+            StatusEffectType.WEAKNESS => enemy.WeaknessValue,
+            _ => enemy.StrengthValue
+        };
     }
 }

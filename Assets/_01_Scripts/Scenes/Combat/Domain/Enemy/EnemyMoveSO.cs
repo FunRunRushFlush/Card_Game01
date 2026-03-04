@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public abstract class EnemyMoveSO : ScriptableObject
 {
     [Header("Intent UI")]
@@ -9,8 +8,8 @@ public abstract class EnemyMoveSO : ScriptableObject
 
     public Sprite IntentIcon => intentIcon;
 
-    public virtual IntentData GetIntent(EnemyView enemy)
+    public virtual IntentData GetIntent(IEnemyActor enemy)
         => IntentData.IconOnly(intentIcon);
 
-    public abstract List<GameAction> BuildActions(EnemyView enemy);
+    public abstract List<GameAction> BuildActions(IEnemyActor enemy);
 }

@@ -24,7 +24,7 @@ public class WeightedRandomEnemyBehaviourSO : EnemyBehaviourSO
 
     [SerializeField] private List<Entry> entries = new();
 
-    public override EnemyMoveSO PickNextMove(EnemyAIState state, EnemyView enemy)
+    public override EnemyMoveSO PickNextMove(EnemyAIState state, IEnemyActor enemy)
     {
         if (entries == null || entries.Count == 0)
             return null;

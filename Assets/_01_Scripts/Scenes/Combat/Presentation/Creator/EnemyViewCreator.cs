@@ -9,7 +9,7 @@ public class EnemyViewCreator : Singleton<EnemyViewCreator>
         var prefab = enemyData.ViewPrefab != null ? enemyData.ViewPrefab : defaultEnemyViewPrefab;
 
         EnemyView enemyView = Instantiate(prefab, position, rotation);
-        enemyView.Setup(enemyData);
+        enemyView.SetupPresentation(enemyData);
         return enemyView;
     }
 }
