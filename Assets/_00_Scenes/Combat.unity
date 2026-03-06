@@ -942,9 +942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d4ad0a8ee852e488a89851691b7839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem
-  handView: {fileID: 1810849724}
-  drawPilePoint: {fileID: 1961981879}
-  discardPilePoint: {fileID: 1088580995}
 --- !u!1 &189096622
 GameObject:
   m_ObjectHideFlags: 0
@@ -7684,7 +7681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33049f1783538e4f8d340477b263080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManaSystem
-  manaUI: {fileID: 746714860}
 --- !u!1 &1419988058
 GameObject:
   m_ObjectHideFlags: 0
@@ -9218,6 +9214,7 @@ Transform:
   m_Children:
   - {fileID: 1632960417}
   - {fileID: 1656299847}
+  - {fileID: 2083591225}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1810849722
@@ -10405,6 +10402,55 @@ MonoBehaviour:
   biomeDb: {fileID: 11400000, guid: a4e80074930328444aeb85ca6c5de3dc, type: 2}
   perkData: {fileID: 0}
   combatBootstrapper: {fileID: 817235251}
+--- !u!1 &2083591224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083591225}
+  - component: {fileID: 2083591226}
+  m_Layer: 0
+  m_Name: CombatPresentationEventRouter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2083591225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083591224}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1801508556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2083591226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083591224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae56ac2f4cb821447af3f70289e046ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatPresentationEventRouter
+  presentationController: {fileID: 1632960418}
+  handView: {fileID: 1810849724}
+  drawPilePoint: {fileID: 1961981879}
+  discardPilePoint: {fileID: 1088580995}
+  manaUI: {fileID: 746714860}
 --- !u!1 &2085086637
 GameObject:
   m_ObjectHideFlags: 0

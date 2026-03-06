@@ -1,14 +1,14 @@
 using Game.Scenes.Core;
 using System;
 using System.Collections;
-using UnityEngine;
 
 public class ManaSystem : Singleton<ManaSystem>
 {
-    [SerializeField] private ManaUI manaUI;
     private int maxMana;
     private int currentMana;
 
+    public int CurrentMana => currentMana;
+    public int MaxMana => maxMana;
 
     private IDisposable enemyTurnPostSub;
 
@@ -32,22 +32,29 @@ public class ManaSystem : Singleton<ManaSystem>
 
         CombatContextHelpers.UnsubscribeInitialized(OnCombatInitialized);
     }
+
     private void OnCombatInitialized()
     {
         var hero = CombatContextService.Instance.Hero;
         maxMana = hero.MaxMana;
         currentMana = maxMana;
-        manaUI.UpdateManaText(currentMana);
+
+        PublishManaChanged();
     }
 
     public bool HasEnoughMana(int mana)
     {
         return currentMana >= mana;
     }
+
     private IEnumerator SpendManaPerformer(SpendManaGA spendManaGA)
     {
         currentMana -= spendManaGA.Amount;
-        manaUI.UpdateManaText(currentMana);
+
+        if (currentMana < 0)
+            currentMana = 0;
+
+        PublishManaChanged();
         yield return null;
     }
 
@@ -55,7 +62,8 @@ public class ManaSystem : Singleton<ManaSystem>
     {
         maxMana = CombatContextService.Instance.Hero.MaxMana;
         currentMana = maxMana;
-        manaUI.UpdateManaText(currentMana);
+
+        PublishManaChanged();
         yield return null;
     }
 
@@ -63,5 +71,12 @@ public class ManaSystem : Singleton<ManaSystem>
     {
         RefillManaGA refillManaGA = new();
         ActionSystem.Instance.AddReaction(refillManaGA);
+    }
+
+    private void PublishManaChanged()
+    {
+        CombatDomainEventBus.Publish(
+            new ManaChangedEvent(currentMana, maxMana)
+        );
     }
 }

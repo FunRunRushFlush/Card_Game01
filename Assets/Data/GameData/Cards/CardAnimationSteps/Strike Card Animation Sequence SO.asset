@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Strike Card Animation Sequence SO
   m_EditorClassIdentifier: Assembly-CSharp::CardAnimationSequenceSO
   Steps:
+  - {fileID: 11400000, guid: ab2a1a8396f1f6141a40815d03fe506c, type: 2}
   - {fileID: 11400000, guid: 64b2c3b4a288d8d4e9ab72ac7dc3e1b6, type: 2}
+  - {fileID: 11400000, guid: 8ea97a685b8310d4d946910212d8509a, type: 2}

@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class StatusEffectSystem : MonoBehaviour
 {
-    [SerializeField] private CombatantViewRegistry viewRegistry;
-
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<AddStatusEffectGA>(AddStatusEffectPerformer);
@@ -29,8 +27,13 @@ public class StatusEffectSystem : MonoBehaviour
 
             st.AddStatus(ga.StatusEffectType, ga.StackCount);
 
-            if (viewRegistry && viewRegistry.TryGet(targetId, out var view) && view)
-                view.Render(st);
+            CombatDomainEventBus.Publish(
+                new StatusAddedEvent(targetId, ga.StatusEffectType, ga.StackCount)
+            );
+
+            CombatDomainEventBus.Publish(
+                new CombatantStateChangedEvent(targetId)
+            );
 
             yield return null;
         }
@@ -48,8 +51,13 @@ public class StatusEffectSystem : MonoBehaviour
 
             st.RemoveStatus(ga.StatusEffectType, ga.StackCount);
 
-            if (viewRegistry && viewRegistry.TryGet(targetId, out var view) && view)
-                view.Render(st);
+            CombatDomainEventBus.Publish(
+                new StatusRemovedEvent(targetId, ga.StatusEffectType, ga.StackCount)
+            );
+
+            CombatDomainEventBus.Publish(
+                new CombatantStateChangedEvent(targetId)
+            );
 
             yield return null;
         }

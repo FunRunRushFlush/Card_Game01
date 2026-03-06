@@ -48,8 +48,8 @@ public class DamageSystem : Singleton<DamageSystem>
 
 
             // notify presentation
-            CombatEventBus.Publish(new DamageAppliedEvent(targetId, modifiedAmount, ga.Caster));
-            CombatEventBus.Publish(new CombatantStateChangedEvent(targetId));
+            CombatDomainEventBus.Publish(new DamageAppliedEvent(targetId, modifiedAmount, ga.Caster));
+            CombatDomainEventBus.Publish(new CombatantStateChangedEvent(targetId));
 
             if (wasAlive && targetState.Health <= 0)
                 ActionSystem.Instance.AddReaction(new ResolveDeathGA(targetId));

@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd94f59124500b84aaeef19154e5c90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardViewCreator
-  cardViewPrefab: {fileID: 7190822987604780376, guid: 0c89782cd158b1b42ad2ca6a73d272a6, type: 3}
+  cardViewPrefab: {fileID: 7190822987604780376, guid: 6604b35a2ebf5a7449d1ff0cffcaf71f, type: 3}
   cardViewUiPrefab: {fileID: -3489070397753815117, guid: 4984a44e75dd9be469282193309fa317, type: 3}
 --- !u!114 &215316448
 MonoBehaviour:

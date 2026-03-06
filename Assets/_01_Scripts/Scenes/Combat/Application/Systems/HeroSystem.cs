@@ -24,8 +24,7 @@ public class HeroSystem : Singleton<HeroSystem>
 
     public void Setup(CombatantId id, HeroData heroData)
     {
-        // Presentation-only
-        CombatEventBus.Publish(new HeroSpawnRequestedEvent(id, heroData));
+        CombatDomainEventBus.Publish(new HeroSpawnedEvent(id, heroData));
     }
 
     private void EnemyTurnPreReaction(EnemyTurnGA _)

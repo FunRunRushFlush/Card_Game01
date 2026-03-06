@@ -35,7 +35,7 @@ public class BlockSystem : Singleton<BlockSystem>
 
             targetState.AddBlock(ga.Amount);
 
-            CombatEventBus.Publish(new CombatantStateChangedEvent(targetId));
+            CombatDomainEventBus.Publish(new CombatantStateChangedEvent(targetId));
             yield return null;
         }
     }
@@ -51,7 +51,7 @@ public class BlockSystem : Singleton<BlockSystem>
                 continue;
 
             st.ClearBlock();
-            CombatEventBus.Publish(new CombatantStateChangedEvent(enemyId));
+            CombatDomainEventBus.Publish(new CombatantStateChangedEvent(enemyId));
         }
     }
 
@@ -63,6 +63,6 @@ public class BlockSystem : Singleton<BlockSystem>
             return;
 
         st.ClearBlock();
-        CombatEventBus.Publish(new CombatantStateChangedEvent(heroId));
+        CombatDomainEventBus.Publish(new CombatantStateChangedEvent(heroId));
     }
 }

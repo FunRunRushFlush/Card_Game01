@@ -1,5 +1,4 @@
 using Game.Logging;
-using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 
@@ -10,9 +9,7 @@ public class CardView : MonoBehaviour
     [SerializeField] private TMP_Text mana;
     [SerializeField] private TMP_Text description;
     [SerializeField] private TMP_Text rarity;
-
     [SerializeField] private TMP_Text title;
-
     [SerializeField] private LayerMask dropAreaLayerMask;
 
     public Card Card { get; private set; }
@@ -47,7 +44,6 @@ public class CardView : MonoBehaviour
         title.text = card.Title;
         rarity.text = card.Rarity.ToString();
         description.text = card.Description;
-        description.text = card.Description;
         mana.text = card.Mana.ToString();
         imageSR.sprite = card.Image;
     }
@@ -57,12 +53,12 @@ public class CardView : MonoBehaviour
         if (glow == null)
             throw new MissingReferenceException();
 
-        var res = CardPlayabilityService.Instance.EvaluateStart(Card, CombatPresentationController.Instance.HeroView);
+        var res = CardPlayabilityService.Instance.EvaluateStart(Card, CombatantIds.Hero);
         glow.SetPlayable(res.CanPlay);
-        if (!res.CanPlay)
-            Log.Info(LogArea.Combat, () => res.TooltipText(),this);
 
-        // Right click cancels only if we are interacting with THIS card
+        if (!res.CanPlay)
+            Log.Info(LogArea.Combat, () => res.TooltipText(), this);
+
         if ((state == CardState.Dragging || state == CardState.Targeting) && Input.GetMouseButtonDown(1))
         {
             RequestCancel();
@@ -100,7 +96,6 @@ public class CardView : MonoBehaviour
         wrapper.SetActive(true);
         CardViewHoverService.Instance.Hide();
 
-        // begin at mouse
         transform.rotation = Quaternion.identity;
         transform.position = MouseUtil.GetWorldMousePositionInWorldSpace(-5f);
     }
@@ -108,18 +103,18 @@ public class CardView : MonoBehaviour
     private void OnMouseDrag()
     {
         if (!InteractionService.Instance.PlayerCanInteract()) return;
-
         if (!InteractionService.Instance.PlayerIsDragging) return;
         if (cancelRequested) return;
 
         if (state == CardState.Targeting)
             return;
 
-
-        if (Card.HasManualTargetEffects && !IsTargeting() && IsOverDropArea() && CardPlayabilityService.Instance.EvaluateStart(Card, CombatPresentationController.Instance.HeroView).CanPlay)
+        if (Card.HasManualTargetEffects
+            && !IsTargeting()
+            && IsOverDropArea()
+            && CardPlayabilityService.Instance.EvaluateStart(Card, CombatantIds.Hero).CanPlay)
         {
             state = CardState.Targeting;
-
 
             SnapToSlot();
 
@@ -127,7 +122,6 @@ public class CardView : MonoBehaviour
             return;
         }
 
-        // Normal dragging
         transform.position = MouseUtil.GetWorldMousePositionInWorldSpace(-5f);
         ownerHand?.Drag(this);
     }
@@ -136,7 +130,6 @@ public class CardView : MonoBehaviour
     {
         if (!InteractionService.Instance.PlayerCanInteract()) return;
 
-        // Cancel must suppress any play logic
         if (cancelRequested)
         {
             FinishInteraction(snap: true);
@@ -148,28 +141,26 @@ public class CardView : MonoBehaviour
         if (state == CardState.Targeting)
         {
             EnemyView target = ManualTargetService.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
-            if (CardPlayabilityService.Instance.EvaluateCommit(Card, CombatPresentationController.Instance.HeroView, target).CanPlay)
+            CombatantId? targetId = target != null ? (CombatantId?)target.Id : null;
+
+            if (CardPlayabilityService.Instance.EvaluateCommit(Card, CombatantIds.Hero, targetId).CanPlay)
             {
                 played = true;
-                var casterId = CombatantIds.Hero;
-                var targetId = target != null ? (CombatantId?)target.Id : null;
-                ActionSystem.Instance.Perform(new PlayCardGA(Card, casterId, targetId));
-                ownerHand?.CancelDrag(this); // remove will follow elsewhere
+                ActionSystem.Instance.Perform(new PlayCardGA(Card, CombatantIds.Hero, targetId));
+                ownerHand?.CancelDrag(this);
             }
             else
-            {   
-                // not played => just snap back into hand
+            {
                 FinishInteraction(snap: true);
             }
         }
-        else // Dragging
+        else
         {
-            if (IsOverDropArea() && CardPlayabilityService.Instance.EvaluateCommit(Card, CombatPresentationController.Instance.HeroView, null).CanPlay)
+            if (IsOverDropArea() && CardPlayabilityService.Instance.EvaluateCommit(Card, CombatantIds.Hero, null).CanPlay)
             {
                 played = true;
-                var casterId = CombatPresentationController.Instance.HeroView.Id;
-                ActionSystem.Instance.Perform(new PlayCardGA(Card, casterId));
-                ownerHand?.CancelDrag(this); // remove will follow elsewhere
+                ActionSystem.Instance.Perform(new PlayCardGA(Card, CombatantIds.Hero));
+                ownerHand?.CancelDrag(this);
             }
             else
             {
@@ -177,7 +168,6 @@ public class CardView : MonoBehaviour
             }
         }
 
-        // If played, you typically remove the card from hand via systems.
         if (!played)
             state = CardState.Idle;
     }
@@ -186,12 +176,9 @@ public class CardView : MonoBehaviour
     {
         cancelRequested = true;
 
-
         if (state == CardState.Targeting)
         {
-            //ManualTargetSystem.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
             ManualTargetService.Instance.CancelTargeting();
-
         }
 
         FinishInteraction(snap: true);
@@ -216,7 +203,6 @@ public class CardView : MonoBehaviour
 
     private void SnapToSlot()
     {
-        // slotPos/slotRot werden vom HandView gepflegt
         transform.SetPositionAndRotation(slotPos, slotRot);
     }
 
@@ -226,6 +212,4 @@ public class CardView : MonoBehaviour
     }
 
     private bool IsTargeting() => state == CardState.Targeting;
-
-
 }

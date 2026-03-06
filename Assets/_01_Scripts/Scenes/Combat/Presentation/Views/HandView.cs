@@ -10,7 +10,6 @@ public class HandView : MonoBehaviour
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] public GameObject HandCardContrainer;
 
-
     [Header("Layout")]
     [SerializeField] private float cardSpacingFactor = 1.0f;
     [SerializeField] private float cardSpacingSmallHandFactor = 1.0f;
@@ -27,12 +26,12 @@ public class HandView : MonoBehaviour
     private CardView dragging;
     private Sequence layoutSeq;
 
-    // Optional: wenn du mal Slot-Zentren fürs Reordering brauchst
     private readonly List<Vector3> slotPositions = new();
 
     private void Register(CardView cardView)
     {
-        if (cards.Contains(cardView)) return;
+        if (cards.Contains(cardView))
+            return;
 
         cards.Add(cardView);
         cardView.SetOwnerHand(this);
@@ -42,7 +41,8 @@ public class HandView : MonoBehaviour
 
     private void Unregister(CardView cardView)
     {
-        if (!cards.Remove(cardView)) return;
+        if (!cards.Remove(cardView))
+            return;
 
         if (dragging == cardView)
             dragging = null;
@@ -59,30 +59,35 @@ public class HandView : MonoBehaviour
     public CardView RemoveCard(Card card)
     {
         CardView cv = FindByCard(card);
-        if (cv == null) return null;
+        if (cv == null)
+            return null;
 
         Unregister(cv);
         return cv;
     }
+
     public void BeginDrag(CardView cardView)
     {
-        if (!cards.Contains(cardView)) return;
+        if (!cards.Contains(cardView))
+            return;
+
         dragging = cardView;
 
-        // beim Start einmal Layout rechnen, damit SlotPose garantiert frisch ist
         RebuildLayout(0f, ignore: dragging);
     }
 
     public void Drag(CardView cardView)
     {
-        if (dragging != cardView) return;
+        if (dragging != cardView)
+            return;
 
         TryReorderByX(cardView.transform.position.x);
     }
 
     public void EndDrag(CardView cardView)
     {
-        if (dragging != cardView) return;
+        if (dragging != cardView)
+            return;
 
         dragging = null;
         RebuildLayout(snapDuration, ignore: null);
@@ -99,16 +104,17 @@ public class HandView : MonoBehaviour
     private void TryReorderByX(float draggedX)
     {
         int currentIndex = cards.IndexOf(dragging);
-        if (currentIndex < 0) return;
+        if (currentIndex < 0)
+            return;
 
-        // Wichtig: Reorder anhand von Slot-Zentren (stabiler als anhand der aktuellen Tween-Positionen)
         if (slotPositions.Count != cards.Count)
             RebuildLayout(0f, ignore: dragging);
 
         int targetIndex = 0;
         for (int i = 0; i < cards.Count; i++)
         {
-            if (cards[i] == dragging) continue;
+            if (cards[i] == dragging)
+                continue;
 
             float slotX = slotPositions[i].x;
             if (draggedX > slotX + reorderDeadZone)
@@ -116,7 +122,8 @@ public class HandView : MonoBehaviour
         }
 
         targetIndex = Mathf.Clamp(targetIndex, 0, cards.Count - 1);
-        if (targetIndex == currentIndex) return;
+        if (targetIndex == currentIndex)
+            return;
 
         cards.RemoveAt(currentIndex);
         cards.Insert(targetIndex, dragging);
@@ -130,25 +137,25 @@ public class HandView : MonoBehaviour
         layoutSeq = DOTween.Sequence();
 
         slotPositions.Clear();
-        if (cards.Count == 0) return;
-
+        if (cards.Count == 0)
+            return;
 
         float cardSpacing = (1f / cards.Count) * cardSpacingFactor;
         float firstT = (0.5f - (cardSpacing * (cards.Count - 1)) / 2f) * firstCardPositionFactor;
+
         if (cards.Count <= 3)
         {
             cardSpacing = (1f / cards.Count) * cardSpacingFactor * cardSpacingSmallHandFactor;
             firstT = (0.5f - (cardSpacing * (cards.Count - 1)) / 2f) * firstCardPositionFactor;
-
         }
-
 
         Spline spline = splineContainer.Spline;
 
         for (int i = 0; i < cards.Count; i++)
         {
             CardView cv = cards[i];
-            if (cv == null) continue;
+            if (cv == null)
+                continue;
 
             float t = firstT + i * cardSpacing;
 
@@ -159,7 +166,6 @@ public class HandView : MonoBehaviour
             Quaternion rot = Quaternion.LookRotation(-up, Vector3.Cross(-up, forward).normalized);
             Vector3 worldPos = splinePos + transform.position + depthOffset * i * Vector3.back;
 
-            // SlotPose IMMER setzen (auch für ignore!), damit SnapToSlot nie veraltet ist
             cv.SetHandSlotPose(worldPos, rot);
             slotPositions.Add(worldPos);
 
@@ -177,16 +183,27 @@ public class HandView : MonoBehaviour
             }
         }
     }
+
     public void CancelAllDragging()
     {
         if (dragging != null)
         {
-            // Karte zurücksnappen / Layout neu bauen
             CancelDrag(dragging);
             dragging = null;
         }
     }
 
-    // Wenn du weiterhin RemoveCard(Card card) brauchst:
-    public CardView FindByCard(Card card) => cards.FirstOrDefault(x => x != null && x.Card == card);
+    public CardView FindByCard(Card card)
+        => cards.FirstOrDefault(x => x != null && x.Card == card);
+
+    public CardView GetCardViewByCardRuntimeId(long cardRuntimeId)
+    {
+        if (cardRuntimeId <= 0)
+            return null;
+
+        return cards.FirstOrDefault(x =>
+            x != null &&
+            x.Card != null &&
+            x.Card.RuntimeId == cardRuntimeId);
+    }
 }

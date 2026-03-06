@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c5b32f52e26704983245f6ab5f386a, type: 3}
   m_Name: Block Card Animation Sequence SO
   m_EditorClassIdentifier: Assembly-CSharp::CardAnimationSequenceSO
-  Steps: []
+  Steps:
+  - {fileID: 11400000, guid: ab2a1a8396f1f6141a40815d03fe506c, type: 2}
+  - {fileID: 11400000, guid: 850093255b6c27744ae8ce0c467dd18d, type: 2}
+  - {fileID: 11400000, guid: b0bbc313b51915247b9a829085e42e63, type: 2}
+  - {fileID: 11400000, guid: 8ea97a685b8310d4d946910212d8509a, type: 2}

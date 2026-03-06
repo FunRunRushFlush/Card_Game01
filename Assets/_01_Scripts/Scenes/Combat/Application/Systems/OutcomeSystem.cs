@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class OutcomeSystem : MonoBehaviour
 {
-    [SerializeField] private CombatantViewRegistry viewRegistry;
-
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<ResolveDeathGA>(ResolveDeathPerformer);
@@ -34,14 +32,12 @@ public class OutcomeSystem : MonoBehaviour
         if (st.Health > 0)
             yield break;
 
-        // Hero defeated?
         if (targetId.Value == CombatantIds.Hero.Value)
         {
             GameFlowController.Current.CombatLost();
             yield break;
         }
 
-        // Enemy defeated
         ActionSystem.Instance.AddReaction(new KillEnemyGA(targetId));
     }
 }

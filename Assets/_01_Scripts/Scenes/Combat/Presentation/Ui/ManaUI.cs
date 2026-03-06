@@ -4,12 +4,9 @@ using UnityEngine;
 public class ManaUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text mana;
-    //public void UpdateManaText(int currentMana, int maxMana)
-    //{
-    //    mana.text = $"{currentMana} / {maxMana}";
-    //}
-    public void UpdateManaText(int currentMana)
+
+    public void UpdateManaText(int currentMana, int maxMana)
     {
-        mana.text = $"{currentMana}";
+        mana.text = $"{currentMana} / {maxMana}";
     }
 }

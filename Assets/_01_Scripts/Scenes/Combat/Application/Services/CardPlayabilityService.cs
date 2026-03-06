@@ -1,17 +1,10 @@
-using System.Collections.Generic;
-using UnityEngine;
-
-
 /// <summary>
 /// Single source of truth for whether a card can be played.
-/// UI can query this for glow; gameplay validates again server-side in CardSystem.
+/// UI can query this for glow; gameplay validates again centrally in CardSystem.
 /// </summary>
 public class CardPlayabilityService : Singleton<CardPlayabilityService>
 {
-
-
-
-    public CardPlayabilityResult EvaluateStart(Card card, CombatantView caster)
+    public CardPlayabilityResult EvaluateStart(Card card, CombatantId casterId)
     {
         var result = new CardPlayabilityResult();
 
@@ -20,6 +13,7 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
             result.AddReason(CardPlayFailCode.NoCard, "No card");
             return result;
         }
+
         if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
         {
             result.AddReason(CardPlayFailCode.SystemNotReady, "Game is paused");
@@ -31,7 +25,6 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
             result.AddReason(CardPlayFailCode.CombatEnded, "Combat is already won");
             return result;
         }
-
 
         if (ManaSystem.Instance == null)
         {
@@ -48,11 +41,15 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
                 result.AddReason(CardPlayFailCode.NoValidTargets, "No valid targets");
         }
 
-        EvaluateCustomConditions(result, new CardPlayabilityContext(card, caster, null, CardPlayPhase.StartPlay));
+        EvaluateCustomConditions(
+            result,
+            new CardPlayabilityContext(card, casterId, null, CardPlayPhase.StartPlay)
+        );
+
         return result;
     }
 
-    public CardPlayabilityResult EvaluateCommit(Card card, CombatantView caster, EnemyView manualTarget)
+    public CardPlayabilityResult EvaluateCommit(Card card, CombatantId casterId, CombatantId? manualTargetId)
     {
         var result = new CardPlayabilityResult();
 
@@ -61,6 +58,7 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
             result.AddReason(CardPlayFailCode.NoCard, "No card");
             return result;
         }
+
         if (CombatPauseGateSystem.Instance != null && CombatPauseGateSystem.Instance.IsPaused)
         {
             result.AddReason(CardPlayFailCode.SystemNotReady, "Game is paused");
@@ -84,19 +82,25 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
 
         if (card.HasManualTargetEffects)
         {
-            if (manualTarget == null)
+            if (!manualTargetId.HasValue)
                 result.AddReason(CardPlayFailCode.TargetRequired, "Select a target");
-            else if (!IsValidManualTarget(manualTarget))
+            else if (!IsValidManualTarget(manualTargetId.Value))
                 result.AddReason(CardPlayFailCode.InvalidTarget, "Invalid target");
         }
 
+        EvaluateCustomConditions(
+            result,
+            new CardPlayabilityContext(card, casterId, manualTargetId, CardPlayPhase.CommitPlay)
+        );
 
-        EvaluateCustomConditions(result, new CardPlayabilityContext(card, caster, manualTarget, CardPlayPhase.CommitPlay));
         return result;
     }
 
-    public bool CanStartPlay(Card card, CombatantView caster) => EvaluateStart(card, caster).CanPlay;
-    public bool CanCommitPlay(Card card, CombatantView caster, EnemyView manualTarget) => EvaluateCommit(card, caster, manualTarget).CanPlay;
+    public bool CanStartPlay(Card card, CombatantId casterId)
+        => EvaluateStart(card, casterId).CanPlay;
+
+    public bool CanCommitPlay(Card card, CombatantId casterId, CombatantId? manualTargetId)
+        => EvaluateCommit(card, casterId, manualTargetId).CanPlay;
 
     public bool HasAnyValidManualTargets()
     {
@@ -105,15 +109,61 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
 
     private bool HasAnyManualTargetsInternal()
     {
-        var presentation = CombatPresentationController.Instance;
-        var enemies = presentation != null ? presentation.EnemyViews : null;
-        return enemies != null && enemies.Count > 0;
+        var enemySystem = EnemySystem.Instance;
+        if (enemySystem == null)
+            return false;
+
+        if (enemySystem.AreAllEnemiesDefeated())
+            return false;
+
+        var state = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
+        if (state == null)
+            return false;
+
+        var enemyIds = enemySystem.EnemyIds;
+        if (enemyIds == null || enemyIds.Count == 0)
+            return false;
+
+        foreach (var enemyId in enemyIds)
+        {
+            if (state.TryGet(enemyId, out var enemyState) && enemyState != null && enemyState.Health > 0)
+                return true;
+        }
+
+        return false;
     }
 
-    private bool IsValidManualTarget(EnemyView target)
+    private bool IsValidManualTarget(CombatantId targetId)
     {
-        var presentation = CombatPresentationController.Instance;
-        return presentation != null && presentation.ContainsEnemyView(target);
+        var enemySystem = EnemySystem.Instance;
+        if (enemySystem == null)
+            return false;
+
+        var enemyIds = enemySystem.EnemyIds;
+        if (enemyIds == null || enemyIds.Count == 0)
+            return false;
+
+        bool isEnemy = false;
+        for (int i = 0; i < enemyIds.Count; i++)
+        {
+            if (enemyIds[i].Value == targetId.Value)
+            {
+                isEnemy = true;
+                break;
+            }
+        }
+
+        if (!isEnemy)
+            return false;
+
+        var state = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
+        if (state == null)
+            return false;
+
+        if (!state.TryGet(targetId, out var targetState) || targetState == null)
+            return false;
+
+        return targetState.Health > 0;
     }
 
     private void EvaluateCustomConditions(CardPlayabilityResult result, in CardPlayabilityContext context)
@@ -132,7 +182,6 @@ public class CardPlayabilityService : Singleton<CardPlayabilityService>
                 var reason = condition.GetFailReason(context);
                 result.Reasons.Add(reason);
             }
-
         }
     }
 }

@@ -1,6 +1,4 @@
-using DG.Tweening;
 using Game.Logging;
-using Game.Scenes.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,10 +6,6 @@ using UnityEngine;
 
 public class CardSystem : Singleton<CardSystem>
 {
-    [SerializeField] private HandView handView;
-    [SerializeField] private Transform drawPilePoint;
-    [SerializeField] private Transform discardPilePoint;
-
     private int MaxHandSizeSafty = 99;
 
     private readonly List<Card> hand = new();
@@ -50,36 +44,23 @@ public class CardSystem : Singleton<CardSystem>
 
     public void Setup(List<CardData> startingDeck)
     {
-        if (handView == null)
-        {
-            Log.Error(LogArea.Combat, () => "HandView reference is missing (handView). Assign it in the inspector.", this);
-            return;
-        }
-        if (drawPilePoint == null)
-        {
-            Log.Error(LogArea.Combat, () => "drawPilePoint reference is missing. Assign it in the inspector.", this);
-            return;
-        }
-        if (discardPilePoint == null)
-        {
-            Log.Error(LogArea.Combat, () => "discardPilePoint reference is missing. Assign it in the inspector.", this);
-            return;
-        }
-        if (CardViewCreator.Instance == null)
-        {
-            Log.Error(LogArea.Combat, () => "CardViewCreator.Instance is null. Ensure a CardViewCreator exists in the Combat scene.", this);
-            return;
-        }
+        hand.Clear();
+        discardPile.Clear();
+        drawPile.Clear();
+        banishPile.Clear();
 
         foreach (var cardData in startingDeck)
         {
+            if (cardData == null)
+                continue;
+
             Card card = new Card(cardData);
             drawPile.Add(card);
         }
-        drawPile.Shuffle();
-    }
 
-    // Performers
+        drawPile.Shuffle();
+        UpdatePileCounts();
+    }
 
     private IEnumerator DrawCardsPerformer(DrawCardsGA drawCardsGA)
     {
@@ -92,6 +73,7 @@ public class CardSystem : Singleton<CardSystem>
         if (notEnoughCards > 0)
         {
             RefillDeck();
+
             for (int i = 0; i < notEnoughCards; i++)
                 yield return DrawCard();
         }
@@ -110,20 +92,15 @@ public class CardSystem : Singleton<CardSystem>
             Card card = hand[randomIndex];
 
             hand.RemoveAt(randomIndex);
+            discardPile.Add(card);
 
-            CardView cardView = handView.RemoveCard(card);
-            if (cardView != null)
-            {
-                yield return DiscardCard(cardView);
-            }
-            else
-            {
-                // Safety
-                UpdatePileCounts();
-            }
+            CombatDomainEventBus.Publish(
+                new CardDiscardedFromHandEvent(card.RuntimeId)
+            );
+
+            UpdatePileCounts();
+            yield return null;
         }
-
-        UpdatePileCounts();
     }
 
     private void RefillDeck()
@@ -137,85 +114,87 @@ public class CardSystem : Singleton<CardSystem>
 
     private IEnumerator DrawCard()
     {
+        if (drawPile.Count == 0)
+            yield break;
+
         Card card = drawPile.Draw();
         hand.Add(card);
 
-        CardView cardView = CardViewCreator.Instance.CreateCardView(
-            card,
-            drawPilePoint.position,
-            drawPilePoint.rotation,
-            handView.HandCardContrainer.transform
+        CombatDomainEventBus.Publish(
+            new CardDrawnToHandEvent(card)
         );
-
-        yield return handView.AddCard(cardView);
 
         var limit = CombatContextService.Instance.Hero?.MaxHandSize ?? MaxHandSizeSafty;
         if (hand.Count > limit)
         {
-            hand.Remove(cardView.Card);
-            handView.RemoveCard(cardView.Card);
+            hand.Remove(card);
+            discardPile.Add(card);
 
-            yield return DiscardCard(cardView);
+            CombatDomainEventBus.Publish(
+                new CardDiscardedFromHandEvent(card.RuntimeId)
+            );
         }
 
         UpdatePileCounts();
+        yield return null;
     }
 
     private IEnumerator DiscardAllCardsPerformer(DiscardAllCardsGA discardAllCardsGA)
     {
-        foreach (var card in hand)
+        if (hand.Count == 0)
         {
-            CardView cardView = handView.RemoveCard(card);
-            yield return DiscardCard(cardView);
+            UpdatePileCounts();
+            yield break;
         }
-        hand.Clear();
-        UpdatePileCounts();
-    }
 
-    private IEnumerator DiscardCard(CardView cardView)
-    {
-        discardPile.Add(cardView.Card);
-        cardView.transform.DOScale(Vector3.zero, 0.15f);
-        Tween tween = cardView.transform.DOMove(discardPilePoint.position, 0.15f);
+        var cardsToDiscard = new List<Card>(hand);
 
-        yield return tween.WaitForCompletion();
-        Destroy(cardView.gameObject);
+        foreach (var card in cardsToDiscard)
+        {
+            hand.Remove(card);
+            discardPile.Add(card);
 
-        UpdatePileCounts();
+            CombatDomainEventBus.Publish(
+                new CardDiscardedFromHandEvent(card.RuntimeId)
+            );
+
+            UpdatePileCounts();
+            yield return null;
+        }
     }
 
     private IEnumerator PlayCardPerformer(PlayCardGA playCardGA)
     {
         Log.Info(LogArea.Combat, () =>
-            $"PlayCardPerformer: {playCardGA.Card?.Title} Mana={playCardGA.Card?.Mana} ManualTarget={(playCardGA.ManualTargetId.HasValue)} CasterId={playCardGA.CasterId.Value}",
+            $"PlayCardPerformer: {playCardGA.Card?.Title} Mana={playCardGA.Card?.Mana} ManualTarget={(playCardGA.ManualTargetId.HasValue)} CasterId={playCardGA.CasterId.Value} RuntimeId={playCardGA.Card?.RuntimeId}",
             this);
 
-        // Validate centrally so illegal plays can't slip through UI checks
-        // CardPlayabilitySystem is still View-based -> resolve manual target view from id.
-        EnemyView manualTargetView = null;
-        if (playCardGA.ManualTargetId.HasValue)
-            manualTargetView = FindEnemyViewById(playCardGA.ManualTargetId.Value);
+        var canCommit = CardPlayabilityService.Instance.EvaluateCommit(
+            playCardGA.Card,
+            playCardGA.CasterId,
+            playCardGA.ManualTargetId
+        );
 
-        var canCommit = CardPlayabilityService.Instance.EvaluateCommit(playCardGA.Card, CombatPresentationController.Instance.HeroView, manualTargetView);
         if (!canCommit.CanPlay)
             yield break;
 
         RoundStateSystem.Instance.NotifyCardPlayed(playCardGA.Card);
 
-
         hand.Remove(playCardGA.Card);
-        var cardView = handView.RemoveCard(playCardGA.Card);
-
-        // logisch schon mal in discard
         discardPile.Add(playCardGA.Card);
 
-        // Presentation gate: wait until card animation finished
-        int token = PresentationGate.NewToken();
-        CombatEventBus.Publish(new CardPlayPresentationRequestedEvent(cardView, discardPilePoint.position, token));
-        yield return PresentationGate.Wait(token);
-        //hand.Remove(playCardGA.Card);
-        //CardView cardView = handView.RemoveCard(playCardGA.Card);
-        //yield return DiscardCard(cardView);
+        int sequenceId = CombatSequence.Next();
+
+        CombatDomainEventBus.Publish(
+            new CardPlayedEvent(
+                sequenceId,
+                playCardGA.CasterId,
+                playCardGA.Card.RuntimeId,
+                playCardGA.ManualTargetId
+            )
+        );
+
+        yield return PresentationGate.Wait(sequenceId);
 
         SpendManaGA spendManaGA = new(playCardGA.Card.Mana);
         ActionSystem.Instance.AddReaction(spendManaGA);
@@ -232,7 +211,9 @@ public class CardSystem : Singleton<CardSystem>
 
             foreach (var effect in playCardGA.Card.ManualTargetEffects)
             {
-                if (effect == null) continue;
+                if (effect == null)
+                    continue;
+
                 ActionSystem.Instance.AddReaction(new PerformEffectsGA(effect, targetIds, casterId));
             }
         }
@@ -244,19 +225,11 @@ public class CardSystem : Singleton<CardSystem>
 
             foreach (var effectWrapper in otherEffects)
             {
-                var targetIds = effectWrapper.TargetMode.GetTargetIds(); // siehe TargetMode-Teil unten
+                var targetIds = effectWrapper.TargetMode.GetTargetIds();
                 ActionSystem.Instance.AddReaction(new PerformEffectsGA(effectWrapper.Effect, targetIds, casterId));
             }
         }
 
         UpdatePileCounts();
-    }
-
-    private EnemyView FindEnemyViewById(CombatantId id)
-    {
-        var pc = CombatPresentationController.Instance;
-        if (pc == null) return null;
-
-        return pc.TryGetEnemyView(id, out var view) ? view : null;
     }
 }

@@ -1,15 +1,19 @@
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Card
 {
+    private static long nextRuntimeId = 0;
+
     private readonly CardData cardData;
     public CardData Data => cardData;
+
+    public long RuntimeId { get; }
 
     public string Title => string.IsNullOrWhiteSpace(cardData.DisplayName) ? cardData.name : cardData.DisplayName;
     public string Description => CardTextFormattingService.Instance.Format(cardData.Description);
     public CardRarity Rarity => cardData.Rarity;
-
 
     public int Mana { get; private set; }
     public Sprite Image => cardData.Image;
@@ -28,6 +32,7 @@ public class Card
     public Card(CardData data)
     {
         cardData = data;
+        RuntimeId = Interlocked.Increment(ref nextRuntimeId);
         Mana = data.Mana;
     }
 }

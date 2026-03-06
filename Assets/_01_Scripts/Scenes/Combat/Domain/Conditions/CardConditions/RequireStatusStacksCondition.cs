@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 /// <summary>
 /// Requires a combatant (caster or manual target) to have at least N stacks of a status.
 /// </summary>
@@ -14,13 +13,19 @@ public class RequireStatusStacksCondition : CardCondition
 
     public override bool IsMet(in CardPlayabilityContext context)
     {
-        var c = subject == ConditionSubject.Caster ? context.Caster : context.ManualTarget;
-        if (c == null) return false;
+        CombatantId? subjectId = subject == ConditionSubject.Caster
+            ? context.CasterId
+            : context.ManualTargetId;
+
+        if (!subjectId.HasValue)
+            return false;
 
         var combatState = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
-        if (combatState == null) return false;
+        if (combatState == null)
+            return false;
 
-        if (!combatState.TryGet(c.Id, out var st)) return false;
+        if (!combatState.TryGet(subjectId.Value, out var st) || st == null)
+            return false;
 
         return st.GetStatus(statusEffect) >= minStacks;
     }

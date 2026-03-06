@@ -14,6 +14,8 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
 
     [Header("FX")]
     [SerializeField] private GameObject damageVFX;
+    [SerializeField] private GameObject burnVFX;
+    [SerializeField] private GameObject poisonVFX;
 
     [Header("Audio")]
     [SerializeField] private AudioSource sfxSource;
@@ -49,60 +51,7 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
         return false;
     }
 
-    private void OnEnable()
-    {
-        CombatEventBus.OnEvent += HandleEvent;
-    }
-
-    private void OnDisable()
-    {
-        CombatEventBus.OnEvent -= HandleEvent;
-    }
-
-    private void HandleEvent(ICombatEvent e)
-    {
-        switch (e)
-        {
-            case HeroSpawnRequestedEvent hero:
-                SpawnHero(hero.HeroId, hero.Data);
-                break;
-
-            case EnemySpawnRequestedEvent spawn:
-                SpawnEnemy(spawn.Data, spawn.EnemyId);
-                break;
-
-            case EnemyIntentChangedEvent intent:
-                RenderEnemyIntent(intent.EnemyId, intent.Intent);
-                break;
-
-            case EnemyDiedEvent died:
-                StartCoroutine(RemoveEnemy(died.EnemyId));
-                break;
-
-            case AttackLungeRequestedEvent lunge:
-                StartCoroutine(PlayEnemyAttackLunge(lunge.AttackerId, lunge.Token));
-                break;
-
-            case DamageAppliedEvent dmg:
-                PlayDamageFeedback(dmg.TargetId);
-                break;
-
-            case CombatantStateChangedEvent changed:
-                RenderCombatant(changed.Id);
-                break;
-
-            case CardPlayPresentationRequestedEvent cardPlay:
-                // Use sequence-based playback (targetId currently not part of the event)
-                StartCoroutine(PlayCardSequence(cardPlay.CardView, cardPlay.DiscardPosition, targetId: null, cardPlay.Token));
-                break;
-        }
-    }
-
-    // -----------------------
-    // Spawn / Render helpers
-    // -----------------------
-
-    private void SpawnHero(CombatantId id, HeroData data)
+    public void SpawnHeroView(CombatantId id, HeroData data)
     {
         if (!heroView)
         {
@@ -114,10 +63,10 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
         viewRegistry?.Register(heroView);
         heroView.Setup(data);
 
-        RenderCombatant(id);
+        RenderCombatantView(id);
     }
 
-    private void SpawnEnemy(EnemyData data, CombatantId id)
+    public void SpawnEnemyView(EnemyData data, CombatantId id)
     {
         if (enemyBoardView == null)
         {
@@ -126,10 +75,10 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
         }
 
         enemyBoardView.AddEnemy(data, id);
-        RenderCombatant(id);
+        RenderCombatantView(id);
     }
 
-    private void RenderEnemyIntent(CombatantId enemyId, IntentData intent)
+    public void RenderEnemyIntentView(CombatantId enemyId, IntentData intent)
     {
         var list = EnemyViews;
         if (list == null) return;
@@ -145,9 +94,10 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
         }
     }
 
-    private void RenderCombatant(CombatantId id)
+    public void RenderCombatantView(CombatantId id)
     {
         if (!viewRegistry) return;
+        if (CombatContextService.Instance == null || CombatContextService.Instance.State == null) return;
 
         if (!CombatContextService.Instance.State.TryGet(id, out var st))
             return;
@@ -156,7 +106,7 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
             view.Render(st);
     }
 
-    private void PlayDamageFeedback(CombatantId targetId)
+    public void PlayDamageFeedbackView(CombatantId targetId)
     {
         if (!viewRegistry) return;
 
@@ -169,7 +119,31 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
             Instantiate(damageVFX, view.HitPointWorld, Quaternion.identity);
     }
 
-    public IEnumerator RemoveEnemy(CombatantId id)
+    public void PlayStatusTickVfx(CombatantId targetId, StatusEffectType statusType)
+    {
+        if (!viewRegistry) return;
+
+        if (!viewRegistry.TryGet(targetId, out var view) || !view)
+            return;
+
+        GameObject prefab = null;
+
+        switch (statusType)
+        {
+            case StatusEffectType.BURN:
+                prefab = burnVFX;
+                break;
+
+            case StatusEffectType.POISON:
+                prefab = poisonVFX;
+                break;
+        }
+
+        if (prefab != null)
+            Instantiate(prefab, view.transform.position, Quaternion.identity);
+    }
+
+    public IEnumerator RemoveEnemyView(CombatantId id)
     {
         var list = EnemyViews;
         if (list == null)
@@ -180,7 +154,11 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
         {
             var e = list[i];
             if (!e) continue;
-            if (e.Id.Value == id.Value) { enemyView = e; break; }
+            if (e.Id.Value == id.Value)
+            {
+                enemyView = e;
+                break;
+            }
         }
 
         if (enemyView == null)
@@ -188,10 +166,6 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
 
         yield return enemyBoardView.RemoveEnemy(enemyView);
     }
-
-    // -----------------------
-    // Audio / Position helpers
-    // -----------------------
 
     public void PlayOneShot(AudioClip clip)
     {
@@ -214,76 +188,58 @@ public sealed class CombatPresentationController : Singleton<CombatPresentationC
         return false;
     }
 
-    // -----------------------
-    // Presentation coroutines
-    // -----------------------
-
-    public IEnumerator PlayEnemyAttackLunge(CombatantId attackerId, int token)
+    public IEnumerator PlayEnemyAttackLunge(CombatantId attackerId)
     {
-        try
-        {
-            if (!viewRegistry || !viewRegistry.TryGet(attackerId, out var attackerView) || !attackerView)
-                yield break;
+        if (!viewRegistry || !viewRegistry.TryGet(attackerId, out var attackerView) || !attackerView)
+            yield break;
 
-            var startPos = attackerView.transform.position;
+        var startPos = attackerView.transform.position;
 
-            attackerView.transform.DOKill();
+        attackerView.transform.DOKill();
 
-            var lunge = attackerView.transform.DOMoveX(startPos.x - 1f, 0.15f);
-            yield return lunge.WaitForCompletion();
+        var lunge = attackerView.transform.DOMoveX(startPos.x - 1f, 0.15f);
+        yield return lunge.WaitForCompletion();
 
-            if (!attackerView)
-                yield break;
+        if (!attackerView)
+            yield break;
 
-            var back = attackerView.transform.DOMoveX(startPos.x, 0.25f);
-            yield return back.WaitForCompletion();
-        }
-        finally
-        {
-            PresentationGate.Complete(token);
-        }
+        var back = attackerView.transform.DOMoveX(startPos.x, 0.25f);
+        yield return back.WaitForCompletion();
     }
 
     /// <summary>
     /// Plays the card's animation sequence (if set). Falls back to default fly+shrink.
     /// Destroys the card view at the end.
     /// </summary>
-    public IEnumerator PlayCardSequence(CardView cardView, Vector3 discardPos, CombatantId? targetId, int token)
+    public IEnumerator PlayCardSequence(CardView cardView, Vector3 discardPos, CombatantId? targetId)
     {
-        try
+        if (!cardView)
+            yield break;
+
+        cardView.transform.DOKill();
+
+        var seq = cardView.Card?.Data?.AnimationSequence;
+
+        if (seq == null || seq.Steps == null || seq.Steps.Count == 0)
         {
-            if (!cardView)
-                yield break;
-
-            cardView.transform.DOKill();
-
-            var seq = cardView.Card?.Data?.AnimationSequence;
-
-            if (seq == null || seq.Steps == null || seq.Steps.Count == 0)
-            {
-                yield return PlayCardFallback(cardView, discardPos);
-                yield break;
-            }
-
-            var ctx = new CardAnimContext(this, cardView, discardPos, targetId);
-
-            for (int i = 0; i < seq.Steps.Count; i++)
-            {
-                if (!cardView) yield break;
-
-                var step = seq.Steps[i];
-                if (step == null) continue;
-
-                yield return step.Play(ctx);
-            }
-
-            if (cardView)
-                Destroy(cardView.gameObject);
+            yield return PlayCardFallback(cardView, discardPos);
+            yield break;
         }
-        finally
+
+        var ctx = new CardAnimContext(this, cardView, discardPos, targetId);
+
+        for (int i = 0; i < seq.Steps.Count; i++)
         {
-            PresentationGate.Complete(token);
+            if (!cardView) yield break;
+
+            var step = seq.Steps[i];
+            if (step == null) continue;
+
+            yield return step.Play(ctx);
         }
+
+        if (cardView)
+            Destroy(cardView.gameObject);
     }
 
     private IEnumerator PlayCardFallback(CardView cardView, Vector3 discardPos)

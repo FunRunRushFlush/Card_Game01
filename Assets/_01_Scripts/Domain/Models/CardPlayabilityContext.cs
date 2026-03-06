@@ -1,17 +1,19 @@
-
-
 public readonly struct CardPlayabilityContext
 {
     public readonly Card Card;
-    public readonly CombatantView Caster;
-    public readonly EnemyView ManualTarget;
+    public readonly CombatantId CasterId;
+    public readonly CombatantId? ManualTargetId;
     public readonly CardPlayPhase Phase;
 
-    public CardPlayabilityContext(Card card, CombatantView caster, EnemyView manualTarget, CardPlayPhase phase)
+    public CardPlayabilityContext(
+        Card card,
+        CombatantId casterId,
+        CombatantId? manualTargetId,
+        CardPlayPhase phase)
     {
         Card = card;
-        Caster = caster;
-        ManualTarget = manualTarget;
+        CasterId = casterId;
+        ManualTargetId = manualTargetId;
         Phase = phase;
     }
 }

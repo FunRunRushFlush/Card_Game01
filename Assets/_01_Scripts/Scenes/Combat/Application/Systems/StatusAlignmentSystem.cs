@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class StatusAlignmentSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject burnVFX;
-    [SerializeField] private GameObject poisonVFX;
-    [SerializeField] private CombatantViewRegistry viewRegistry;
-
-
     private void OnEnable()
     {
         ActionSystem.AttachPerformer<ApplyBurnGA>(ApplyBurnPerformer);
@@ -28,18 +23,24 @@ public class StatusAlignmentSystem : MonoBehaviour
         if (!CombatContextService.Instance.State.TryGet(id, out var st) || st.Health <= 0)
             yield break;
 
-        if (viewRegistry && viewRegistry.TryGet(id, out var view) && view)
-        {
-            if (burnVFX) Instantiate(burnVFX, view.transform.position, Quaternion.identity);
-        }
+        CombatDomainEventBus.Publish(
+            new StatusTickVisualRequestedEvent(id, StatusEffectType.BURN)
+        );
 
-        // Burn tick also consumes 1 stack (like your old code)
+        // Burn tick also consumes 1 stack
         st.RemoveStatus(StatusEffectType.BURN, 1);
 
-        if (viewRegistry && viewRegistry.TryGet(id, out var view2) && view2)
-            view2.Render(st);
+        CombatDomainEventBus.Publish(
+            new StatusRemovedEvent(id, StatusEffectType.BURN, 1)
+        );
 
-        ActionSystem.Instance.AddReaction(new DealDamageGA(ga.BurnDamage, new List<CombatantId> { id }, caster: null));
+        CombatDomainEventBus.Publish(
+            new CombatantStateChangedEvent(id)
+        );
+
+        ActionSystem.Instance.AddReaction(
+            new DealDamageGA(ga.BurnDamage, new List<CombatantId> { id }, caster: null)
+        );
 
         yield return new WaitForSeconds(1f);
     }
@@ -51,12 +52,13 @@ public class StatusAlignmentSystem : MonoBehaviour
         if (!CombatContextService.Instance.State.TryGet(id, out var st) || st.Health <= 0)
             yield break;
 
-        if (viewRegistry && viewRegistry.TryGet(id, out var view) && view)
-        {
-            if (poisonVFX) Instantiate(poisonVFX, view.transform.position, Quaternion.identity);
-        }
+        CombatDomainEventBus.Publish(
+            new StatusTickVisualRequestedEvent(id, StatusEffectType.POISON)
+        );
 
-        ActionSystem.Instance.AddReaction(new DealDamageGA(ga.PoisonDamage, new List<CombatantId> { id }, caster: null));
+        ActionSystem.Instance.AddReaction(
+            new DealDamageGA(ga.PoisonDamage, new List<CombatantId> { id }, caster: null)
+        );
 
         yield return new WaitForSeconds(1f);
     }

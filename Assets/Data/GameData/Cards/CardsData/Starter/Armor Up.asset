@@ -25,6 +25,7 @@ MonoBehaviour:
   <OtherEffects>k__BackingField:
   - rid: 6143720491434901629
   <PlayConditions>k__BackingField: []
+  animationSequence: {fileID: 11400000, guid: c6c07ef12580d804ead0b5184f541c81, type: 2}
   references:
     version: 2
     RefIds:

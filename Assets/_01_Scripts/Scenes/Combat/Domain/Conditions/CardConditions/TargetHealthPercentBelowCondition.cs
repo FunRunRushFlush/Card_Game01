@@ -1,28 +1,32 @@
 ﻿using UnityEngine;
 
-
 [System.Serializable]
 public class TargetHealthPercentBelowCondition : CardCondition
 {
     [SerializeField] private ConditionSubject subject = ConditionSubject.ManualTarget;
+
     [Range(0f, 1f)]
     [SerializeField] private float maxHealthPercent = 0.5f; // 50%
 
     public override bool IsMet(in CardPlayabilityContext context)
     {
-        CombatantView c = subject == ConditionSubject.Caster
-            ? context.Caster
-            : context.ManualTarget;
+        CombatantId? subjectId = subject == ConditionSubject.Caster
+            ? context.CasterId
+            : context.ManualTargetId;
 
         // During StartPlay you might not have a target selected yet -> allow until commit
-        if (c == null)
+        if (!subjectId.HasValue)
             return context.Phase == CardPlayPhase.StartPlay;
 
         var combatState = CombatContextService.Instance != null ? CombatContextService.Instance.State : null;
-        if (combatState == null) return false;
+        if (combatState == null)
+            return false;
 
-        if (!combatState.TryGet(c.Id, out var st)) return false;
-        if (st.MaxHealth <= 0) return false;
+        if (!combatState.TryGet(subjectId.Value, out var st) || st == null)
+            return false;
+
+        if (st.MaxHealth <= 0)
+            return false;
 
         float pct = (float)st.Health / st.MaxHealth;
         return pct <= maxHealthPercent;
