@@ -13,7 +13,6 @@ public class HandView : MonoBehaviour
     [Header("Layout")]
     [SerializeField] private float cardSpacingFactor = 1.0f;
     [SerializeField] private float cardSpacingSmallHandFactor = 1.0f;
-
     [SerializeField] private float firstCardPositionFactor = 1.0f;
     [SerializeField] private float depthOffset = 0.001f;
 
@@ -30,6 +29,11 @@ public class HandView : MonoBehaviour
 
     private void Register(CardView cardView)
     {
+        CleanupDeadCards();
+
+        if (cardView == null)
+            return;
+
         if (cards.Contains(cardView))
             return;
 
@@ -41,6 +45,11 @@ public class HandView : MonoBehaviour
 
     private void Unregister(CardView cardView)
     {
+        CleanupDeadCards();
+
+        if (cardView == null)
+            return;
+
         if (!cards.Remove(cardView))
             return;
 
@@ -58,6 +67,8 @@ public class HandView : MonoBehaviour
 
     public CardView RemoveCard(Card card)
     {
+        CleanupDeadCards();
+
         CardView cv = FindByCard(card);
         if (cv == null)
             return null;
@@ -68,16 +79,25 @@ public class HandView : MonoBehaviour
 
     public void BeginDrag(CardView cardView)
     {
+        CleanupDeadCards();
+
+        if (cardView == null)
+            return;
+
         if (!cards.Contains(cardView))
             return;
 
         dragging = cardView;
-
         RebuildLayout(0f, ignore: dragging);
     }
 
     public void Drag(CardView cardView)
     {
+        CleanupDeadCards();
+
+        if (cardView == null)
+            return;
+
         if (dragging != cardView)
             return;
 
@@ -86,6 +106,8 @@ public class HandView : MonoBehaviour
 
     public void EndDrag(CardView cardView)
     {
+        CleanupDeadCards();
+
         if (dragging != cardView)
             return;
 
@@ -95,6 +117,8 @@ public class HandView : MonoBehaviour
 
     public void CancelDrag(CardView cardView)
     {
+        CleanupDeadCards();
+
         if (dragging == cardView)
             dragging = null;
 
@@ -103,17 +127,38 @@ public class HandView : MonoBehaviour
 
     private void TryReorderByX(float draggedX)
     {
+        CleanupDeadCards();
+
+        if (dragging == null)
+            return;
+
         int currentIndex = cards.IndexOf(dragging);
         if (currentIndex < 0)
             return;
 
-        if (slotPositions.Count != cards.Count)
-            RebuildLayout(0f, ignore: dragging);
-
-        int targetIndex = 0;
+        // Nur echte, noch vorhandene Karten berücksichtigen.
+        var liveCards = new List<CardView>();
         for (int i = 0; i < cards.Count; i++)
         {
-            if (cards[i] == dragging)
+            if (cards[i] != null)
+                liveCards.Add(cards[i]);
+        }
+
+        currentIndex = liveCards.IndexOf(dragging);
+        if (currentIndex < 0)
+            return;
+
+        // Slot-Positionen sicher neu aufbauen, damit sie zu den liveCards passen.
+        RebuildLayout(0f, ignore: dragging);
+
+        if (slotPositions.Count != liveCards.Count)
+            return;
+
+        int targetIndex = 0;
+
+        for (int i = 0; i < liveCards.Count; i++)
+        {
+            if (liveCards[i] == dragging)
                 continue;
 
             float slotX = slotPositions[i].x;
@@ -121,11 +166,11 @@ public class HandView : MonoBehaviour
                 targetIndex++;
         }
 
-        targetIndex = Mathf.Clamp(targetIndex, 0, cards.Count - 1);
+        targetIndex = Mathf.Clamp(targetIndex, 0, liveCards.Count - 1);
         if (targetIndex == currentIndex)
             return;
 
-        cards.RemoveAt(currentIndex);
+        cards.Remove(dragging);
         cards.Insert(targetIndex, dragging);
 
         RebuildLayout(reorderDuration, ignore: dragging);
@@ -133,6 +178,8 @@ public class HandView : MonoBehaviour
 
     private void RebuildLayout(float duration, CardView ignore)
     {
+        CleanupDeadCards();
+
         layoutSeq?.Kill();
         layoutSeq = DOTween.Sequence();
 
@@ -184,8 +231,25 @@ public class HandView : MonoBehaviour
         }
     }
 
+    private void CleanupDeadCards()
+    {
+        for (int i = cards.Count - 1; i >= 0; i--)
+        {
+            if (cards[i] == null)
+                cards.RemoveAt(i);
+        }
+
+        if (dragging == null)
+            return;
+
+        if (!cards.Contains(dragging))
+            dragging = null;
+    }
+
     public void CancelAllDragging()
     {
+        CleanupDeadCards();
+
         if (dragging != null)
         {
             CancelDrag(dragging);

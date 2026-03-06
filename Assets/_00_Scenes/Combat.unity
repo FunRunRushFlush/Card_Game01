@@ -2321,9 +2321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca9e23cbc57d0a4aab0c24317f4cf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusAlignmentSystem
-  burnVFX: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
-  poisonVFX: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &410031411
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,7 +3892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d89beb875dc102418aa655e0da38eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectSystem
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &738925057
 GameObject:
   m_ObjectHideFlags: 0
@@ -8595,7 +8591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874debd32f3ee334d96d9254949a6743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutcomeSystem
-  viewRegistry: {fileID: 1656299848}
 --- !u!1 &1629226358
 GameObject:
   m_ObjectHideFlags: 0
@@ -8677,6 +8672,8 @@ MonoBehaviour:
   viewRegistry: {fileID: 1656299848}
   heroView: {fileID: 1238981097}
   damageVFX: {fileID: 6263782476919498309, guid: 1fd2749f2a4056446881dce86ed70c39, type: 3}
+  burnVFX: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  poisonVFX: {fileID: 4425129568585013132, guid: 71ba5b5fc9dae9d4db2905e0458cbb19, type: 3}
   sfxSource: {fileID: 330585548}
 --- !u!1 &1647640503
 GameObject:
