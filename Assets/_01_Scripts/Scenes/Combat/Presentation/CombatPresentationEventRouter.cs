@@ -9,6 +9,8 @@ public sealed class CombatPresentationEventRouter : MonoBehaviour
     [SerializeField] private Transform drawPilePoint;
     [SerializeField] private Transform discardPilePoint;
     [SerializeField] private ManaUI manaUI;
+    [SerializeField] private PerksUI perksUI;
+    [SerializeField] private ComboPointsUI comboPointsUI;
 
     private void OnEnable()
     {
@@ -55,6 +57,21 @@ public sealed class CombatPresentationEventRouter : MonoBehaviour
             case ManaChangedEvent manaChanged:
                 if (manaUI != null)
                     manaUI.UpdateManaText(manaChanged.CurrentMana, manaChanged.MaxMana);
+                break;
+
+            case ComboPointsChangedEvent comboChanged:
+                if (comboPointsUI != null)
+                    comboPointsUI.Render(comboChanged.CurrentComboPoints, comboChanged.MaxComboPoints);
+                break;
+
+            case PerkAddedEvent perkAdded:
+                if (perksUI != null)
+                    perksUI.AddPerkUI(perkAdded.Perk);
+                break;
+
+            case PerkRemovedEvent perkRemoved:
+                if (perksUI != null)
+                    perksUI.RemovePerkUI(perkRemoved.Perk);
                 break;
 
             case CardDrawnToHandEvent drawn:

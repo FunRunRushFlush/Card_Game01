@@ -77,11 +77,11 @@ public class HideHandOnPause : MonoBehaviour
 
     private void HideHoverAndTargeting()
     {
-        if (CardViewHoverService.Instance != null)
-            CardViewHoverService.Instance.Hide();
+        if (CardViewHoverPresentor.Instance != null)
+            CardViewHoverPresentor.Instance.Hide();
 
-        if (ManualTargetService.Instance != null)
-            ManualTargetService.Instance.CancelTargeting();
+        if (ManualTargetController.Instance != null)
+            ManualTargetController.Instance.CancelTargeting();
     }
 
     // Optional: wenn du später die Hand wieder anzeigen willst (z.B. beim nächsten Combat-Start)

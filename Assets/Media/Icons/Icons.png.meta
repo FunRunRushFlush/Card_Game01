@@ -46926,7 +46926,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_2128
+      name: Icons_ComboPoint_On
       rect:
         serializedVersion: 2
         x: 0
@@ -47036,7 +47036,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_2133
+      name: Icons_ComboPoint_Off
       rect:
         serializedVersion: 2
         x: 320
@@ -49562,13 +49562,11 @@ TextureImporter:
       Icons_2125: -728357748
       Icons_2126: 785405487
       Icons_2127: 943674184
-      Icons_2128: 620539240
       Icons_2129: -864944377
       Icons_213: -662017890
       Icons_2130: 352034947
       Icons_2131: -1933926425
       Icons_2132: -686434204
-      Icons_2133: -680645411
       Icons_2134: -475327930
       Icons_2135: 994685279
       Icons_2136: -119088423
@@ -50463,6 +50461,8 @@ TextureImporter:
       Icons_BurnAttack01: 1297590212
       Icons_Caves: 1207843866
       Icons_Claws: -442770290
+      Icons_ComboPoint_Off: -680645411
+      Icons_ComboPoint_On: 620539240
       Icons_Dobbelstrike: -1497143790
       Icons_Event: 443817374
       Icons_EventMap: -1064369116
@@ -50541,6 +50541,7 @@ TextureImporter:
       Icons_power of all: 90495163
       Icons_shoe: -642001462
       Icons_shooting star: -222971555
+      f: -680645411
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

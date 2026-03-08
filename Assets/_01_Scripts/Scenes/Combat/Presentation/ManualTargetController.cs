@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ManualTargetService : Singleton<ManualTargetService>
+public class ManualTargetController : Singleton<ManualTargetController>
 {
     [SerializeField] private ArrowView arrowView;
     [SerializeField] private LayerMask targetLayerMask;
@@ -11,7 +11,7 @@ public class ManualTargetService : Singleton<ManualTargetService>
         arrowView.SetupArrow(startPosition);
     }
 
-    public EnemyView EndTargeting(Vector3 endPosition)
+    public CombatantId? EndTargeting(Vector3 endPosition)
     {
         arrowView.gameObject.SetActive(false);
 
@@ -19,16 +19,14 @@ public class ManualTargetService : Singleton<ManualTargetService>
             && hit.collider != null
             && hit.transform.TryGetComponent(out EnemyView enemyView))
         {
-            return enemyView;
+            return enemyView.Id;
         }
+
         return null;
     }
+
     public void CancelTargeting()
     {
         arrowView.gameObject.SetActive(false);
-
     }
-
-
-
 }

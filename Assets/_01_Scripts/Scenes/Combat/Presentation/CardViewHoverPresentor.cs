@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CardViewHoverService : Singleton<CardViewHoverService>
+public class CardViewHoverPresentor : Singleton<CardViewHoverPresentor>
 {
     [SerializeField] private CardView cardViewHover;
     public Vector3 CardPositionOffset = Vector3.zero;

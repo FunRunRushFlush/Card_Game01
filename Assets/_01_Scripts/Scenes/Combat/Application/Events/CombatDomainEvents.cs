@@ -178,3 +178,36 @@ public sealed class AttackDeclaredEvent : ICombatDomainEvent
         TargetId = targetId;
     }
 }
+
+public sealed class PerkAddedEvent : ICombatDomainEvent
+{
+    public Perk Perk { get; }
+
+    public PerkAddedEvent(Perk perk)
+    {
+        Perk = perk;
+    }
+}
+
+public sealed class PerkRemovedEvent : ICombatDomainEvent
+{
+    public Perk Perk { get; }
+
+    public PerkRemovedEvent(Perk perk)
+    {
+        Perk = perk;
+    }
+}
+
+
+public sealed class ComboPointsChangedEvent : ICombatDomainEvent
+{
+    public int CurrentComboPoints { get; }
+    public int MaxComboPoints { get; }
+
+    public ComboPointsChangedEvent(int currentComboPoints, int maxComboPoints)
+    {
+        CurrentComboPoints = currentComboPoints;
+        MaxComboPoints = maxComboPoints;
+    }
+}

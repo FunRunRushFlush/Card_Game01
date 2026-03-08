@@ -17,4 +17,5 @@ public enum CardPlayFailCode
     MustBeFirstAttackThisTurn,
     RequiresAttackPlayedThisTurn,
     HealthPercentTooHigh,
+    RequireComboPoints,
 }

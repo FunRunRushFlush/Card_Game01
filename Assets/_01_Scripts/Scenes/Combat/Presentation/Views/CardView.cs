@@ -71,14 +71,14 @@ public class CardView : MonoBehaviour
 
         wrapper.SetActive(false);
         Vector3 pos = new(transform.position.x, 0, 0);
-        CardViewHoverService.Instance.Show(Card, pos);
+        CardViewHoverPresentor.Instance.Show(Card, pos);
     }
 
     private void OnMouseExit()
     {
         if (!InteractionService.Instance.PlayerCanHover()) return;
 
-        CardViewHoverService.Instance.Hide();
+        CardViewHoverPresentor.Instance.Hide();
         wrapper.SetActive(true);
     }
 
@@ -94,7 +94,7 @@ public class CardView : MonoBehaviour
         ownerHand?.BeginDrag(this);
 
         wrapper.SetActive(true);
-        CardViewHoverService.Instance.Hide();
+        CardViewHoverPresentor.Instance.Hide();
 
         transform.rotation = Quaternion.identity;
         transform.position = MouseUtil.GetWorldMousePositionInWorldSpace(-5f);
@@ -118,7 +118,7 @@ public class CardView : MonoBehaviour
 
             SnapToSlot();
 
-            ManualTargetService.Instance.StartTargeting(transform.position);
+            ManualTargetController.Instance.StartTargeting(transform.position);
             return;
         }
 
@@ -140,8 +140,9 @@ public class CardView : MonoBehaviour
 
         if (state == CardState.Targeting)
         {
-            EnemyView target = ManualTargetService.Instance.EndTargeting(MouseUtil.GetWorldMousePositionInWorldSpace(-5f));
-            CombatantId? targetId = target != null ? (CombatantId?)target.Id : null;
+            CombatantId? targetId = ManualTargetController.Instance.EndTargeting(
+                MouseUtil.GetWorldMousePositionInWorldSpace(-5f)
+            );
 
             if (CardPlayabilityService.Instance.EvaluateCommit(Card, CombatantIds.Hero, targetId).CanPlay)
             {
@@ -178,7 +179,7 @@ public class CardView : MonoBehaviour
 
         if (state == CardState.Targeting)
         {
-            ManualTargetService.Instance.CancelTargeting();
+            ManualTargetController.Instance.CancelTargeting();
         }
 
         FinishInteraction(snap: true);
@@ -197,7 +198,7 @@ public class CardView : MonoBehaviour
         state = CardState.Idle;
         cancelRequested = false;
 
-        CardViewHoverService.Instance.Hide();
+        CardViewHoverPresentor.Instance.Hide();
         wrapper.SetActive(true);
     }
 
